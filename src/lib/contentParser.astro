@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntry, type CollectionEntry, type CollectionKey } from "astro:content";
+
+export const getPageCollection = async <C extends CollectionKey>(
+  collectionName: C,
+  limit?: number
+): Promise<CollectionEntry<C>[]> => {
+  const allPages = await getCollection(collectionName);
+
+  const publishedPages = allPages
+    .filter((entry: CollectionEntry<C>) => entry.data.draft !== true)
+    .sort((a: CollectionEntry<C>, b: CollectionEntry<C>) => 
+      new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+
+  return typeof limit === 'number' ? publishedPages.slice(0, limit) : publishedPages;
+};
+
+export const getPage = async <C extends CollectionKey>(
+  collection: C,
+  slug: string
+): Promise<CollectionEntry<C> | undefined> => {
+  try {
+    const entry = await getEntry(collection, slug);
+    if (!entry || entry.data?.draft) return undefined;
+    return entry;
+  } catch (err) {
+    console.error(`Error loading page "${slug}" from "${collection}":`, err);
+    return undefined;
+  }
+};
+---

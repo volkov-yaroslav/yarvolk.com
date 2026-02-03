@@ -1,0 +1,48 @@
+---
+import { getPage, getPageCollection } from "@lib/contentParser.astro";
+
+import Layout from '@layouts/Layout.astro';
+
+import BlogCard from "@components/BlogCard.astro";
+import PageHeader from "@components/PageHeader.astro";
+import Pagination from "@components/Pagination.astro";
+
+import { settings } from "@config/site.config.json";
+const blogpage = await getPage('pages', 'blog');
+if (!blogpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+const { title, subtitle } : any = blogpage?.data;
+
+const blogs = await getPageCollection("blog");
+const totalPages = Math.ceil(blogs.length / settings.pagination_limit);
+const currentblogs = blogs.slice(0, settings.pagination_limit);
+
+---
+
+<Layout title={title} description={title}>
+  <PageHeader title={title} subtitle={subtitle} />
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row md:gx-4 gy-6">
+        {currentblogs.map((blog, index) => (
+          <div
+            class="md:col-6 lg:col-4 init-delay"
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 3) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`
+            }}
+          >
+            <BlogCard slug={blog.slug} data={blog.data} />
+          </div>
+        ))}
+
+        <div class="col-12">
+          <Pagination section="blog" currentPage={1} totalPages={totalPages} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

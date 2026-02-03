@@ -1,0 +1,92 @@
+---
+import '@styles/styles.css';
+
+import siteConfig from '@config/site.config.json';
+import Footer from '@layouts/Footer.astro';
+import Header from '@layouts/Header';
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+  keywords?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+  title = siteConfig.metaData.title,
+  description = siteConfig.metaData.description,
+  image = '/images/ogimage.jpg',
+  keywords = siteConfig.metaData.keywords
+} = Astro.props;
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="keywords" content={keywords}>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={title}
+      href={new URL('rss.xml', Astro.site)}
+    />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: "Melodrama";
+        src: url('/fonts/melodrama/Melodrama-Variable.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="/plugins/aos/aos.css">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+	</head>
+
+	<body class="font-primary bg-dark relative z-10 pt--[92px] lg:pt--[106px] min-h-[82vh]">
+		<Header client:load />
+    <main class="bg-dark relative z-10 pt-[92px] lg:pt-[106px] min-h-[82vh]">
+      <slot />
+    </main>
+		<Footer isContactPage={Astro.url.pathname === '/contact'} />
+
+    <script src="/plugins/aos/aos.js" is:inline data-astro-rerun></script>
+    <script src="/plugins/aos/aosinit.js" is:inline data-astro-rerun></script>
+	</body>
+</html>

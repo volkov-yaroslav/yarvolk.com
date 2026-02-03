@@ -1,0 +1,39 @@
+---
+import { getPage, getPageCollection } from "@lib/contentParser.astro";
+
+import Layout from '@layouts/Layout.astro';
+
+import PageHeader from "@components/PageHeader.astro";
+import Pagination from "@components/Pagination.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+
+import { settings } from "@config/site.config.json";
+const projectpage = await getPage('pages', 'project');
+if (!projectpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+const { title, subtitle } : any = projectpage?.data;
+
+const projects = await getPageCollection("project");
+const totalPages = Math.ceil(projects.length / settings.pagination_limit);
+const currentProjects = projects.slice(0, settings.pagination_limit);
+
+---
+
+<Layout title={title} description={title}>
+  <PageHeader title={title} subtitle={subtitle} />
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row md:gx-4 gy-4">
+        {currentProjects.map((project) => (
+          <div class="sm:col-6">
+            <ProjectCard slug={project.slug} data={project.data} twoColumns={true} />
+          </div>
+        ))}
+
+        <div class="col-12 mt-12">
+          <Pagination section="project" currentPage={1} totalPages={totalPages} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

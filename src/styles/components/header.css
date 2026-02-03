@@ -1,0 +1,18 @@
+.header { transition: 0.3s ease }
+
+.navbar a { transition: .3s color 0s, .3s opacity 0s }
+.navbar.navbarOpen a { transition: .3s color 0s, .3s opacity .3s }
+
+.navbar .indicator {
+  transition: 0.45s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.navbar .indicator::before {
+  content: "";
+  border-radius: 9999px;
+  height: calc(100% - 1rem);
+  top: 0.5rem;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}

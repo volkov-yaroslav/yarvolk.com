@@ -1,0 +1,102 @@
+---
+const { section, currentPage, totalPages } = Astro.props;
+
+const indexPageLink = currentPage === 2;
+const hasPrevPage = currentPage > 1;
+const hasNextPage = totalPages > currentPage;
+
+let pageList: (number | string)[] = [];
+
+if (totalPages <= 4) {
+  for (let i = 1; i <= totalPages; i++) {
+    pageList.push(i);
+  }
+} else {
+  const pages = new Set<number>();
+
+  pages.add(1); // First page
+  pages.add(totalPages); // Last page
+  pages.add(currentPage); // Current page
+
+  if (currentPage > 1) pages.add(currentPage - 1); // Prev page
+  if (currentPage < totalPages) pages.add(currentPage + 1); // Next page
+
+  // Convert to sorted array
+  const sortedPages = Array.from(pages).sort((a, b) => a - b);
+
+  // Build list with ellipsis
+  for (let i = 0; i < sortedPages.length; i++) {
+    const current = sortedPages[i];
+    const prev = sortedPages[i - 1];
+
+    if (prev !== undefined && current - prev > 1) {
+      pageList.push("...");
+    }
+
+    pageList.push(current);
+  }
+}
+
+---
+
+{totalPages > 1 ? (
+  <nav class="flex flex-wrap justify-center gap-1 text-center" aria-label="Pagination">
+    {/* previous */}
+    {hasPrevPage ? (
+      <a
+        href={
+          indexPageLink
+            ? `${section ? "/" + section : "/"}`
+            : `${section ? "/" + section : ""}/page/${currentPage - 1}`
+        }
+        class="border border-dark/20 px-6 py-3 rounded-full font-medium transition-all hover:bg-black hover:text-white"
+      >
+        <span class="flex items-center">
+          <svg class="h-5 w-5 translate-y-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+          <span class="sr-only">Previous</span>
+        </span>
+      </a>
+    ) : ""}
+
+    {/* page index */}
+    {pageList.map((pagination, i) =>
+      pagination === "..." ? (
+        <span class="px-4 py-3">...</span>
+      ) : pagination === currentPage ? (
+        <span
+          aria-current="page"
+          class="border border-dark/20 px-6 py-3 rounded-full font-medium bg-black text-white pointer-events-none"
+        >
+          <span>{pagination}</span>
+        </span>
+      ) : (
+        <a
+          href={
+            pagination === 1
+              ? `${section ? "/" + section : "/"}`
+              : `${section ? "/" + section : ""}/page/${pagination}`
+          }
+          class="border border-dark/20 px-6 py-3 rounded-full font-medium transition-all hover:bg-black hover:text-white"
+        >
+          <span>{pagination}</span>
+        </a>
+      )
+    )}
+
+
+    {/* next page */}
+    {hasNextPage ? (
+      <a
+        href={`${section ? "/" + section : ""}/page/${currentPage + 1}`}
+        class="border border-dark/20 px-6 py-3 rounded-full font-medium transition-all hover:bg-black hover:text-white"
+      >
+        <span class="flex items-center">
+          <span class="sr-only">Next</span>
+          <svg class="h-5 w-5 translate-y-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+        </span>
+      </a>
+    ) : ""}
+  </nav>
+) : (
+  <p class="text-black/25 text-center mt-8">No more projects to load</p>
+)}

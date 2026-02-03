@@ -1,0 +1,94 @@
+---
+import '@styles/components/footer.css';
+
+import menu from '@config/menus.json';
+import siteConfig from '@config/site.config.json';
+
+const { isContactPage = false } = Astro.props;
+
+const { socialLinks, logoText } = siteConfig;
+const { footerMenu } = menu;
+
+const year = new Date().getFullYear();
+const animatedLines = Array.from({ length: 5 });
+---
+
+<footer class={`${isContactPage ? 'pt-20' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
+  {!isContactPage && (
+    <div class="mb-24 overflow-hidden">
+      <a
+        href="/contact"
+        class="footer-cta relative w-[1920px] max-w-full mx-auto overflow-hidden block text-5xl font-secondary font-medium group"
+      >
+        {[0, 1].map((i) => (
+          <div class={`animated-line animated-line-${i === 0 ? 'one mb-5' : 'two'} relative flex whitespace-nowrap`}>
+            <div class="line-block pb-[6px] flex">
+              {animatedLines.map((_, j) => (
+                <span class="mr-24">
+                  <span class="cta-text group-hover:opacity-75">Let’s make something</span>
+                  <img
+                    class="inline-block ml-16 cta-icon"
+                    src="/images/arrow-right.svg"
+                    alt="arrow-right"
+                    height="31"
+                    width="39"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+            </div>
+            <div class="line-block-copy pb-[6px] flex">
+              {animatedLines.map((_, j) => (
+                <span class="mr-24">
+                  <span class="cta-text group-hover:opacity-75">Let’s make something</span>
+                  <img
+                    class="inline-block ml-16 cta-icon"
+                    src="/images/arrow-right.svg"
+                    alt="arrow-right"
+                    height="31"
+                    width="39"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </a>
+    </div>
+  )}
+
+  <div class="container">
+    <div class="row">
+      <div class="md:col-6 text-center md:text-left mb-4">
+        <ul class="inline-flex flex-wrap justify-center md:justify-start gap-x-6">
+          {socialLinks.map((item) => (
+            <li class="inline-block hover:opacity-75 transition-op duration-300">
+              <a href={item.link} class="link">{item.fullName}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="md:col-6 text-center md:text-right mb-4">
+        <ul class="inline-flex flex-wrap justify-center md:justify-end gap-x-6">
+          {footerMenu.map((item) => (
+            <li class="inline-block hover:opacity-75 transition-op duration-300">
+              <a href={item.link} class="link">{item.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="md:col-6 text-center md:text-left mb-4 md:mb-0">
+        <p class="text-white/75">&copy; {year} {logoText}. All rights reserved.</p>
+      </div>
+
+      <div class="md:col-6 text-center md:text-right">
+        <p class="text-white/75">
+          Developed by <a class="link text-white" href="/" target="_blank" rel="noopener noreferrer">Platol</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

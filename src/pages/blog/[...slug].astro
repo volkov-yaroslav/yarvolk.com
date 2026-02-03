@@ -1,0 +1,173 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+import SharePost from "@components/SharePost.astro";
+import Layout from '@layouts/Layout.astro';
+import { formatDate } from "@utils/formatDate";
+
+export async function getStaticPaths() {
+  const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+  const publishedPosts = allPosts.filter(post => !post.data.draft);
+
+  const sortedPosts = publishedPosts.sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  return publishedPosts.map((post, index) => {
+    const previousPost = sortedPosts[index - 1] || null;
+    const nextPost = sortedPosts[index + 1] || null;
+
+    return {
+      params: { slug: post.slug },
+      props: { post, previousPost, nextPost },
+    };
+  });
+}
+
+const { post, previousPost, nextPost } = Astro.props;
+
+const { title, description, category, image, date, keywords } = post.data;
+const formattedDate = formatDate(date);
+const postUrl = Astro.url.href;
+
+const { Content } = await post.render();
+---
+
+<Layout title={title} description={description} image={image} keywords={keywords}>
+  <section class="pt-16 md:pt-24 pb-20 md:pb-28">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center banner mb-16" data-aos="fade-up-sm">
+          <div class="flex flex-wrap items-center justify-center mb-12 space-x-8">
+            <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black">
+              {category}
+            </span>
+            <span class="opacity-75 text-sm">{formattedDate}</span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl mb-4 !leading-tight text-balance">{title}</h1>
+          <p class="max-w-xl mx-auto text-balance">{description}</p>
+        </div>
+
+        {image && (
+          <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
+            <div class="h-[460px] bg-black/20 overflow-hidden relative z-10 rounded-lg">
+              <img
+                class="w-auto h-[460px] object-cover object-center mx-auto z-10"
+                src={image}
+                alt={title}
+                width={`1020`}
+                height={`460`}
+              />
+              <img
+                class="w-full h-[500px] object-cover absolute inset-0 -z-10 blur-[3px]- scale-110-"
+                src={image}
+                alt={title}
+                width={`100`}
+                height={`100`}
+              />
+            </div>
+          </div>
+        )}
+
+        <div class="xl:col-9 lg:col-10 mx-auto" data-aos="fade-in">
+          <div class={`sm:flex flex-wrap sm:flex-nowrap w-full ${image !== null ? "pt-20" : ""}`}>
+            <div class="sm:order-2 sm:pl-12 xl:pl-24">
+              <article class="content content-light">
+                <Content />
+              </article>
+            </div>
+
+            <div class="sm:order-1 w-full sm:w-auto">
+              <div class="sticky top-8">
+                <SharePost title={title} pageUrl={postUrl} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl overflow-hidden">
+    <div class="container">
+      <div class="mb-20">
+        <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center">
+          Keep Reading
+        </h2>
+      </div>
+      <div class="row gy-4 sm:gy-4 justify-center">
+        {previousPost && (
+          <div class="xl:col-6 lg:col-8 md:col-10">
+            <div class="relative group flex items-center z-10">
+              <div class="shrink-0 relative overflow-hidden rounded sm:rounded-lg h-[4.5rem] w-[4.5rem] sm:h-28 sm:w-28 self-start pointer-events-none">
+                <img
+                  src={previousPost.data.image}
+                  alt={previousPost.data.title}
+                  width={300}
+                  height={300}
+                  class="duration-500 group-hover:scale-110 group-hover:-rotate-1 object-cover w-full h-full rounded sm:rounded-lg group-hover:brightness-75 bg-light/20"
+                />
+              </div>
+              <div class="grow pl-4 sm:pl-7 transition-all duration-500 group-hover:opacity-60">
+                <span class="absolute right-0 sm:-right-1/4 top-0 leading-[0.65] text-[16vh] md:text-[22vh] -z-10 opacity-[0.015] select-none">PREV</span>
+                <div class="flex flex-wrap items-center mb-4 space-x-5">
+                  <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
+                    {previousPost.data.category}
+                  </span>
+                  <span class="opacity-75 text-sm">
+                    {formatDate(previousPost.data.date)}
+                  </span>
+                </div>
+                <h3 class="text-lg sm:text-2xl leading-snug">
+                  <a
+                    href={`/blog/${previousPost.slug}`}
+                    class="stretched-link"
+                  >
+                    {previousPost.data.title}
+                  </a>
+                </h3>
+              </div>
+            </div>
+          </div>
+        )}
+        <div class="lg:col-12" aria-hidden="true"></div>
+        {nextPost && (
+          <div class="xl:col-6 lg:col-8 md:col-10">
+            <div class="relative group flex items-center z-10">
+              <div class="grow pr-4 sm:pr-7 transition-all duration-500 group-hover:opacity-60">
+                <span class="absolute left-0 sm:-left-1/4 top-0 leading-[0.65] text-[16vh] md:text-[22vh] -z-10 opacity-[0.015] select-none">NEXT</span>
+                <div class="flex flex-wrap items-center justify-end mb-4 space-x-5">
+                  <span class="opacity-75 text-sm">
+                    {formatDate(nextPost.data.date)}
+                  </span>
+                  <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
+                    {nextPost.data.category}
+                  </span>
+                </div>
+                <h3 class="text-lg sm:text-2xl leading-snug text-right">
+                  <a
+                    href={`/blog/${nextPost.slug}`}
+                    class="stretched-link"
+                  >
+                    {nextPost.data.title}
+                  </a>
+                </h3>
+              </div>
+              <div class="shrink-0 relative overflow-hidden rounded sm:rounded-lg h-[4.5rem] w-[4.5rem] sm:h-28 sm:w-28 self-start pointer-events-none">
+                <img
+                  src={nextPost.data.image}
+                  alt={nextPost.data.title}
+                  width={300}
+                  height={300}
+                  class="duration-500 group-hover:scale-110 group-hover:-rotate-1 object-cover w-full h-full rounded sm:rounded-lg group-hover:brightness-75 bg-light/20"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</Layout>

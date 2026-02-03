@@ -1,0 +1,77 @@
+[data-aos="fade-up-sm"] {
+  transform: translate3d(0, 50px, 0);
+}
+
+.init-delay {
+  transition-delay: 0ms;
+}
+@media (min-width: 640px) {
+  .init-delay { transition-delay: var(--sm-delay) }
+}
+@media (min-width: 768px) {
+  .init-delay { transition-delay: var(--md-delay) }
+}
+@media (min-width: 1024px) {
+  .init-delay { transition-delay: var(--lg-delay) }
+}
+
+/* has-twoColumns project */
+@media screen and (max-width: 1023px) {
+  .has-twoColumns {
+    height: 100% !important;
+  }
+}
+
+/* form autofill reset */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+/* prose/typography */
+.content {
+  @apply prose max-w-none;
+  @apply prose-headings:mt-8 prose-headings:mb-4 prose-headings:font-normal;
+  @apply prose-p:my-3 prose-h1:text-3xl;
+  @apply prose-a:font-normal prose-a:transition-all prose-a:hover:opacity-80;
+  @apply prose-pre:p-6 prose-pre:rounded-lg;
+  @apply prose-strong:font-medium;
+  @apply prose-img:rounded-md;
+  @apply prose-hr:border-light/15;
+  @apply marker:text-white/40;
+}
+.content > *:first-child {
+  @apply mt-0;
+}
+.content > *:last-child {
+  @apply mb-0;
+}
+.content-light {
+  @apply prose-invert;
+  @apply prose-a:text-white;
+  @apply prose-blockquote:border-light/40 prose-blockquote:text-white;
+  @apply prose-tr:border-light/10;
+}
+.content-dark {
+  @apply text-dark/75;
+  @apply prose-a:text-black prose-headings:text-black;
+  @apply prose-tr:border-light/10;
+}
+
+.image {
+  @apply mt-8;
+}
+.image p {
+  @apply m-0 leading-none;
+}
+.image img {
+  @apply mt-0;
+}

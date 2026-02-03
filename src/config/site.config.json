@@ -1,0 +1,33 @@
+{
+  "metaData": {
+    "title" : "Yaroslav Volkov — WordPress Developer & Digital Solutions",
+    "description" : "I build WordPress websites, e-commerce stores, and business automations that help companies grow.",
+    "ogImage" : "/images/ogimage.jpg",
+    "keywords" : "WordPress Developer, Web Development, E-commerce, Business Automations, Wroclaw"
+  },
+
+  "logo" : "/images/logo.svg",
+  "logoText" : "Yaroslav",
+  "favicon" : "/images/favicon.png",
+  "baseUrl" : "https://yarvolk.com",
+  "basePath" : "/",
+  "trailingSlash" : false,
+
+  "settings" : {
+    "deviceIndicator" : false,
+    "pagination_limit" : 6
+  },
+
+  "socialLinks" : [
+    {
+      "name": "IN",
+      "fullName": "Linkedin",
+      "link": "https://www.linkedin.com/in/yarvolk"
+    },
+    {
+      "name": "TIKTOK",
+      "fullName": "TikTok",
+      "link": "https://www.tiktok.com/@volkovyaroslav"
+    }
+  ]
+}

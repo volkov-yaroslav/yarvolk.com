@@ -1,0 +1,122 @@
+---
+import { getPage } from "@lib/contentParser.astro";
+import { markdownify } from "@utils/textConverter";
+
+import PageHeader from "@components/PageHeader.astro";
+import Layout from '@layouts/Layout.astro';
+
+import AboutIntro from "@components/AboutIntro";
+import ReviewSlider from "@components/ReviewSlider";
+
+const aboutpage = await getPage('pages', 'about');
+if (!aboutpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+const { title, subtitle, about, featuredBy, services, whatClientsSay } : any = aboutpage?.data;
+
+---
+
+<Layout title={title} description={about.title}>
+  <PageHeader title={title} subtitle={subtitle} />
+  <section class="py-28 bg-white text-dark">
+    <AboutIntro about={about} client:only="react" />
+  </section>
+
+  {featuredBy.enable && (
+    <section class="pb20 md:pb-24 bg-white text-dark overflow-hidden">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 mb-10">
+            <h2
+              class="text-3xl font-secondary font-medium text-center"
+              data-aos="fade"
+            >
+              {featuredBy.title}
+            </h2>
+          </div>
+          <div class="col-12">
+            <div class="flex justify-center items-center flex-wrap">
+              {featuredBy.brands.map((item: string, index: number) => (
+                <div
+                  class="mx-8 my-4"
+                  data-aos="fade-left"
+                  data-aos-delay={index * 50}
+                >
+                  <img
+                    src={item}
+                    alt="Brand"
+                    width={120}
+                    height={80}
+                    class="w-auto max-h-20"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {services.enable && (
+    <section class="py-28">
+      <div class="container">
+        <div class="row mb-16 items-end">
+          <div class="sm:col-8 order-2 sm:order-1">
+            <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center sm:text-left">
+              {services.title}
+            </h2>
+          </div>
+          <div class="sm:col-4 order-1 sm:order-2 block mb-4 sm:mb-0 text-center sm:text-right">
+            <span class="font-secondary text-2xl leading-none text-white/75">
+              {services.subtitle}
+            </span>
+          </div>
+        </div>
+
+        <div class="row g-0">
+          {services.serviceLists.map((item: any, index: number) => (
+            <>
+              <div class={`lg:col-4 md:col-6`} data-aos="fade-in">
+                <div class={`${item.active ? "" : "select-none cursor-not-allowed hover:border-white/5"} border border-white/5 hover:border-white/40 p-8 h-full rounded-lg`}>
+                  <span class="text-lg font-secondary font-medium text-white/75">
+                    / {index < 9 ? "0" + (index + 1) : (index + 1)}
+                  </span>
+                  <h3 class={`my-6 text-3xl ${item.active ? "" : "text-white/75"}`}>{item.title}</h3>
+                  <div class="text-white/75 text-lg" set:html={markdownify(item.description, true)}></div>
+                </div>
+              </div>
+              {index !== services.serviceLists.length - 1 && services.rotatingIcon && (
+                <div class={`lg:col-4 md:col-6 block md:hidden lg:block`}>
+                  <div class="p-8 h-full flex items-center content-center py-6">
+                    <svg class="mx-auto opacity-10 animate-spin h-10 w-10 md:h-16 md:w-16" style={{ animationDuration: "6000ms" }} xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 23 23" fill="none"><path d="M23 12.9234H14.9568L20.6503 18.6169L18.6169 20.6051L12.9234 14.9116V23L10.0766 22.9548V14.9116L4.3831 20.6503L2.39489 18.6169L8.08841 12.9234H0V10.0766H8.08841L2.39489 4.33792L4.3831 2.3497L10.0766 8.08841V0H12.9234V8.08841L18.6621 2.3497L20.6503 4.33792L14.9568 10.0766H23V12.9234Z" fill="white" /></svg>
+                  </div>
+                </div>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl" data-aos="fade-in">
+    <div class="container">
+      <div class="row mb-16 items-end">
+        <div class="col-12 text-center">
+          <span class="font-secondary block text-2xl leading-none text-black/75 mb-4">
+            {whatClientsSay.subtitle}
+          </span>
+          <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px]">
+            {whatClientsSay.title}
+          </h2>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <div class="relative md:px-20 text-center">
+            <ReviewSlider whatClientsSay={whatClientsSay} client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,112 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+import ProjectCard from "@components/ProjectCard.astro";
+import Layout from '@layouts/Layout.astro';
+import { markdownify } from "@lib/utils/textConverter";
+import { formatDate } from "@utils/formatDate";
+
+export async function getStaticPaths() {
+  const allProjects: CollectionEntry<"project">[] = await getCollection("project");
+  const publishedProjects = allProjects.filter(project => !project.data.draft);
+
+  const sortedProjects = publishedProjects.sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  return publishedProjects.map((project, index) => {
+    const previousProject = sortedProjects[index - 1] || null;
+    const nextProject = sortedProjects[index + 1] || null;
+
+    return {
+      params: { slug: project.slug },
+      props: { project, previousProject, nextProject },
+    };
+  });
+}
+
+const { project, previousProject, nextProject } = Astro.props;
+
+const { date, title, description, image, color, category, projectInfo } = project.data;
+const formattedDate = formatDate(date);
+const projectUrl = Astro.url.href;
+
+const { Content } = await project.render();
+---
+
+<Layout title={title} description={description} image={image}>
+  <section class="pt-16 md:pt-24 pb-20 md:pb-28">
+    <div class="container">
+      <div class="row justify-center banner">
+        <div class="md:col-7 lg:col-6" data-aos="fade-up-sm">
+          <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black mb-6">{category}</span>
+
+          <h1 class="text-4xl md:text-5xl mb-4 !leading-tight">{title}</h1>
+          <p>{description}</p>
+
+          <ul class="row text-white mt-4">
+            {projectInfo.map((item: any) => (
+              <li class="col-6 mt-8">
+                <p class="text-white/50 text-xs uppercase tracking-wider mb-2">
+                  {item.title}
+                </p>
+                <div
+                  class="[&_a]:underline [&_a]:hover:no-underline [&_li]:mt-1"
+                  set:html={markdownify(item.data, true)}
+                ></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div
+          class="md:col-5 lg:col-4 mt-12 md:mt-0"
+          data-aos="fade-up-sm"
+          data-aos-delay="100"
+        >
+          <img
+            class="aspect-square object-cover object-center rounded-lg bg-light/20 w-full md:w-[500px]"
+            src={image}
+            alt={title}
+            width={`500`}
+            height={`500`}
+          />
+        </div>
+
+        <div class="lg:col-8">
+          <hr class="opacity-5 mt-28 mb-24" />
+        </div>
+      </div>
+
+      <div class="row justify-center" data-aos="fade-in">
+        <div class="lg:col-8">
+          <article class="content content-light [&_img]:w-full">
+             <Content />
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl overflow-hidden">
+    <div class="container">
+      <div class="mb-16">
+        <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center">
+          {nextProject ? "Next" : "Previous"} Project
+        </h2>
+      </div>
+      <div class="row justify-center">
+        <div class="lg:col-6">
+          {(nextProject || previousProject) && (
+            <ProjectCard
+              slug={(nextProject || previousProject).slug}
+              data={(nextProject || previousProject).data}
+              twoColumns={true}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

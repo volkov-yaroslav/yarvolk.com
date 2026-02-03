@@ -1,0 +1,138 @@
+---
+import { getPage, getPageCollection } from "@lib/contentParser.astro";
+
+import Layout from '@layouts/Layout.astro';
+
+import Banner from "@components/Banner";
+import BlogCard from "@components/BlogCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import WorkProcess from "@components/WorkProcess.astro";
+
+const homepage = await getPage('pages', '-index');
+const { banner, featuredBy, workProcess } : any = homepage?.data;
+if (!homepage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+
+const projectpage = await getPage('pages', 'project');
+const projects = await getPageCollection("project", 5);
+
+const blogpage = await getPage('pages', 'blog');
+const blogs = await getPageCollection("blog", 3);
+---
+
+<Layout>
+	<Banner banner={banner} client:load />
+
+	{featuredBy.enable && (
+		<section class="pt-28 lg:pb-10 overflow-hidden">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 mb-10">
+						<h2
+							class="text-3xl font-secondary font-medium text-center"
+							data-aos="fade"
+						>
+							{featuredBy.title}
+						</h2>
+					</div>
+					<div class="col-12">
+						<div class="flex justify-center items-center flex-wrap">
+							{featuredBy.brands_white.map((item: string, index: number) => (
+								<div
+									class="mx-4 sm:mx-8 my-4"
+									data-aos="fade-left"
+									data-aos-delay={index * 50}
+								>
+									<img
+										src={item}
+										alt="Brand"
+										width={120}
+										height={80}
+										class="w-auto h-auto sm:max-h-20"
+									/>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	)}
+
+	<section class="py-20 md:py-28">
+		<div class="container">
+			<div class="row mb-16 items-end">
+				<div class="sm:col-8 order-2 sm:order-1">
+					<h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center sm:text-left">
+						{projectpage?.data.title}
+					</h2>
+				</div>
+				<div class="sm:col-4 order-1 sm:order-2 block mb-4 sm:mb-0 text-center sm:text-right">
+					<span class="font-secondary text-2xl leading-none text-white/75">
+						{projectpage?.data.subtitle}
+					</span>
+				</div>
+			</div>
+
+			<div class="row md:gx-4 gy-4">
+				{projects?.map((project, i) => (
+					<div class={`${i % 5 >= 3 ? "sm:col-6" : "lg:col-4 sm:col-6"} ${i === 4 ? "hidden lg:block" : ""}`}>
+						<ProjectCard
+							index={i}
+							slug={project.slug}
+							data={project.data}
+							twoColumns={i % 5 >= 3}
+						/>
+					</div>
+				))}
+			</div>
+
+			<div class="text-center mt-16">
+				<a class="button" href="/project">
+					<span>All Works</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<WorkProcess workProcess={workProcess} />
+
+	<section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+		<div class="container">
+			<div class="row mb-16 items-end">
+				<div class="sm:col-8 order-2 sm:order-1">
+					<h2 class="text-black text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center sm:text-left">
+						{blogpage?.data.title}
+					</h2>
+				</div>
+				<div class="sm:col-4 order-1 sm:order-2 block mb-4 sm:mb-0 text-center sm:text-right">
+					<span class="font-secondary text-2xl leading-none text-black/75">
+						{blogpage?.data.subtitle}
+					</span>
+				</div>
+			</div>
+
+			<div class="row md:gx-4 gy-5">
+				{blogs.map((item, index) => (
+					<div
+						class="md:col-6 lg:col-4 init-delay"
+						data-aos="fade-up-sm"
+						data-aos-duration="500"
+						style={{
+							"--lg-delay": `${(index % 3) * 75}ms`,
+							"--md-delay": `${(index % 2) * 75}ms`,
+							"--sm-delay": `${(index % 2) * 75}ms`
+						}}
+					>
+						<BlogCard slug={item.slug} data={item.data} />
+					</div>
+				))}
+			</div>
+
+			<div class="text-center mt-16">
+				<a class="button button-dark" href="/blog">
+					<span>All Posts</span>
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>

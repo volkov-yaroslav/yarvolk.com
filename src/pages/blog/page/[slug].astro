@@ -1,0 +1,65 @@
+---
+import { getPage, getPageCollection } from "@lib/contentParser.astro";
+import { getPagination } from "@utils/pagination";
+
+import Layout from '@layouts/Layout.astro';
+
+import PageHeader from "@components/PageHeader.astro";
+import Pagination from "@components/Pagination.astro";
+import BlogCard from "@components/BlogCard.astro";
+
+import { settings } from "@config/site.config.json";
+const blogpage = await getPage('pages', 'blog');
+const { title, subtitle } : any = blogpage?.data;
+
+export async function getStaticPaths() {
+  const blogs = await getPageCollection("blog");
+  const totalPages = Math.ceil(blogs.length / settings.pagination_limit);
+  const paths = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paths.push({
+      params: {
+        slug: i.toString(),
+      },
+    });
+  }
+  return paths;
+}
+
+const { slug } = Astro.params;
+const blogs = await getPageCollection("blog");
+const currentPage = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
+const { currentItems: currentblogs, totalPages } = 
+  getPagination(blogs, currentPage, settings.pagination_limit);
+
+---
+
+<Layout title={title} description={title}>
+  <PageHeader title={title} subtitle={subtitle} />
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row md:gx-4 gy-6">
+        {currentblogs.map((blog, index) => (
+          <div
+            class="md:col-6 lg:col-4 init-delay"
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 3) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`
+            }}
+          >
+            <BlogCard slug={blog.slug} data={blog.data} />
+          </div>
+        ))}
+
+        <div class="col-12">
+          <Pagination section="blog" currentPage={currentPage} totalPages={totalPages} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

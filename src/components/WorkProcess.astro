@@ -1,0 +1,47 @@
+---
+import '@styles/components/work-process.css';
+
+const { workProcess } = Astro.props;
+const { enable, title, subtitle, steps } = workProcess;
+if (!enable) return;
+---
+
+<section class="pb-28">
+  <div class="container">
+    <div class="row mb-16 items-end">
+      <div class="sm:col-7 order-2 sm:order-1">
+        <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center sm:text-left">
+          {title}
+        </h2>
+      </div>
+      <div class="sm:col-5 order-1 sm:order-2 block mb-4 sm:mb-0 text-center sm:text-right">
+        <span class="font-secondary text-2xl leading-none text-white/75">
+          {subtitle}
+        </span>
+      </div>
+    </div>
+
+    <div class="work-process row md:gx-6 gy-6">
+      {steps.map((step: any, i: number) => (
+        <div
+          class="lg:col-4 md:col-6"
+          data-aos="fade-right"
+          data-aos-delay={i * 100}
+        >
+          <div class="work-process-item relative pt-8 border-t border-white/10">
+            <h3 class="text-3xl mb-6 flex items-center">
+              <span class="font-secondary font-medium">
+                {i + 1 < 10 ? `0${i + 1}` : i + 1}
+              </span>
+              <span class="font-secondary mx-4 font-thin">—</span>
+              <span>{step.title}</span>
+            </h3>
+            <div class="text-white/75 font-light text-lg">
+              {step.description}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

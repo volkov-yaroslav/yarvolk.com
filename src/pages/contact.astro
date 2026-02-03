@@ -1,0 +1,208 @@
+---
+import { markdownify } from "@lib/utils/textConverter";
+import { getPage } from "@lib/contentParser.astro";
+
+import Layout from '@layouts/Layout.astro';
+import PageHeader from "@components/PageHeader.astro";
+
+const contactpage = await getPage('pages', 'contact');
+if (!contactpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+const { title, subtitle, contactForm, faq } : any = contactpage?.data;
+const { email, mailSubject, successMessage, errorMessage } = contactForm;
+
+---
+<Layout title={title} description={subtitle}>
+  <PageHeader title={title} subtitle={subtitle} />
+  
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row justify-center">
+        {contactForm && (
+          <div
+            class="md:col-10 lg:col-5 mb-24 lg:mb-0"
+            data-aos="fade-up-sm"
+          >
+            <h2 class="text-3xl font-medium mb-10 -mt-[6px]">{contactForm.title}</h2>
+            <form id="contact-form" class="pr-0 lg:pr-8" method="POST" data-send-to={email}>
+              <input
+                class="hidden"
+                type="hidden"
+                name="_subject"
+                value={mailSubject}
+              />
+              <div class="mb-6">
+                <label for="full_name" class="block mb-2 text-black">Name</label>
+                <input
+                  type="text"
+                  id="full_name"
+                  name="full_name"
+                  placeholder="Charlie Edward"
+                  class="border border-light/90 rounded-lg bg-white h-12 w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300 focus:bg-red-300"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label for="email" class="block mb-2 text-black">Contact email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="charlie.edward@email.app"
+                  class="border border-light/90 rounded-lg bg-white h-12 w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label for="message" class="block mb-2 text-black">Additional info</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="border border-light/90 rounded-lg bg-white w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300"
+                  placeholder="Be as detailed as possible..."
+                ></textarea>
+              </div>
+
+              <div
+                id="form-success"
+                class="mb-6 text-green-700"
+                style="display:none"
+                set:html={markdownify(successMessage, true)}
+              ></div>
+              <div
+                id="form-error"
+                class="mb-6 text-red-600"
+                style="display:none"
+                set:html={markdownify(errorMessage, true)}
+              ></div>
+
+              <button
+                id="send-button"
+                class="button button-dark mt-2 cursor-pointer"
+                title="Send your Message"
+                type="submit"
+                aria-label="Send Message"
+              >
+                <span>Send Message</span>
+              </button>
+            </form>
+          </div>
+        )}
+        {faq && faq.qaLists.length > 0 && (
+          <div
+            class="md:col-10 lg:col-5"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          >
+            <div class="pl-0 lg:pl-8 bg-light/15 pt-10 px-10 pb-4 rounded-lg">
+              <div class="mb-6">
+                <h2 class="text-3xl font-medium mb-3 -mt-[6px]">{faq.title}</h2>
+                <p class="text-black/75">{faq.subtitle}</p>
+              </div>
+              {faq.qaLists.map((item: any, index: number) => (
+                <div class={`${index === 0 ? "border-t-0" : ""} border-t border-dark/5 accordion group`}>
+                  <h3
+                    class="text-lg font-medium py-5 cursor-pointer flex justify-between items-center select-none accordion-intro text-dark/80"
+                    role="button"
+                    tab-index={0}
+                  >
+                    <span class="grow">{item.question}</span>
+                    <span class="shrink-0 relative">
+                      <svg class="group-[.accordion-active]:opacity-0 transition-all" xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" fill="currentColor" /></svg>
+                      
+                      <svg class="opacity-0 group-[.accordion-active]:opacity-100 transition-all absolute top-0" xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 448 512"><path d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" fill="currentColor" /></svg>
+                    </span>
+                  </h3>
+                  <div
+                    class="text-black/75 leading-normal overflow-hidden accordion-content max-h-0 will-change-[max-height] opacity-0 group-[.accordion-active]:opacity-100"
+                    style={{ transition: "max-height 0.25s ease-out"}}
+                  >
+                    <div
+                      class="-mt-[6px] mb-5 content content-dark"
+                      set:html={markdownify(item.answer)}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <script type="module" is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      // contact-form
+      const form = document.querySelector("#contact-form");
+      const successEl = document.querySelector("#form-success");
+      const errorEl = document.querySelector("#form-error");
+      const sendBtn = document.querySelector("#send-button");
+
+      const email = form.getAttribute("data-send-to");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = "<span>Sending...</span>";
+
+        const formData = {
+          _subject: form.elements._subject.value,
+          name: form.elements.full_name.value,
+          email: form.elements.email.value,
+          message: form.elements.message.value,
+        };
+
+        try {
+          const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            form.reset();
+            successEl.style.display = "block";
+            errorEl.style.display = "none";
+          } else {
+            throw new Error("Form submission failed");
+          }
+        } catch (err) {
+          successEl.style.display = "none";
+          errorEl.style.display = "block";
+        } finally {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = "<span>Send Message</span>";
+        }
+      });
+      // end contact-form
+
+      // accordion
+      const accordions = document.querySelectorAll(".accordion");
+      const openAccordion = (accordion) => {
+        const content = accordion.querySelector(".accordion-content");
+        accordion.classList.add("accordion-active");
+        content.style.maxHeight = content.scrollHeight + "px";
+      };
+      const closeAccordion = (accordion) => {
+        const content = accordion.querySelector(".accordion-content");
+        accordion.classList.remove("accordion-active");
+        content.style.maxHeight = null;
+      };
+      accordions.forEach((accordion) => {
+        const intro = accordion.querySelector(".accordion-intro");
+        const content = accordion.querySelector(".accordion-content");
+        intro.onclick = () => {
+          if (content.style.maxHeight) {
+            closeAccordion(accordion);
+          } else {
+            accordions.forEach((accordion) => closeAccordion(accordion));
+            openAccordion(accordion);
+          }
+        };
+      });
+      // end accordion
+
+    });
+  </script>
+</Layout>

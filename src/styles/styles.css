@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "../styles-plugin/tailwind-bootstrap-grid";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@import "./safe.css";
+@import "./utilities.css";
+
+@layer base {
+  @import "./base.css";
+}
+
+@layer components {
+  @import "./button.css";
+  @import './components.css';
+}
+
+@theme {
+  --color-dark: #18181A;
+  --color-light: #cccccc;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-primary: "Outfit", "sans-serif";
+  --font-secondary: "Melodrama", "serif";
+}

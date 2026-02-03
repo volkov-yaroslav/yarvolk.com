@@ -1,0 +1,45 @@
+:root {
+  color-scheme: dark;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-track {
+  background: #1c1c1e;
+}
+body::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 16px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* noice background */
+main::after,
+footer::after,
+.page-banner::after {
+  content: '';
+  background-image: url("/images/noise.webp");
+  inset: 0;
+  position: absolute;
+  z-index: -99999;
+  opacity: 0.75;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+footer::after {
+  opacity: 0.1;
+}
+
+/* update container */
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1280px !important;
+  }
+}
