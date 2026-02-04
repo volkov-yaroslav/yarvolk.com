@@ -1,24 +1,19 @@
 ---
-const { index, slug, data, twoColumns } = Astro.props;
+const { slug, data, twoColumns } = Astro.props;
 const { title, description, image, color, category } = data;
 const coverImage = image || '/images/placeholder.jpg';
 ---
 
 <div
-  data-aos
   class="rounded-lg overflow-hidden relative group h-full"
 >
-  <span
-    class="absolute h-full group-[.aos-animate]:h-0 w-full z-30 duration-700 left-0 bottom-0"
-    style={`background-color: ${color}; transition-delay: ${index * 100}ms;`}
-  ></span>
 
   <img
     src={coverImage}
     alt={title}
     width={twoColumns ? 620 : 520}
     height={twoColumns ? 420 : 550}
-    class={`scale-150 group-[.aos-animate]:scale-100 duration-700 group-hover:!scale-125 object-cover w-full h-full bg-light/20 ${twoColumns ? "has-twoColumns" : ""}`}
+    class={`duration-700 group-hover:scale-110 object-cover w-full h-full bg-light/20 ${twoColumns ? "has-twoColumns" : ""}`}
     style={twoColumns ? "height: 376px;" : ""}
     loading="lazy"
   />
