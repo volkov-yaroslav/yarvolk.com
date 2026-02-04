@@ -23,6 +23,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Update server source backup
+        run: |
+          if [ -d /home/yarvolk-com/site-src/.git ]; then
+            git -C /home/yarvolk-com/site-src fetch --all --prune
+            git -C /home/yarvolk-com/site-src reset --hard origin/main
+          else
+            git clone https://github.com/volkov-yaroslav/yarvolk.com.git /home/yarvolk-com/site-src
+          fi
+
       - name: Deploy
         run: |
+          rm -f dist/.gitignore
           rsync -az --delete dist/ /home/yarvolk-com/htdocs/yarvolk.com/
