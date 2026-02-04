@@ -75,7 +75,16 @@ const blogs = await getPageCollection("blog", 3);
 
 			<div class="row md:gx-4 gy-4">
 				{projects?.map((project, i) => (
-					<div class={`${i % 5 >= 3 ? "sm:col-6" : "lg:col-4 sm:col-6"} ${i === 4 ? "hidden lg:block" : ""}`}>
+					<div
+						class={`${i % 5 >= 3 ? "sm:col-6" : "lg:col-4 sm:col-6"} ${i === 4 ? "hidden lg:block" : ""} init-delay`}
+						data-aos="fade-up-sm"
+						data-aos-duration="500"
+						style={{
+							"--lg-delay": `${(i % 3) * 75}ms`,
+							"--md-delay": `${(i % 2) * 75}ms`,
+							"--sm-delay": `${(i % 2) * 75}ms`
+						}}
+					>
 						<ProjectCard
 							index={i}
 							slug={project.slug}
