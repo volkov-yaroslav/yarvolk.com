@@ -62,10 +62,10 @@ const Banner = ({ banner }) => {
               </svg>
             </div>
             <h1
-              className={`text-[clamp(3.5em,_8vw,_6.5em)] leading-tight font-semibold md:flex items-center flex-wrap justify-center font-secondary`}
+              className={`text-[clamp(3.5em,_8vw,_6.5em)] leading-tight font-semibold md:flex items-center justify-center font-secondary`}
               data-aos="fade-up-sm"
             >
-              <span className="inline-block mx-2 md:mx-0">
+              <span className="inline-block mx-2 md:mx-0 md:flex-1 md:text-right md:pr-6">
                 {first_name}
               </span>
               <div className="relative my-4 md:my-0 hidden md:block">
@@ -97,7 +97,7 @@ const Banner = ({ banner }) => {
                   />
                 </svg>
               </div>
-              <span className="inline-block mx-2 md:mx-0">
+              <span className="inline-block mx-2 md:mx-0 md:flex-1 md:text-left md:pl-6">
                 {last_name}
               </span>
             </h1>
