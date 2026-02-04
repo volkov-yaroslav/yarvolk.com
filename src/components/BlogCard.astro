@@ -6,13 +6,13 @@ const { title, date, image, category } = data;
 ---
 
 <article class="relative group text-center">
-  <div class="relative overflow-hidden rounded-lg mb-8">
+  <div class="relative overflow-hidden rounded-lg mb-8 aspect-[4/3]">
     <img
       src={image}
       alt={title}
       width="620"
       height="500"
-      class="duration-700 group-hover:scale-110 group-hover:-rotate-1 object-cover w-full rounded-lg group-hover:brightness-75 bg-light/20"
+      class="duration-700 group-hover:scale-110 group-hover:-rotate-1 object-cover w-full h-full rounded-lg group-hover:brightness-75 bg-light/20"
       loading="lazy"
     />
   </div>
