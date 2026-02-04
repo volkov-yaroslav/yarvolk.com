@@ -24,8 +24,17 @@ const currentProjects = projects.slice(0, settings.pagination_limit);
   <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
     <div class="container">
       <div class="row md:gx-4 gy-4">
-        {currentProjects.map((project) => (
-          <div class="sm:col-6">
+        {currentProjects.map((project, index) => (
+          <div
+            class="sm:col-6 init-delay"
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 2) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`
+            }}
+          >
             <ProjectCard slug={project.slug} data={project.data} twoColumns={true} />
           </div>
         ))}
