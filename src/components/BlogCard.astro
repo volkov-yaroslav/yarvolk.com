@@ -3,12 +3,13 @@ import { formatDate } from '@utils/formatDate';
 
 const { data, slug } = Astro.props;
 const { title, date, image, category } = data;
+const coverImage = image || '/images/placeholder.jpg';
 ---
 
 <article class="relative group text-center">
   <div class="relative overflow-hidden rounded-lg mb-8 aspect-[4/3]">
     <img
-      src={image}
+      src={coverImage}
       alt={title}
       width="620"
       height="500"

@@ -1,6 +1,7 @@
 ---
 const { index, slug, data, twoColumns } = Astro.props;
 const { title, description, image, color, category } = data;
+const coverImage = image || '/images/placeholder.jpg';
 ---
 
 <div
@@ -13,7 +14,7 @@ const { title, description, image, color, category } = data;
   ></span>
 
   <img
-    src={image}
+    src={coverImage}
     alt={title}
     width={twoColumns ? 620 : 520}
     height={twoColumns ? 420 : 550}
