@@ -66,5 +66,13 @@ export const markdownify = (content: string, div?: boolean): string => {
   const textContent = div
     ? marked.parse(content)
     : marked.parseInline(content);
-  return htmlEntityDecoder(textContent as string);
+  const decoded = htmlEntityDecoder(textContent as string);
+  // Force external links to open in a new tab
+  return decoded.replace(
+    /<a\s+([^>]*href="https?:\/\/[^"]+"[^>]*)>/g,
+    (match, attrs) => {
+      if (/\btarget=/.test(attrs)) return match;
+      return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+    }
+  );
 };
