@@ -127,6 +127,7 @@ const Header = () => {
                 src={logo}
                 alt={logoText}
                 width="150"
+                className="max-w-full h-auto"
               />
             </a>
           </div>
