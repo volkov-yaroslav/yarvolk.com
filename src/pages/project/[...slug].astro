@@ -18,15 +18,18 @@ export async function getStaticPaths() {
   return publishedProjects.map((project, index) => {
     const previousProject = sortedProjects[index - 1] || null;
     const nextProject = sortedProjects[index + 1] || null;
+    const relatedProjects = sortedProjects
+      .filter((item) => item.slug !== project.slug)
+      .slice(0, 3);
 
     return {
       params: { slug: project.slug },
-      props: { project, previousProject, nextProject },
+      props: { project, previousProject, nextProject, relatedProjects },
     };
   });
 }
 
-const { project, previousProject, nextProject } = Astro.props;
+const { project, previousProject, nextProject, relatedProjects } = Astro.props;
 
 const { date, title, description, image, color, category, projectInfo } = project.data;
 const formattedDate = formatDate(date);
@@ -92,19 +95,24 @@ const { Content } = await project.render();
     <div class="container">
       <div class="mb-16">
         <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center">
-          {nextProject ? "Next" : "Previous"} Project
+          More Work
         </h2>
       </div>
-      <div class="row justify-center">
-        <div class="lg:col-6">
-          {(nextProject || previousProject) && (
-            <ProjectCard
-              slug={(nextProject || previousProject).slug}
-              data={(nextProject || previousProject).data}
-              twoColumns={true}
-            />
-          )}
-        </div>
+      <div class="row md:gx-4 gy-4">
+        {relatedProjects.map((item, index) => (
+          <div
+            class="lg:col-4 md:col-6 init-delay"
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 3) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`
+            }}
+          >
+            <ProjectCard slug={item.slug} data={item.data} twoColumns={false} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
