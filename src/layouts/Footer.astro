@@ -13,12 +13,12 @@ const year = new Date().getFullYear();
 const animatedLines = Array.from({ length: 5 });
 ---
 
-<footer class={`${isContactPage ? 'pt-20' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
+<footer class={`${isContactPage ? 'pt-8' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
   {!isContactPage && (
-    <div class="mb-24 overflow-hidden">
+    <div class="mb-20 overflow-hidden">
       <a
         href="/contact"
-        class="footer-cta relative w-[1920px] max-w-full mx-auto overflow-hidden block text-5xl font-secondary font-medium group"
+        class="footer-cta relative w-[1920px] max-w-full mx-auto overflow-hidden block text-5xl text-white font-secondary font-medium group"
       >
         {[0, 1].map((i) => (
           <div class={`animated-line animated-line-${i === 0 ? 'one mb-5' : 'two'} relative flex whitespace-nowrap`}>
