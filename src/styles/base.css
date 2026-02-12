@@ -20,6 +20,22 @@ html {
   overflow-x: hidden;
 }
 
+body,
+main,
+footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@supports (overflow: clip) {
+  html,
+  body,
+  main,
+  footer {
+    overflow-x: clip;
+  }
+}
+
 /* noice background */
 main::after,
 footer::after,
