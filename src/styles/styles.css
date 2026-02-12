@@ -23,9 +23,9 @@
   --color-black: #000000;
 
   --font-primary: "Outfit", "sans-serif";
-  --font-secondary: "Playfair Display", "serif";
+  --font-secondary: "Space Grotesk", "sans-serif";
   /* Test alternatives:
      --font-secondary: "Montserrat", "sans-serif";
-     --font-secondary: "Space Grotesk", "sans-serif";
+     --font-secondary: "Playfair Display", "serif";
   */
 }
