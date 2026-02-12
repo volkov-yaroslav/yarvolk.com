@@ -84,7 +84,7 @@ const {
     <main class="bg-dark relative z-10 pt-[92px] lg:pt-[106px] min-h-[82vh]">
       <slot />
     </main>
-		<Footer isContactPage={Astro.url.pathname === '/contact'} />
+		<Footer isContactPage={/^\/contact\/?$/.test(Astro.url.pathname)} />
 
     <script src="/plugins/aos/aos.js" is:inline data-astro-rerun></script>
     <script src="/plugins/aos/aosinit.js" is:inline data-astro-rerun></script>
