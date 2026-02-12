@@ -68,7 +68,7 @@ const Banner = ({ banner }) => {
               <span className="inline-block mx-2 md:mx-0 md:flex-1 md:text-right md:pr-6">
                 {first_name}
               </span>
-              <div className="relative my-4 md:my-0 hidden md:block">
+              <div className="relative my-4 md:my-0 hidden md:block md:flex-none md:shrink-0">
                 <div className="bg-[#E3DFDC] mx-5 rounded-full overflow-hidden">
                   <img
                     className="mx-auto"
