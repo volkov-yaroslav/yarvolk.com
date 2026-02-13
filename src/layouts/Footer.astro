@@ -13,7 +13,7 @@ const year = new Date().getFullYear();
 const animatedLines = Array.from({ length: 5 });
 ---
 
-<footer class={`${isContactPage ? 'pt-8' : 'pt-28'} pb-16`}>
+<footer class={`site-footer relative overflow-hidden ${isContactPage ? 'pt-8' : 'pt-28'} pb-16`}>
   {!isContactPage && (
     <div class="mb-20 overflow-hidden">
       <a
@@ -101,6 +101,7 @@ const animatedLines = Array.from({ length: 5 });
     const root = document.documentElement;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const buttons = Array.from(document.querySelectorAll('[data-theme-option]'));
+    const footer = document.querySelector('.site-footer');
 
     if (!buttons.length) return;
 
@@ -146,5 +147,17 @@ const animatedLines = Array.from({ length: 5 });
         applyTheme('auto');
       }
     });
+
+    if (footer) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            footer.classList.toggle('footer-glow-active', entry.isIntersecting);
+          });
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(footer);
+    }
   })();
 </script>
