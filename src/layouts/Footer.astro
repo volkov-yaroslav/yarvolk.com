@@ -13,7 +13,7 @@ const year = new Date().getFullYear();
 const animatedLines = Array.from({ length: 5 });
 ---
 
-<footer class={`site-footer relative overflow-hidden ${isContactPage ? 'pt-8' : 'pt-28'} pb-16`}>
+<footer class={`${isContactPage ? 'pt-8' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
   {!isContactPage && (
     <div class="mb-20 overflow-hidden">
       <a
@@ -85,79 +85,10 @@ const animatedLines = Array.from({ length: 5 });
       </div>
 
       <div class="md:col-6 text-center md:text-right">
-        <div class="theme-switcher inline-flex items-center rounded-full border border-white/20 bg-white/5 p-1" data-theme-switcher>
-          <button class="theme-switcher-btn" type="button" data-theme-option="auto" aria-pressed="false">Auto</button>
-          <button class="theme-switcher-btn" type="button" data-theme-option="light" aria-pressed="false">Light</button>
-          <button class="theme-switcher-btn" type="button" data-theme-option="dark" aria-pressed="false">Dark</button>
-        </div>
+        <p class="text-white/75">
+          Developed by Yarvolk
+        </p>
       </div>
     </div>
   </div>
 </footer>
-
-<script is:inline>
-  (() => {
-    const key = 'yarvolk-theme-preference';
-    const root = document.documentElement;
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const buttons = Array.from(document.querySelectorAll('[data-theme-option]'));
-    const footer = document.querySelector('.site-footer');
-
-    if (!buttons.length) return;
-
-    const readPreference = () => {
-      const stored = localStorage.getItem(key);
-      return stored === 'light' || stored === 'dark' || stored === 'auto' ? stored : 'auto';
-    };
-
-    const applyTheme = (preference) => {
-      const resolved = preference === 'auto'
-        ? (mediaQuery.matches ? 'dark' : 'light')
-        : preference;
-
-      root.dataset.themePreference = preference;
-      root.dataset.theme = resolved;
-      root.classList.toggle('dark', resolved === 'dark');
-      root.style.colorScheme = resolved;
-    };
-
-    const setActiveButton = (preference) => {
-      buttons.forEach((button) => {
-        const active = button.dataset.themeOption === preference;
-        button.classList.toggle('is-active', active);
-        button.setAttribute('aria-pressed', active ? 'true' : 'false');
-      });
-    };
-
-    const currentPreference = readPreference();
-    applyTheme(currentPreference);
-    setActiveButton(currentPreference);
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const preference = button.dataset.themeOption || 'auto';
-        localStorage.setItem(key, preference);
-        applyTheme(preference);
-        setActiveButton(preference);
-      });
-    });
-
-    mediaQuery.addEventListener('change', () => {
-      if (readPreference() === 'auto') {
-        applyTheme('auto');
-      }
-    });
-
-    if (footer) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            footer.classList.toggle('footer-glow-active', entry.isIntersecting);
-          });
-        },
-        { threshold: 0.2 }
-      );
-      observer.observe(footer);
-    }
-  })();
-</script>

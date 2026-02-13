@@ -11,9 +11,3 @@
   -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 70%);
   mask-image: radial-gradient(rgba(0, 0, 0, 0.5), transparent 70%);
 }
-
-html[data-theme="light"] .banner::before {
-  background: url(/images/noise.webp) repeat, linear-gradient(83.21deg, rgb(92 109 255 / 0.48) 0%, rgb(178 123 255 / 0.45) 100%);
-  -webkit-mask-image: radial-gradient(rgba(0, 0, 0, 0.35), transparent 72%);
-  mask-image: radial-gradient(rgba(0, 0, 0, 0.35), transparent 72%);
-}
