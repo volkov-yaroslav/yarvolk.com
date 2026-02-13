@@ -126,7 +126,7 @@ const Header = () => {
               <img
                 src={logo}
                 alt={logoText}
-                className="w-[150px] h-auto max-w-full"
+                className="w-[190px] h-auto max-w-full"
               />
             </a>
           </div>
