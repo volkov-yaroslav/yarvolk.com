@@ -1,6 +1,6 @@
 :root {
   --bg-base: #18181a;
-  --bg-surface: #202024;
+  --bg-surface: #18181a;
   --text-primary: #ffffff;
   --text-muted: rgb(255 255 255 / 0.72);
   --border-subtle: rgb(255 255 255 / 0.18);
@@ -16,7 +16,7 @@ html[data-theme="dark"] {
 
 html[data-theme="light"] {
   --bg-base: #f2f3f5;
-  --bg-surface: #ffffff;
+  --bg-surface: #f2f3f5;
   --text-primary: #15161a;
   --text-muted: rgb(21 22 26 / 0.72);
   --border-subtle: rgb(21 22 26 / 0.16);
