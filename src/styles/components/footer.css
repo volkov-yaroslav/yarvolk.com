@@ -67,11 +67,16 @@
   to {transform: translateX(0)}
 }
 
+.theme-switcher {
+  border-color: var(--border-subtle) !important;
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
 .theme-switcher .theme-switcher-btn {
   border: 0;
   background: transparent;
   border-radius: 999px;
-  color: rgb(255 255 255 / 0.75);
+  color: var(--text-muted);
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 500;
@@ -81,10 +86,10 @@
 }
 
 .theme-switcher .theme-switcher-btn:hover {
-  color: rgb(255 255 255 / 0.95);
+  color: var(--text-primary);
 }
 
 .theme-switcher .theme-switcher-btn.is-active {
-  background: rgb(255 255 255 / 0.16);
-  color: rgb(255 255 255 / 0.98);
+  background: color-mix(in srgb, var(--text-primary) 18%, transparent);
+  color: var(--text-primary);
 }

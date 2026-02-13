@@ -1,5 +1,75 @@
 :root {
+  --bg-base: #18181a;
+  --bg-surface: #202024;
+  --text-primary: #ffffff;
+  --text-muted: rgb(255 255 255 / 0.72);
+  --border-subtle: rgb(255 255 255 / 0.18);
+  --border-strong: rgb(255 255 255 / 0.42);
+  --noise-opacity-main: 0.75;
+  --noise-opacity-footer: 0.1;
   color-scheme: dark;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --bg-base: #f2f3f5;
+  --bg-surface: #ffffff;
+  --text-primary: #15161a;
+  --text-muted: rgb(21 22 26 / 0.72);
+  --border-subtle: rgb(21 22 26 / 0.16);
+  --border-strong: rgb(21 22 26 / 0.36);
+  --noise-opacity-main: 0.22;
+  --noise-opacity-footer: 0.08;
+  color-scheme: light;
+}
+
+body,
+main,
+footer,
+.page-banner {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+/* Theme remapping for existing utility classes so pages can switch without refactors. */
+html[data-theme] .bg-dark,
+html[data-theme] .bg-dark\/50,
+html[data-theme] .bg-dark\/60,
+html[data-theme] .bg-dark\/80 {
+  background-color: var(--bg-base) !important;
+}
+
+html[data-theme] .bg-white {
+  background-color: var(--bg-surface) !important;
+}
+
+html[data-theme] .text-white,
+html[data-theme] .text-black,
+html[data-theme] .text-dark {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme] .text-white\/75,
+html[data-theme] .text-white\/50,
+html[data-theme] .text-black\/75,
+html[data-theme] .text-black\/50 {
+  color: var(--text-muted) !important;
+}
+
+html[data-theme] .border-white\/5,
+html[data-theme] .border-white\/10,
+html[data-theme] .border-white\/20,
+html[data-theme] .border-white\/40,
+html[data-theme] .border-light\/90 {
+  border-color: var(--border-subtle) !important;
+}
+
+html[data-theme] .hover\:border-white\/40:hover,
+html[data-theme] .focus\:border-dark\/50:focus {
+  border-color: var(--border-strong) !important;
 }
 
 body::-webkit-scrollbar {
@@ -45,12 +115,12 @@ footer::after,
   inset: 0;
   position: absolute;
   z-index: -99999;
-  opacity: 0.75;
+  opacity: var(--noise-opacity-main);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 footer::after {
-  opacity: 0.1;
+  opacity: var(--noise-opacity-footer);
 }
 
 /* update container */
