@@ -66,3 +66,25 @@
   0% {transform: translateX(100%)}
   to {transform: translateX(0)}
 }
+
+.theme-switcher .theme-switcher-btn {
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.75);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.45rem 0.8rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-switcher .theme-switcher-btn:hover {
+  color: rgb(255 255 255 / 0.95);
+}
+
+.theme-switcher .theme-switcher-btn.is-active {
+  background: rgb(255 255 255 / 0.16);
+  color: rgb(255 255 255 / 0.98);
+}
