@@ -10,50 +10,26 @@ const { socialLinks, logoText } = siteConfig;
 const { footerMenu } = menu;
 
 const year = new Date().getFullYear();
-const animatedLines = Array.from({ length: 5 });
 ---
 
 <footer class={`${isContactPage ? 'pt-8' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
   {!isContactPage && (
-    <div class="mb-20 overflow-hidden">
+    <div class="mb-20">
       <a
         href="/contact"
-        class="footer-cta relative w-[1920px] max-w-full mx-auto overflow-hidden block text-5xl text-white font-secondary font-medium group"
+        class="footer-cta relative w-[1920px] max-w-full mx-auto block text-4xl md:text-5xl text-white font-secondary font-medium group"
       >
-        {[0, 1].map((i) => (
-          <div class={`animated-line animated-line-${i === 0 ? 'one mb-5' : 'two'} relative flex whitespace-nowrap`}>
-            <div class="line-block pb-[6px] flex">
-              {animatedLines.map((_, j) => (
-                <span class="mr-24">
-                  <span class="cta-text group-hover:opacity-75">Let’s make something</span>
-                  <img
-                    class="inline-block ml-16 cta-icon"
-                    src="/images/arrow-right.svg"
-                    alt="arrow-right"
-                    height="31"
-                    width="39"
-                    loading="lazy"
-                  />
-                </span>
-              ))}
-            </div>
-            <div class="line-block-copy pb-[6px] flex">
-              {animatedLines.map((_, j) => (
-                <span class="mr-24">
-                  <span class="cta-text group-hover:opacity-75">Let’s make something</span>
-                  <img
-                    class="inline-block ml-16 cta-icon"
-                    src="/images/arrow-right.svg"
-                    alt="arrow-right"
-                    height="31"
-                    width="39"
-                    loading="lazy"
-                  />
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
+        <span class="footer-cta-row">
+          <span class="cta-text">Let’s make something</span>
+          <img
+            class="cta-icon"
+            src="/images/arrow-right.svg"
+            alt="arrow-right"
+            height="31"
+            width="39"
+            loading="lazy"
+          />
+        </span>
       </a>
     </div>
   )}
