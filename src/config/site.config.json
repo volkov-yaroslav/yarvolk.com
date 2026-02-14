@@ -30,11 +30,6 @@
       "link": "https://github.com/volkov-yaroslav"
     },
     {
-      "name": "WP",
-      "fullName": "WordPress",
-      "link": "https://wordpress.com/reader/users/yarvolk"
-    },
-    {
       "name": "X",
       "fullName": "X",
       "link": "https://x.com/yarvolk"
@@ -78,6 +73,11 @@
       "name": "SP",
       "fullName": "Spotify",
       "link": "https://open.spotify.com/user/1241365560"
+    },
+    {
+      "name": "OS",
+      "fullName": "OpenSea",
+      "link": "https://opensea.io/yarvolk"
     }
   ]
 }

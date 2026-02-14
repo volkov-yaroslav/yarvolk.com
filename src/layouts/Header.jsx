@@ -118,7 +118,7 @@ const Header = () => {
     >
       <div className="container">
         <div className="flex justify-between py-6 items-center relative">
-          <div className={`w-auto md:w-1/4 transition-all duration-300 ${isScrolled ? "lg:opacity-0 lg:-translate-x-8" : ""}`}>
+          <div className={`w-auto md:w-1/4 transition-all duration-300 ${isScrolled ? "opacity-0 -translate-x-8 pointer-events-none" : "opacity-100 translate-x-0"}`}>
             <a
               href="/" 
               className="inline-block align-middle"

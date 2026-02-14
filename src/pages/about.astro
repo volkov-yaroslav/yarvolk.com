@@ -41,7 +41,7 @@ const featuredBrandLinks = [
             <div class="flex justify-center items-center flex-wrap">
               {featuredBy.brands.map((item: string, index: number) => (
                 <div
-                  class={`mx-2 md:mx-3 my-2 min-h-14 md:min-h-16 flex items-center ${index === 0 ? "md:mx-4" : ""}`}
+                  class={`mx-2 md:mx-3 my-2 min-h-9 md:min-h-16 flex items-center ${index === 0 ? "md:mx-4" : ""}`}
                   data-aos="fade-left"
                   data-aos-delay={index * 50}
                 >
@@ -57,7 +57,7 @@ const featuredBrandLinks = [
                         alt="Brand"
                         width={120}
                         height={80}
-                        class={`w-auto block ${index === 0 ? "max-h-14 md:max-h-16" : "max-h-8 md:max-h-10"}`}
+                        class={`w-auto block ${index === 0 ? "max-h-9 md:max-h-16" : "max-h-5 md:max-h-10"}`}
                       />
                     </a>
                   ) : (
@@ -66,7 +66,7 @@ const featuredBrandLinks = [
                       alt="Brand"
                       width={120}
                       height={80}
-                      class={`w-auto block ${index === 0 ? "max-h-14 md:max-h-16" : "max-h-8 md:max-h-10"}`}
+                      class={`w-auto block ${index === 0 ? "max-h-9 md:max-h-16" : "max-h-5 md:max-h-10"}`}
                     />
                   )}
                 </div>
