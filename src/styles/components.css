@@ -64,6 +64,7 @@ select:-webkit-autofill:focus {
   @apply text-dark/75;
   @apply prose-a:text-black prose-headings:text-black;
   @apply prose-tr:border-light/10;
+  @apply marker:text-dark/45;
 }
 
 .image {
