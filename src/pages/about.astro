@@ -36,7 +36,7 @@ const { title, subtitle, about, featuredBy, services, whatClientsSay } : any = a
             <div class="flex justify-center items-center flex-wrap">
               {featuredBy.brands.map((item: string, index: number) => (
                 <div
-                  class="mx-8 my-4"
+                  class="mx-4 md:mx-6 my-3"
                   data-aos="fade-left"
                   data-aos-delay={index * 50}
                 >
@@ -45,7 +45,7 @@ const { title, subtitle, about, featuredBy, services, whatClientsSay } : any = a
                     alt="Brand"
                     width={120}
                     height={80}
-                    class="w-auto max-h-20"
+                    class="w-auto max-h-12 md:max-h-14"
                   />
                 </div>
               ))}
