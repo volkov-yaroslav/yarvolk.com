@@ -37,7 +37,7 @@ const whatsappNumber = "380932404066";
                   type="text"
                   id="full_name"
                   name="full_name"
-                  placeholder="Charlie Edward"
+                  placeholder="Your name"
                   class="border border-light/90 rounded-lg bg-white h-12 w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300 focus:bg-red-300"
                   required
                 />
@@ -48,7 +48,7 @@ const whatsappNumber = "380932404066";
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="charlie.edward@email.app"
+                  placeholder="you@example.com"
                   class="border border-light/90 rounded-lg bg-white h-12 w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300"
                   required
                 />
@@ -60,7 +60,7 @@ const whatsappNumber = "380932404066";
                   name="message"
                   rows="4"
                   class="border border-light/90 rounded-lg bg-white w-full px-4 py-4 focus:border-dark/50 outline-none focus-visible:outline-none focus-visible:shadow-none focus-visible:!bg-transparent transition-all duration-300"
-                  placeholder="Be as detailed as possible..."
+                  placeholder="Tell me about your project"
                 ></textarea>
               </div>
 
@@ -166,7 +166,13 @@ const whatsappNumber = "380932404066";
         const name = nameField.value.trim();
         const contactEmail = emailField.value.trim();
         const additionalInfo = messageField.value.trim();
-        const message = `Hello, Yaroslav. How are you doing? My name is ${name || "[Name]"}. My contact email: ${contactEmail || "[Email]"}. ${additionalInfo || ""}`.trim();
+
+        const parts = ["Hello, Yaroslav. How are you doing?"];
+        if (name) parts.push(`My name is ${name}.`);
+        if (contactEmail) parts.push(`My contact email: ${contactEmail}.`);
+        if (additionalInfo) parts.push(additionalInfo);
+
+        const message = parts.join(" ");
         whatsappBtn.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
       };
 
