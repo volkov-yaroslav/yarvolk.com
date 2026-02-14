@@ -6,7 +6,7 @@ import siteConfig from '@config/site.config.json';
 
 const { isContactPage = false } = Astro.props;
 
-const { socialLinks, logoText } = siteConfig;
+const { socialLinks } = siteConfig;
 const { footerMenu } = menu;
 
 const year = new Date().getFullYear();
@@ -59,10 +59,10 @@ const promoItems = Array.from({ length: 8 });
   <div class="container">
     <div class="row">
       <div class="md:col-6 text-center md:text-left mb-4">
-        <ul class="inline-flex flex-wrap justify-center md:justify-start gap-x-6">
+        <ul class="inline-flex flex-wrap justify-center md:grid md:grid-flow-col md:auto-cols-max md:grid-rows-2 md:justify-start gap-x-6 gap-y-2">
           {socialLinks.map((item) => (
             <li class="inline-block hover:opacity-75 transition-op duration-300">
-              <a href={item.link} class="link">{item.fullName}</a>
+              <a href={item.link} target="_blank" rel="noopener noreferrer" class="link">{item.fullName}</a>
             </li>
           ))}
         </ul>
@@ -79,13 +79,31 @@ const promoItems = Array.from({ length: 8 });
       </div>
 
       <div class="md:col-6 text-center md:text-left mb-4 md:mb-0">
-        <p class="text-white/75">&copy; {year} {logoText}. All rights reserved.</p>
+        <p class="text-white/75">&copy; {year} Yarvolk. All rights reserved.</p>
       </div>
 
       <div class="md:col-6 text-center md:text-right">
-        <p class="text-white/75">
-          Developed by Yarvolk
-        </p>
+        <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 p-1">
+          <button
+            type="button"
+            class="rounded-full px-3 py-1 text-sm text-white bg-white/10"
+            aria-current="true"
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            class="rounded-full px-3 py-1 text-sm text-white/70 hover:text-white transition-colors duration-300"
+          >
+            UA
+          </button>
+          <button
+            type="button"
+            class="rounded-full px-3 py-1 text-sm text-white/70 hover:text-white transition-colors duration-300"
+          >
+            PL
+          </button>
+        </div>
       </div>
     </div>
   </div>

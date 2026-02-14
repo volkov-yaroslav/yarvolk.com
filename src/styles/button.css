@@ -51,6 +51,21 @@
 .button-dark:hover span {
   @apply text-white;
 }
+.button-whatsapp {
+  background-color: #27d366;
+  border-color: #27d366;
+  color: #ffffff;
+}
+.button-whatsapp::before,
+.button-whatsapp::after {
+  background-color: #18181a;
+}
+.button-whatsapp:hover span {
+  color: #ffffff;
+}
+.button-whatsapp:hover {
+  border-color: #18181a;
+}
 
 .link {
   border-bottom-width: 0;

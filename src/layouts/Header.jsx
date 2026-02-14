@@ -10,9 +10,10 @@ const Header = () => {
     setPathname(window.location.pathname);
   }, []);
 
-  const { logo, logoText, socialLinks } = siteConfig;
+  const { logo, logoText } = siteConfig;
   const { mainMenu } = menu;
   const mainMenuLength = mainMenu.length;
+  const mobileMenuLength = mainMenuLength + 1;
 
   const [indicatorPosition, setIndicatorPosition] = useState(null);
   const navRef = useRef(null);
@@ -134,7 +135,7 @@ const Header = () => {
           <nav
             ref={navRef}
             className={`navbar lg:flex ${isActive ? "bg-dark/80" : "bg-dark/50"} backdrop-blur-[10px] lg:rounded-full rounded-3xl px-2 lg:py-2 py-5 border border-white/10 duration-500 lg:static lg:w-auto absolute right-0 top-6 z-30 max-w-full overflow-hidden ${mobileNavClose ? "w-12 !h-12 lg:w-auto lg:!h-auto" : "w-56 lg:w-auto"} ${!mobileNavClose ? "navbarOpen" : ""}`}
-            style={{ height: mobileNavClose ? "auto" : 42 + (mainMenuLength * 40) + "px" }}
+            style={{ height: mobileNavClose ? "auto" : 42 + (mobileMenuLength * 40) + "px" }}
           >
             {indicatorPosition && (
               <span
@@ -160,6 +161,16 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
+
+            <a
+              href="https://buymeacoffee.com/yarvolk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`py-3 px-[22px] leading-none relative z-20 block text-white hover:text-white/50 lg:hidden ${!mobileNavClose ? "opacity-100" : "opacity-0"}`}
+              onClick={() => setMobileNavClose(true)}
+            >
+              ☕ Buy me a coffee
+            </a>
           </nav>
 
           <div
@@ -185,15 +196,19 @@ const Header = () => {
             </svg>
           </button>
 
-          <div className={`w-1/4 transition-all duration-300 text-right text-sm hidden lg:block ${isScrolled ? "lg:opacity-0 lg:translate-x-8" : ""}`}>
-            <span className="block text-white/75 mb-1">Social Links:</span>
-            <ul className="inline-flex gap-x-4">
-              {socialLinks.map((item, key) => (
-                <li key={key} className="inline-block hover:opacity-75 transition-op duration-300">
-                  <a href={item.link} className="link">{item.name}</a>
-                </li>
-              ))}
-            </ul>
+          <div className={`w-1/4 transition-all duration-300 hidden lg:flex justify-end ${isScrolled ? "lg:opacity-0 lg:translate-x-8" : ""}`}>
+            <div className={`${isActive ? "bg-dark/80" : "bg-dark/50"} backdrop-blur-[10px] rounded-full border border-white/10 px-2 lg:py-2`}>
+              <a
+                href="https://buymeacoffee.com/yarvolk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full px-[22px] py-3 leading-none text-white hover:bg-white/10 hover:text-white transition-colors duration-300"
+                aria-label="Buy me a coffee"
+              >
+                <span aria-hidden="true">☕</span>
+                <span>Buy me a coffee</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

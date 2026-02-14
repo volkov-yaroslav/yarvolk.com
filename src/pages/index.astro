@@ -17,6 +17,11 @@ const projects = await getPageCollection("project", 5);
 
 const blogpage = await getPage('pages', 'blog');
 const blogs = await getPageCollection("blog", 3);
+
+const featuredBrandLinks = [
+	"https://www.webmastersdesktop.com/",
+	"https://www.trimnest.com/",
+];
 ---
 
 <Layout>
@@ -38,17 +43,34 @@ const blogs = await getPageCollection("blog", 3);
 						<div class="flex justify-center items-center flex-wrap">
 							{featuredBy.brands_white.map((item: string, index: number) => (
 								<div
-									class="mx-4 sm:mx-8 my-4"
+									class={`mx-2 sm:mx-3 my-2 min-h-14 sm:min-h-16 flex items-center ${index === 0 ? "sm:mx-4" : ""}`}
 									data-aos="fade-left"
 									data-aos-delay={index * 50}
 								>
-									<img
-										src={item}
-										alt="Brand"
-										width={120}
-										height={80}
-										class="w-auto h-auto sm:max-h-20"
-									/>
+									{featuredBrandLinks[index] ? (
+										<a
+											href={featuredBrandLinks[index]}
+											target="_blank"
+											rel="noopener noreferrer"
+											aria-label={`Open featured brand ${index + 1}`}
+										>
+											<img
+												src={item}
+												alt="Brand"
+												width={120}
+												height={80}
+												class={`w-auto h-auto block ${index === 0 ? "max-h-14 sm:max-h-16" : "max-h-8 sm:max-h-10"}`}
+											/>
+										</a>
+									) : (
+										<img
+											src={item}
+											alt="Brand"
+											width={120}
+											height={80}
+											class={`w-auto h-auto block ${index === 0 ? "max-h-14 sm:max-h-16" : "max-h-8 sm:max-h-10"}`}
+										/>
+									)}
 								</div>
 							))}
 						</div>

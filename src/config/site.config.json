@@ -25,9 +25,59 @@
       "link": "https://www.linkedin.com/in/yarvolk"
     },
     {
+      "name": "GH",
+      "fullName": "GitHub",
+      "link": "https://github.com/volkov-yaroslav"
+    },
+    {
+      "name": "WP",
+      "fullName": "WordPress",
+      "link": "https://wordpress.com/reader/users/yarvolk"
+    },
+    {
+      "name": "X",
+      "fullName": "X",
+      "link": "https://x.com/yarvolk"
+    },
+    {
+      "name": "RD",
+      "fullName": "Reddit",
+      "link": "https://www.reddit.com/user/yarvolk/"
+    },
+    {
+      "name": "IG",
+      "fullName": "Instagram",
+      "link": "https://www.instagram.com/yar.volk"
+    },
+    {
+      "name": "FB",
+      "fullName": "Facebook",
+      "link": "https://www.facebook.com/yarvolk/"
+    },
+    {
+      "name": "TG",
+      "fullName": "Telegram",
+      "link": "https://t.me/yarvolk"
+    },
+    {
+      "name": "WA",
+      "fullName": "WhatsApp",
+      "link": "https://wa.me/380932404066?text=Hello%2C%20Yaroslav.%20How%20are%20you%20doing%3F"
+    },
+    {
+      "name": "YT",
+      "fullName": "YouTube",
+      "link": "https://www.youtube.com/@yarvolk"
+    },
+    {
       "name": "TIKTOK",
       "fullName": "TikTok",
       "link": "https://www.tiktok.com/@volkovyaroslav"
+    },
+    {
+      "name": "SP",
+      "fullName": "Spotify",
+      "link": "https://open.spotify.com/user/1241365560"
     }
   ]
 }
