@@ -58,7 +58,7 @@ const promoItems = Array.from({ length: 8 });
 
   <div class="container">
     <div class="row">
-      <div class="lg:col-6 text-center lg:text-left mb-4">
+      <div class="lg:col-6 text-center lg:text-left mb-4 order-1">
         <ul class="inline-flex flex-wrap justify-center lg:grid lg:grid-flow-col lg:auto-cols-max lg:grid-rows-2 lg:justify-start gap-x-6 gap-y-2">
           {socialLinks.map((item) => (
             <li class="inline-block hover:opacity-75 transition-op duration-300">
@@ -68,21 +68,21 @@ const promoItems = Array.from({ length: 8 });
         </ul>
       </div>
 
-      <div class="lg:col-6 text-center lg:text-right mb-4">
+      <div class="lg:col-6 text-center lg:text-right order-3 lg:order-4">
         <ul class="inline-flex flex-wrap justify-center lg:justify-end gap-x-6">
           {footerMenu.map((item) => (
             <li class="inline-block hover:opacity-75 transition-op duration-300">
-              <a href={item.link} class="link">{item.name}</a>
+              <a href={item.link} class="link text-white/75">{item.name}</a>
             </li>
           ))}
         </ul>
       </div>
 
-      <div class="lg:col-6 text-center lg:text-left mt-3 lg:mt-0 mb-4 lg:mb-0 order-2 lg:order-1">
+      <div class="lg:col-6 text-center lg:text-left mt-3 lg:mt-0 mb-4 lg:mb-0 order-4 lg:order-3">
         <p class="text-white/75">&copy; {year} Yarvolk. All rights reserved.</p>
       </div>
 
-      <div class="lg:col-6 text-center lg:text-right order-1 lg:order-2">
+      <div class="lg:col-6 text-center lg:text-right mb-4 lg:mb-0 order-2 lg:order-2">
         <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 p-1">
           <button
             type="button"
