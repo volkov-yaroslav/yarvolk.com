@@ -10,6 +10,8 @@
 }
 .button-dark {
   @apply bg-white text-dark border-dark;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .button-dark::before,
 .button-dark::after {
