@@ -10,26 +10,48 @@ const { socialLinks, logoText } = siteConfig;
 const { footerMenu } = menu;
 
 const year = new Date().getFullYear();
+const promoItems = Array.from({ length: 8 });
 ---
 
 <footer class={`${isContactPage ? 'pt-8' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
   {!isContactPage && (
-    <div class="mb-20">
+    <div class="mb-20 overflow-hidden">
       <a
         href="/contact"
-        class="footer-cta relative w-[1920px] max-w-full mx-auto block text-4xl md:text-5xl text-white font-secondary font-medium group"
+        class="footer-promo relative w-[1920px] max-w-full mx-auto block text-4xl md:text-5xl text-white font-secondary font-medium group"
       >
-        <span class="footer-cta-row">
-          <span class="cta-text">Let’s make something</span>
-          <img
-            class="cta-icon"
-            src="/images/arrow-right.svg"
-            alt="arrow-right"
-            height="31"
-            width="39"
-            loading="lazy"
-          />
-        </span>
+        {[0, 1].map((row) => (
+          <span class={`promo-row ${row === 0 ? 'promo-row-forward mb-5' : 'promo-row-reverse'}`}>
+            <span class="promo-track">
+              {promoItems.map(() => (
+                <span class="promo-unit">
+                  <span class="promo-text">Let&apos;s make something</span>
+                  <img
+                    class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
+                    src="/images/arrow-right.svg"
+                    alt="arrow-right"
+                    height="31"
+                    width="39"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+              {promoItems.map(() => (
+                <span class="promo-unit" aria-hidden="true">
+                  <span class="promo-text">Let&apos;s make something</span>
+                  <img
+                    class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
+                    src="/images/arrow-right.svg"
+                    alt=""
+                    height="31"
+                    width="39"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+            </span>
+          </span>
+        ))}
       </a>
     </div>
   )}
