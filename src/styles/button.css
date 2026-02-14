@@ -1,7 +1,12 @@
 .button {
-  @apply bg-dark/60 backdrop-blur-[10px] border border-white/80 py-4 px-7 rounded-full text-white inline-block font-medium uppercase text-[15px] leading-none overflow-hidden relative;
+  @apply bg-dark/60 backdrop-blur-[10px] py-4 px-7 rounded-full text-white inline-block font-medium uppercase text-[15px] leading-none overflow-hidden relative;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  outline: 1px solid transparent;
+  border: none;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.8);
 }
 .button-sm {
   @apply py-[0.875rem] px-6;
@@ -11,9 +16,10 @@
   @apply absolute top-0 left-0 w-full h-full bg-white;
 }
 .button-dark {
-  @apply bg-white text-dark border-dark;
+  @apply bg-white text-dark;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  box-shadow: inset 0 0 0 1px #18181a;
 }
 .button-dark::before,
 .button-dark::after {
@@ -57,7 +63,8 @@
 }
 .button-whatsapp {
   background-color: #27d366;
-  border-color: #27d366;
+  border: none;
+  box-shadow: inset 0 0 0 1px #27d366;
   color: #ffffff;
 }
 .button-whatsapp::before,
@@ -68,7 +75,7 @@
   color: #ffffff;
 }
 .button-whatsapp:hover {
-  border-color: #18181a;
+  box-shadow: inset 0 0 0 1px #18181a;
 }
 
 .link {
