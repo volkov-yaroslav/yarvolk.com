@@ -119,11 +119,11 @@ const whatsappNumber = "380932404066";
               {faq.qaLists.map((item: any, index: number) => (
                 <div class={`${index === 0 ? "border-t-0" : ""} border-t border-dark/5 accordion group`}>
                   <h3
-                    class="text-lg font-medium py-5 cursor-pointer flex justify-between items-center select-none accordion-intro text-dark/80"
+                    class="text-lg font-medium py-5 cursor-pointer flex justify-between items-center gap-4 select-none accordion-intro text-dark/80"
                     role="button"
                     tab-index={0}
                   >
-                    <span class="grow">{item.question}</span>
+                    <span class="grow pr-2">{item.question}</span>
                     <span class="shrink-0 relative">
                       <svg class="group-[.accordion-active]:opacity-0 transition-all" xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" fill="currentColor" /></svg>
                       
