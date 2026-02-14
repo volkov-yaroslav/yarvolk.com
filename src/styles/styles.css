@@ -1,4 +1,84 @@
 @font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-500-italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-600-italic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-700-italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/rubik-800-italic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Jost";
   src: url("/fonts/Jost/jost-400.woff2") format("woff2");
   font-weight: 400;
@@ -62,10 +142,6 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  --font-primary: "Outfit", "sans-serif";
+  --font-primary: "Rubik", "sans-serif";
   --font-secondary: "Jost", "sans-serif";
-  /* Test alternatives:
-     --font-secondary: "Montserrat", "sans-serif";
-     --font-secondary: "Playfair Display", "serif";
-  */
 }
