@@ -2,40 +2,40 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-import ProjectCard from "@components/ProjectCard.astro";
+import PortfolioCard from "@components/PortfolioCard.astro";
 import Layout from '@layouts/Layout.astro';
 import { markdownify } from "@lib/utils/textConverter";
 import { formatDate } from "@utils/formatDate";
 
 export async function getStaticPaths() {
-  const allProjects: CollectionEntry<"project">[] = await getCollection("project");
-  const publishedProjects = allProjects.filter(project => !project.data.draft);
+  const allPortfolioItems: CollectionEntry<"portfolio">[] = await getCollection("portfolio");
+  const publishedPortfolioItems = allPortfolioItems.filter(item => !item.data.draft);
 
-  const sortedProjects = publishedProjects.sort((a, b) =>
+  const sortedPortfolioItems = publishedPortfolioItems.sort((a, b) =>
     new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
   );
 
-  return publishedProjects.map((project, index) => {
-    const previousProject = sortedProjects[index - 1] || null;
-    const nextProject = sortedProjects[index + 1] || null;
-    const relatedProjects = sortedProjects
-      .filter((item) => item.slug !== project.slug)
+  return publishedPortfolioItems.map((portfolioItem, index) => {
+    const previousPortfolioItem = sortedPortfolioItems[index - 1] || null;
+    const nextPortfolioItem = sortedPortfolioItems[index + 1] || null;
+    const relatedPortfolioItems = sortedPortfolioItems
+      .filter((item) => item.slug !== portfolioItem.slug)
       .slice(0, 3);
 
     return {
-      params: { slug: project.slug },
-      props: { project, previousProject, nextProject, relatedProjects },
+      params: { slug: portfolioItem.slug },
+      props: { portfolioItem, previousPortfolioItem, nextPortfolioItem, relatedPortfolioItems },
     };
   });
 }
 
-const { project, previousProject, nextProject, relatedProjects } = Astro.props;
+const { portfolioItem, previousPortfolioItem, nextPortfolioItem, relatedPortfolioItems } = Astro.props;
 
-const { date, title, description, image, color, category, projectInfo } = project.data;
+const { date, title, description, image, color, category, projectInfo } = portfolioItem.data;
 const formattedDate = formatDate(date);
-const projectUrl = Astro.url.href;
+const portfolioUrl = Astro.url.href;
 
-const { Content } = await project.render();
+const { Content } = await portfolioItem.render();
 ---
 
 <Layout title={title} description={description} image={image}>
@@ -99,7 +99,7 @@ const { Content } = await project.render();
         </h2>
       </div>
       <div class="row md:gx-4 gy-4">
-        {relatedProjects.map((item, index) => (
+        {relatedPortfolioItems.map((item, index) => (
           <div
             class="lg:col-4 md:col-6 init-delay"
             data-aos="fade-up-sm"
@@ -110,7 +110,7 @@ const { Content } = await project.render();
               "--sm-delay": `${(index % 2) * 75}ms`
             }}
           >
-            <ProjectCard slug={item.slug} data={item.data} twoColumns={false} />
+            <PortfolioCard slug={item.slug} data={item.data} twoColumns={false} />
           </div>
         ))}
       </div>

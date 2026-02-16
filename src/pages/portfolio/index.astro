@@ -5,16 +5,16 @@ import Layout from '@layouts/Layout.astro';
 
 import PageHeader from "@components/PageHeader.astro";
 import Pagination from "@components/Pagination.astro";
-import ProjectCard from "@components/ProjectCard.astro";
+import PortfolioCard from "@components/PortfolioCard.astro";
 
 import { settings } from "@config/site.config.json";
-const projectpage = await getPage('pages', 'project');
-if (!projectpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
-const { title, subtitle } : any = projectpage?.data;
+const portfolioPage = await getPage('pages', 'portfolio');
+if (!portfolioPage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
+const { title, subtitle } : any = portfolioPage?.data;
 
-const projects = await getPageCollection("project");
-const totalPages = Math.ceil(projects.length / settings.pagination_limit);
-const currentProjects = projects.slice(0, settings.pagination_limit);
+const portfolioItems = await getPageCollection("portfolio");
+const totalPages = Math.ceil(portfolioItems.length / settings.pagination_limit);
+const currentPortfolioItems = portfolioItems.slice(0, settings.pagination_limit);
 
 ---
 
@@ -24,7 +24,7 @@ const currentProjects = projects.slice(0, settings.pagination_limit);
   <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
     <div class="container">
       <div class="row md:gx-4 gy-4">
-        {currentProjects.map((project, index) => (
+        {currentPortfolioItems.map((portfolioItem, index) => (
           <div
             class="sm:col-6 init-delay"
             data-aos="fade-up-sm"
@@ -35,12 +35,12 @@ const currentProjects = projects.slice(0, settings.pagination_limit);
               "--sm-delay": `${(index % 2) * 75}ms`
             }}
           >
-            <ProjectCard slug={project.slug} data={project.data} twoColumns={true} />
+            <PortfolioCard slug={portfolioItem.slug} data={portfolioItem.data} twoColumns={true} />
           </div>
         ))}
 
         <div class="col-12 mt-12">
-          <Pagination section="project" currentPage={1} totalPages={totalPages} />
+          <Pagination section="portfolio" currentPage={1} totalPages={totalPages} />
         </div>
       </div>
     </div>

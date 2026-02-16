@@ -5,15 +5,15 @@ import Layout from '@layouts/Layout.astro';
 
 import Banner from "@components/Banner";
 import BlogCard from "@components/BlogCard.astro";
-import ProjectCard from "@components/ProjectCard.astro";
+import PortfolioCard from "@components/PortfolioCard.astro";
 import WorkProcess from "@components/WorkProcess.astro";
 
 const homepage = await getPage('pages', '-index');
 const { banner, featuredBy, workProcess } : any = homepage?.data;
 if (!homepage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
 
-const projectpage = await getPage('pages', 'project');
-const projects = await getPageCollection("project", 5);
+const portfolioPage = await getPage('pages', 'portfolio');
+const portfolioItems = await getPageCollection("portfolio", 5);
 
 const blogpage = await getPage('pages', 'blog');
 const blogs = await getPageCollection("blog", 3);
@@ -85,18 +85,18 @@ const featuredBrandLinks = [
 			<div class="row mb-16 items-end">
 				<div class="sm:col-8 order-2 sm:order-1">
 					<h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center sm:text-left">
-						{projectpage?.data.title}
+						{portfolioPage?.data.title}
 					</h2>
 				</div>
 				<div class="sm:col-4 order-1 sm:order-2 block mb-4 sm:mb-0 text-center sm:text-right">
 					<span class="font-secondary text-2xl leading-none text-white/75">
-						{projectpage?.data.subtitle}
+						{portfolioPage?.data.subtitle}
 					</span>
 				</div>
 			</div>
 
 			<div class="row md:gx-4 gy-4">
-				{projects?.map((project, i) => (
+				{portfolioItems?.map((portfolioItem, i) => (
 					<div
 						class={`${i % 5 >= 3 ? "sm:col-6" : "lg:col-4 sm:col-6"} ${i === 4 ? "hidden lg:block" : ""} init-delay`}
 						data-aos="fade-up-sm"
@@ -107,10 +107,10 @@ const featuredBrandLinks = [
 							"--sm-delay": `${(i % 2) * 75}ms`
 						}}
 					>
-						<ProjectCard
+						<PortfolioCard
 							index={i}
-							slug={project.slug}
-							data={project.data}
+							slug={portfolioItem.slug}
+							data={portfolioItem.data}
 							twoColumns={i % 5 >= 3}
 						/>
 					</div>

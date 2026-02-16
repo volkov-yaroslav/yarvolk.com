@@ -6,15 +6,15 @@ import Layout from '@layouts/Layout.astro';
 
 import PageHeader from "@components/PageHeader.astro";
 import Pagination from "@components/Pagination.astro";
-import ProjectCard from "@components/ProjectCard.astro";
+import PortfolioCard from "@components/PortfolioCard.astro";
 
 import { settings } from "@config/site.config.json";
-const projectpage = await getPage('pages', 'project');
-const { title, subtitle } : any = projectpage?.data;
+const portfolioPage = await getPage('pages', 'portfolio');
+const { title, subtitle } : any = portfolioPage?.data;
 
 export async function getStaticPaths() {
-  const projects = await getPageCollection("project");
-  const totalPages = Math.ceil(projects.length / settings.pagination_limit);
+  const portfolioItems = await getPageCollection("portfolio");
+  const totalPages = Math.ceil(portfolioItems.length / settings.pagination_limit);
   const paths = [];
 
   for (let i = 1; i <= totalPages; i++) {
@@ -28,10 +28,10 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const projects = await getPageCollection("project");
+const portfolioItems = await getPageCollection("portfolio");
 const currentPage = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
-const { currentItems: currentProjects, totalPages } = 
-  getPagination(projects, currentPage, settings.pagination_limit);
+const { currentItems: currentPortfolioItems, totalPages } = 
+  getPagination(portfolioItems, currentPage, settings.pagination_limit);
 
 ---
 
@@ -41,7 +41,7 @@ const { currentItems: currentProjects, totalPages } =
   <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
     <div class="container">
       <div class="row md:gx-4 gy-4">
-        {currentProjects.map((project, index) => (
+        {currentPortfolioItems.map((portfolioItem, index) => (
           <div
             class="sm:col-6 init-delay"
             data-aos="fade-up-sm"
@@ -52,12 +52,12 @@ const { currentItems: currentProjects, totalPages } =
               "--sm-delay": `${(index % 2) * 75}ms`
             }}
           >
-            <ProjectCard slug={project.slug} data={project.data} twoColumns={true} />
+            <PortfolioCard slug={portfolioItem.slug} data={portfolioItem.data} twoColumns={true} />
           </div>
         ))}
 
         <div class="col-12 mt-12">
-          <Pagination section="project" currentPage={currentPage} totalPages={totalPages} />
+          <Pagination section="portfolio" currentPage={currentPage} totalPages={totalPages} />
         </div>
       </div>
     </div>

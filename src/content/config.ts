@@ -13,7 +13,7 @@ const blogCollection = defineCollection({
   }),
 });
 
-const projectCollection = defineCollection({
+const portfolioCollection = defineCollection({
   type: 'content',
   schema: z.object({
     draft: z.boolean().optional(),
@@ -39,6 +39,6 @@ const pagesCollection = defineCollection({
 
 export const collections = {
   blog: blogCollection,
-  project: projectCollection,
+  portfolio: portfolioCollection,
   pages: pagesCollection
 }
