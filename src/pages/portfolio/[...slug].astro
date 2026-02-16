@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 
 const { portfolioItem, previousPortfolioItem, nextPortfolioItem, relatedPortfolioItems } = Astro.props;
 
-const { date, title, description, image, color, category, projectInfo } = portfolioItem.data;
+const { date, title, description, image, category, projectInfo } = portfolioItem.data;
 const formattedDate = formatDate(date);
 const portfolioUrl = Astro.url.href;
 

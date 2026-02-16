@@ -21,7 +21,6 @@ const portfolioCollection = defineCollection({
     description: z.string(),
     image: z.string().optional(),
     date: z.string(),
-    color: z.string(),
     category: z.string(),
     projectInfo: z.array(
       z.object({
