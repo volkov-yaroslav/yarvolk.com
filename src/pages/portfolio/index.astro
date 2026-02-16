@@ -4,29 +4,56 @@ import { getPage, getPageCollection } from "@lib/contentParser.astro";
 import Layout from '@layouts/Layout.astro';
 
 import PageHeader from "@components/PageHeader.astro";
-import Pagination from "@components/Pagination.astro";
 import PortfolioCard from "@components/PortfolioCard.astro";
 
-import { settings } from "@config/site.config.json";
 const portfolioPage = await getPage('pages', 'portfolio');
 if (!portfolioPage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
 const { title, subtitle } : any = portfolioPage?.data;
 
 const portfolioItems = await getPageCollection("portfolio");
-const totalPages = Math.ceil(portfolioItems.length / settings.pagination_limit);
-const currentPortfolioItems = portfolioItems.slice(0, settings.pagination_limit);
+const categories = Array.from(
+  new Set(
+    portfolioItems
+      .map((item) => item.data.category?.trim())
+      .filter(Boolean)
+  )
+);
 
 ---
 
 <Layout title={title} description={title}>
   <PageHeader title={title} subtitle={subtitle} />
 
-  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+  <section class="pt-10 pb-20 md:pt-14 md:pb-28 bg-white text-dark rounded-b-2xl">
     <div class="container">
+      <div class="row mb-10">
+        <div class="col-12">
+          <div id="portfolio-filters" class="flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              data-filter="all"
+              class="portfolio-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all bg-black text-white"
+            >
+              All
+            </button>
+            {categories.map((category) => (
+              <button
+                type="button"
+                data-filter={category.toLowerCase()}
+                class="portfolio-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all hover:bg-black hover:text-white"
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div class="row md:gx-4 gy-4">
-        {currentPortfolioItems.map((portfolioItem, index) => (
+        {portfolioItems.map((portfolioItem, index) => (
           <div
-            class="sm:col-6 init-delay"
+            class="sm:col-6 init-delay portfolio-filter-item"
+            data-category={portfolioItem.data.category?.toLowerCase()}
             data-aos="fade-up-sm"
             data-aos-duration="500"
             style={{
@@ -38,11 +65,133 @@ const currentPortfolioItems = portfolioItems.slice(0, settings.pagination_limit)
             <PortfolioCard slug={portfolioItem.slug} data={portfolioItem.data} twoColumns={true} />
           </div>
         ))}
-
-        <div class="col-12 mt-12">
-          <Pagination section="portfolio" currentPage={1} totalPages={totalPages} />
-        </div>
       </div>
+
+      <div class="mt-12 text-center">
+        <button
+          id="portfolio-load-more"
+          type="button"
+          class="button button-dark cursor-pointer"
+        >
+          <span>Load more</span>
+        </button>
+      </div>
+      <div id="portfolio-load-more-sentinel" class="h-1 w-full" aria-hidden="true"></div>
+      <p id="portfolio-empty-state" class="hidden text-black/45 text-center mt-8">
+        No items in this category yet.
+      </p>
     </div>
   </section>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const filterButtons = Array.from(document.querySelectorAll(".portfolio-filter-btn"));
+      const items = Array.from(document.querySelectorAll(".portfolio-filter-item"));
+      const loadMoreBtn = document.querySelector("#portfolio-load-more");
+      const loadMoreSentinel = document.querySelector("#portfolio-load-more-sentinel");
+      const emptyState = document.querySelector("#portfolio-empty-state");
+      if (!filterButtons.length || !items.length) return;
+      if (!loadMoreBtn || !loadMoreSentinel || !emptyState) return;
+
+      const PAGE_SIZE = 12;
+      let activeFilter = "all";
+      let visibleCount = PAGE_SIZE;
+
+      const setActiveButton = (filterValue) => {
+        filterButtons.forEach((btn) => {
+          const isActive = btn.dataset.filter === filterValue;
+          btn.classList.toggle("bg-black", isActive);
+          btn.classList.toggle("text-white", isActive);
+          btn.classList.toggle("hover:bg-black", !isActive);
+          btn.classList.toggle("hover:text-white", !isActive);
+        });
+      };
+
+      const getFilteredItems = () => {
+        return items.filter((item) => {
+          const itemCategory = item.dataset.category || "";
+          return activeFilter === "all" || itemCategory === activeFilter;
+        });
+      };
+
+      const renderVisibleItems = () => {
+        const filteredItems = getFilteredItems();
+
+        items.forEach((item) => {
+          item.classList.add("hidden");
+        });
+
+        filteredItems.forEach((item, index) => {
+          const shouldShow = index < visibleCount;
+          item.classList.toggle("hidden", !shouldShow);
+          if (shouldShow) {
+            item.classList.add("aos-animate");
+            item.style.opacity = "1";
+            item.style.transform = "translate3d(0, 0, 0)";
+            if (!item.dataset.filterAnimated) {
+              item.dataset.filterAnimated = "true";
+              item.animate(
+                [
+                  { opacity: 0, transform: "translate3d(0, 8px, 0)" },
+                  { opacity: 1, transform: "translate3d(0, 0, 0)" }
+                ],
+                { duration: 220, easing: "ease-out" }
+              );
+            }
+          }
+        });
+
+        const hasMore = filteredItems.length > visibleCount;
+        loadMoreBtn.classList.toggle("hidden", !hasMore);
+        emptyState.classList.toggle("hidden", filteredItems.length > 0);
+      };
+
+      const applyFilter = (filterValue) => {
+        activeFilter = filterValue;
+        visibleCount = PAGE_SIZE;
+        renderVisibleItems();
+        setActiveButton(filterValue);
+
+        const url = new URL(window.location.href);
+        if (filterValue === "all") {
+          url.searchParams.delete("category");
+        } else {
+          url.searchParams.set("category", filterValue);
+        }
+        window.history.replaceState({}, "", url);
+      };
+
+      loadMoreBtn.addEventListener("click", () => {
+        visibleCount += PAGE_SIZE;
+        renderVisibleItems();
+      });
+
+      // Auto-trigger load more on scroll, with the button as reliable fallback.
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !loadMoreBtn.classList.contains("hidden")) {
+            loadMoreBtn.click();
+          }
+        });
+      }, { rootMargin: "200px 0px" });
+      observer.observe(loadMoreSentinel);
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          items.forEach((item) => {
+            item.dataset.filterAnimated = "";
+          });
+          applyFilter(btn.dataset.filter || "all");
+        });
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const requestedFilter = (params.get("category") || "").toLowerCase();
+      const validFilter = filterButtons.some((btn) => btn.dataset.filter === requestedFilter)
+        ? requestedFilter
+        : "all";
+
+      applyFilter(validFilter);
+    });
+  </script>
 </Layout>
