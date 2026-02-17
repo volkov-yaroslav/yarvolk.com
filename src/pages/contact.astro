@@ -8,7 +8,7 @@ import PageHeader from "@components/PageHeader.astro";
 const contactpage = await getPage('pages', 'contact');
 if (!contactpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
 const { title, subtitle, contactForm, faq } : any = contactpage?.data;
-const { email, mailSubject, successMessage, errorMessage } = contactForm;
+const { formEndpoint, mailSubject, successMessage, errorMessage } = contactForm;
 const whatsappNumber = "380932404066";
 
 ---
@@ -24,18 +24,12 @@ const whatsappNumber = "380932404066";
             data-aos="fade-up-sm"
           >
             <h2 class="text-3xl font-medium mb-10 -mt-[6px]">{contactForm.title}</h2>
-            <form id="contact-form" class="pr-0 lg:pr-8" method="POST" data-send-to={email} data-whatsapp-number={whatsappNumber}>
+            <form id="contact-form" class="pr-0 lg:pr-8" method="POST" data-form-endpoint={formEndpoint} data-whatsapp-number={whatsappNumber}>
               <input
                 class="hidden"
                 type="hidden"
                 name="_subject"
                 value={mailSubject}
-              />
-              <input
-                class="hidden"
-                type="hidden"
-                name="_captcha"
-                value="true"
               />
               <div class="mb-6">
                 <label for="full_name" class="block mb-2 text-black">Name</label>
@@ -168,7 +162,7 @@ const whatsappNumber = "380932404066";
       const nameField = document.querySelector("#full_name");
       const emailField = document.querySelector("#email");
 
-      const email = form.getAttribute("data-send-to");
+      const formEndpoint = form.getAttribute("data-form-endpoint");
       const whatsappNumber = form.getAttribute("data-whatsapp-number");
 
       const updateWhatsAppLink = () => {
@@ -198,18 +192,22 @@ const whatsappNumber = "380932404066";
         sendBtn.innerHTML = "<span>Sending...</span>";
 
         const formData = {
-          _subject: form.elements._subject.value,
-          _captcha: form.elements._captcha.value,
           name: form.elements.full_name.value,
           email: form.elements.email.value,
           _replyto: form.elements.email.value,
+          _subject: form.elements._subject.value,
           message: form.elements.message.value,
         };
 
         try {
-          const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
+          const response = await fetch(formEndpoint, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            mode: "cors",
+            referrerPolicy: "origin-when-cross-origin",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
             body: JSON.stringify(formData),
           });
 
@@ -221,11 +219,11 @@ const whatsappNumber = "380932404066";
             result = { success: false, message: "Unexpected response from form service." };
           }
 
-          const isFormSubmitSuccess =
+          const isFormSuccess =
             response.ok &&
-            (result?.success === true || result?.success === "true");
+            !result?.errors;
 
-          if (isFormSubmitSuccess) {
+          if (isFormSuccess) {
             form.reset();
             successEl.style.display = "block";
             errorEl.style.display = "none";
