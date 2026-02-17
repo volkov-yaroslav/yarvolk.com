@@ -213,17 +213,31 @@ const whatsappNumber = "380932404066";
             body: JSON.stringify(formData),
           });
 
-          const result = await response.json();
-          if (response.ok) {
+          const rawText = await response.text();
+          let result = null;
+          try {
+            result = JSON.parse(rawText);
+          } catch {
+            result = { success: false, message: "Unexpected response from form service." };
+          }
+
+          const isFormSubmitSuccess =
+            response.ok &&
+            (result?.success === true || result?.success === "true");
+
+          if (isFormSubmitSuccess) {
             form.reset();
             successEl.style.display = "block";
             errorEl.style.display = "none";
             successEl.scrollIntoView({ behavior: "smooth", block: "center" });
           } else {
-            throw new Error("Form submission failed");
+            throw new Error(result?.message || "Form submission failed");
           }
         } catch (err) {
           successEl.style.display = "none";
+          if (errorEl) {
+            errorEl.textContent = err?.message || "Something went wrong. Please try again.";
+          }
           errorEl.style.display = "block";
         } finally {
           sendBtn.disabled = false;
