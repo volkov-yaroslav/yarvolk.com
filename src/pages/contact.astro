@@ -72,13 +72,16 @@ const whatsappNumber = "380932404066";
 
               <div
                 id="form-success"
-                class="mb-6 text-green-700"
+                class="mb-6 mt-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-800 font-medium"
+                role="status"
+                aria-live="polite"
                 style="display:none"
                 set:html={markdownify(successMessage, true)}
               ></div>
               <div
                 id="form-error"
-                class="mb-6 text-red-600"
+                class="mb-6 mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 font-medium"
+                role="alert"
                 style="display:none"
                 set:html={markdownify(errorMessage, true)}
               ></div>
@@ -215,6 +218,7 @@ const whatsappNumber = "380932404066";
             form.reset();
             successEl.style.display = "block";
             errorEl.style.display = "none";
+            successEl.scrollIntoView({ behavior: "smooth", block: "center" });
           } else {
             throw new Error("Form submission failed");
           }
