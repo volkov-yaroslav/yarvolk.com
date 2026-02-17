@@ -31,6 +31,12 @@ const whatsappNumber = "380932404066";
                 name="_subject"
                 value={mailSubject}
               />
+              <input
+                class="hidden"
+                type="hidden"
+                name="_captcha"
+                value="true"
+              />
               <div class="mb-6">
                 <label for="full_name" class="block mb-2 text-black">Name</label>
                 <input
@@ -190,8 +196,10 @@ const whatsappNumber = "380932404066";
 
         const formData = {
           _subject: form.elements._subject.value,
+          _captcha: form.elements._captcha.value,
           name: form.elements.full_name.value,
           email: form.elements.email.value,
+          _replyto: form.elements.email.value,
           message: form.elements.message.value,
         };
 
