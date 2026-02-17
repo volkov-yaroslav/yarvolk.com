@@ -234,7 +234,8 @@ const whatsappNumber = "380932404066";
         } catch (err) {
           successEl.style.display = "none";
           if (errorEl) {
-            errorEl.textContent = err?.message || "Something went wrong. Please try again.";
+            // Keep UI errors generic; never expose provider/debug strings to end users.
+            errorEl.textContent = "Something went wrong. Please try again.";
           }
           errorEl.style.display = "block";
         } finally {
