@@ -42,10 +42,7 @@ const AboutIntro = ({ about }) => {
                 rel="noopener noreferrer"
                 aria-label="Whatsapp"
               >
-                <span className="inline-flex items-center gap-2 leading-none">
-                  <img src="/images/whatsapp.svg" alt="" width="18" height="18" className="block" aria-hidden="true" />
-                  Whatsapp
-                </span>
+                <span>Whatsapp</span>
               </a>
             </div>
           </div>
