@@ -10,7 +10,7 @@ const AboutIntro = ({ about }) => {
     <div className="container">
       <div className="row justify-center items-center">
         <div
-          className="lg:col-4 md:col-6 col-10 mb-16 lg:mb-0"
+          className="lg:col-4 md:col-6 col-10 mb-8 md:mb-10 lg:mb-0"
           data-aos="fade-up-sm"
         >
           <div className="relative mx-8 z-10">
@@ -26,7 +26,7 @@ const AboutIntro = ({ about }) => {
 
         <div className="lg:col-5 md:col-10 text-center lg:text-left">
           <div className="pl-0 lg:pl-8">
-            <div className="mb-10 mt-10 lg:mt-0">
+            <div className="mb-10 mt-2 md:mt-4 lg:mt-0">
               <p className="text-2xl leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</p>
               <div className="text-black/75 text-balance" data-aos="fade-up-sm" data-aos-delay="100" dangerouslySetInnerHTML={{ __html: markdownify(about.description) }}></div>
             </div>
@@ -36,15 +36,15 @@ const AboutIntro = ({ about }) => {
                 <span>Contact</span>
               </a>
               <a
-                className="button button-whatsapp h-[47px]"
+                className="button button-sm button-whatsapp"
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Chat on WhatsApp"
+                aria-label="Whatsapp"
               >
-                <span className="inline-flex items-center h-full gap-2 leading-none">
+                <span className="inline-flex items-center gap-2 leading-none">
                   <img src="/images/whatsapp.svg" alt="" width="18" height="18" className="block" aria-hidden="true" />
-                  Chat on WhatsApp
+                  Whatsapp
                 </span>
               </a>
             </div>
