@@ -3,6 +3,8 @@ import React from 'react';
 
 const AboutIntro = ({ about }) => {
   const image = (about.images && about.images[0]) || "/images/about/yarvolk_about.webp";
+  const whatsappLink =
+    "https://wa.me/380932404066?text=Hello%2C%20Yaroslav.%20How%20are%20you%20doing%3F";
 
   return (
     <div className="container">
@@ -23,15 +25,27 @@ const AboutIntro = ({ about }) => {
         </div>
 
         <div className="lg:col-5 md:col-10 text-center lg:text-left">
-          <div className="pl-0 lg:pl-8 flex flex-col">
-            <div className="order-2 lg:order-1 mb-0 lg:mb-10 mt-10 lg:mt-0">
+          <div className="pl-0 lg:pl-8">
+            <div className="mb-10 mt-10 lg:mt-0">
               <p className="text-2xl leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</p>
               <div className="text-black/75 text-balance" data-aos="fade-up-sm" data-aos-delay="100" dangerouslySetInnerHTML={{ __html: markdownify(about.description) }}></div>
             </div>
 
-            <div className="order-1 lg:order-2" data-aos="fade-up-sm" data-aos-delay="150">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3" data-aos="fade-up-sm" data-aos-delay="150">
               <a className="button button-sm button-dark" href="/contact">
                 <span>Contact</span>
+              </a>
+              <a
+                className="button button-whatsapp h-[47px]"
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat on WhatsApp"
+              >
+                <span className="inline-flex items-center h-full gap-2 leading-none">
+                  <img src="/images/whatsapp.svg" alt="" width="18" height="18" className="block" aria-hidden="true" />
+                  Chat on WhatsApp
+                </span>
               </a>
             </div>
           </div>

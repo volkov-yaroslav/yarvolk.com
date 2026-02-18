@@ -169,7 +169,7 @@ const Header = () => {
               className={`py-3 px-[22px] leading-none relative z-20 block text-white hover:text-white/50 lg:hidden ${!mobileNavClose ? "opacity-100" : "opacity-0"}`}
               onClick={() => setMobileNavClose(true)}
             >
-              ☕ Buy me a coffee
+              Buy me a coffee ☕
             </a>
           </nav>
 
