@@ -53,7 +53,7 @@ const { Content } = await portfolioItem.render();
                   {item.title}
                 </p>
                 <div
-                  class="text-left break-words [overflow-wrap:anywhere] [&_a]:underline [&_a]:hover:no-underline [&_a]:break-all [&_li]:mt-1"
+                  class="text-left break-words [overflow-wrap:anywhere] [&_a]:underline [&_a]:hover:no-underline [&_a]:break-all [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:mt-1"
                   set:html={markdownify(item.data, true)}
                 ></div>
               </li>
