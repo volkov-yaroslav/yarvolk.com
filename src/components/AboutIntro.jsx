@@ -32,17 +32,20 @@ const AboutIntro = ({ about }) => {
             </div>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3" data-aos="fade-up-sm" data-aos-delay="150">
-              <a className="button button-sm button-dark" href="/contact">
-                <span>Contact</span>
+              <a className="button button-dark h-[47px]" href="/contact">
+                <span className="inline-flex items-center h-full leading-none">Contact</span>
               </a>
               <a
-                className="button button-sm button-whatsapp"
+                className="button button-whatsapp h-[47px]"
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Whatsapp"
               >
-                <span>Whatsapp</span>
+                <span className="inline-flex items-center h-full gap-2 leading-none">
+                  <img src="/images/whatsapp.svg" alt="" width="18" height="18" className="block" aria-hidden="true" />
+                  Whatsapp
+                </span>
               </a>
             </div>
           </div>
