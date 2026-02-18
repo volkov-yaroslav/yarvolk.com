@@ -72,14 +72,14 @@ const { Content } = await post.render();
         )}
 
         <div class="xl:col-9 lg:col-10 mx-auto" data-aos="fade-in">
-          <div class={`sm:flex flex-wrap sm:flex-nowrap w-full ${image !== null ? "pt-20" : ""}`}>
-            <div class="sm:order-2 sm:pl-12 xl:pl-24">
+          <div class={`w-full lg:flex lg:flex-nowrap ${image !== null ? "pt-20" : ""}`}>
+            <div class="lg:order-2 lg:pl-12 xl:pl-24">
               <article class="content content-light">
                 <Content />
               </article>
             </div>
 
-            <div class="sm:order-1 w-full sm:w-auto">
+            <div class="hidden lg:block lg:order-1 w-auto">
               <div class="sticky top-8">
                 <SharePost title={title} pageUrl={postUrl} />
               </div>

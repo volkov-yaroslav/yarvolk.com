@@ -5,7 +5,6 @@ import { getCollection } from "astro:content";
 import PortfolioCard from "@components/PortfolioCard.astro";
 import Layout from '@layouts/Layout.astro';
 import { markdownify } from "@lib/utils/textConverter";
-import { formatDate } from "@utils/formatDate";
 
 export async function getStaticPaths() {
   const allPortfolioItems: CollectionEntry<"portfolio">[] = await getCollection("portfolio");
@@ -31,9 +30,7 @@ export async function getStaticPaths() {
 
 const { portfolioItem, previousPortfolioItem, nextPortfolioItem, relatedPortfolioItems } = Astro.props;
 
-const { date, title, description, image, category, projectInfo } = portfolioItem.data;
-const formattedDate = formatDate(date);
-const portfolioUrl = Astro.url.href;
+const { title, description, image, category, projectInfo } = portfolioItem.data;
 
 const { Content } = await portfolioItem.render();
 ---
@@ -41,14 +38,30 @@ const { Content } = await portfolioItem.render();
 <Layout title={title} description={description} image={image}>
   <section class="pt-16 md:pt-24 pb-20 md:pb-28">
     <div class="container">
-      <div class="row items-start banner md:gx-8 lg:gx-12 gy-10 md:gy-0">
-        <div class="md:col-6" data-aos="fade-up-sm">
-          <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black mb-6">{category}</span>
-          <h1 class="text-4xl md:text-5xl mb-4 !leading-tight">{title}</h1>
-          <p>{description}</p>
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center banner mb-12 md:mb-16" data-aos="fade-up-sm">
+          <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black mb-8">{category}</span>
+          <h1 class="text-4xl md:text-5xl mb-4 !leading-tight text-balance">{title}</h1>
+          <p class="max-w-xl mx-auto text-balance">{description}</p>
         </div>
 
-        <div class="md:col-6" data-aos="fade-up-sm" data-aos-delay="100">
+        <div class="lg:col-10 mb-10 md:mb-12" data-aos="fade-up-sm" data-aos-delay="80">
+          <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 text-white">
+            {projectInfo.map((item: any) => (
+              <li class="min-w-0 h-full rounded-lg bg-light/10 hover:bg-light/20 transition-colors duration-300 p-5 sm:p-6">
+                <p class="text-white/50 text-xs uppercase tracking-wider mb-2 text-left">
+                  {item.title}
+                </p>
+                <div
+                  class="text-left break-words [overflow-wrap:anywhere] [&_a]:underline [&_a]:hover:no-underline [&_a]:break-all [&_li]:mt-1"
+                  set:html={markdownify(item.data, true)}
+                ></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
           <img
             class="aspect-[5/3] object-cover object-center rounded-lg bg-light/20 w-full"
             src={image}
@@ -57,25 +70,11 @@ const { Content } = await portfolioItem.render();
             height={`960`}
           />
         </div>
-      </div>
 
-      <div class="row gy-4 mt-12" data-aos="fade-up-sm" data-aos-delay="120">
-        {projectInfo.map((item: any) => (
-          <div class="sm:col-6 lg:col-3">
-            <div class="h-full rounded-lg border border-white/10 bg-white/5 p-6">
-              <p class="text-white/50 text-xs uppercase tracking-wider mb-2">
-                {item.title}
-              </p>
-              <div
-                class="[&_a]:underline [&_a]:hover:no-underline [&_li]:mt-1"
-                set:html={markdownify(item.data, true)}
-              ></div>
-            </div>
-          </div>
-        ))}
+        <div class="lg:col-8">
+          <hr class="opacity-5 mt-16 md:mt-20 mb-16 md:mb-24" />
+        </div>
       </div>
-
-      <hr class="opacity-5 mt-16 md:mt-20 mb-16 md:mb-24" />
 
       <div class="row justify-center" data-aos="fade-in">
         <div class="lg:col-8">
