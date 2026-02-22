@@ -5,7 +5,7 @@ const coverImage = image || '/images/placeholder.webp';
 ---
 
 <div
-  class="rounded-lg overflow-hidden relative group h-full"
+  class="rounded-lg overflow-hidden relative group h-full cursor-pointer"
 >
 
   <div class="relative overflow-hidden aspect-[5/3]">
@@ -14,13 +14,13 @@ const coverImage = image || '/images/placeholder.webp';
       alt={title}
       width={1600}
       height={900}
-      class="duration-700 group-hover:scale-110 object-cover w-full h-full bg-light/20"
+      class="duration-700 group-hover:scale-[1.02] group-hover:grayscale group-hover:brightness-50 object-cover w-full h-full bg-light/20"
       loading="lazy"
     />
   </div>
 
-  <div class="absolute inset-0 z-20 flex justify-center flex-col p-8">
-    <span class="absolute h-full w-full duration-300 left-0 bottom-0 opacity-0 bg-overlay group-hover:opacity-100 -z-10 pointer-events-none"></span>
+  <div class="absolute inset-0 z-20 flex justify-center flex-col p-8 select-none cursor-pointer">
+    <span class="absolute h-full w-full duration-300 left-0 bottom-0 opacity-0 bg-black/55 group-hover:opacity-100 -z-10 pointer-events-none"></span>
 
     <div class="flex items-center justify-between opacity-0 -mt-1 group-hover:opacity-100 group-hover:mt-0 duration-300 group-hover:delay-300">
       <span class="uppercase text-white bg-white/10 text-sm font-light tracking-wider px-3 py-1 rounded-full backdrop-blur">
