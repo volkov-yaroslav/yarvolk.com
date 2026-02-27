@@ -7,6 +7,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+    env:
+      SITE_SRC_DIR: /home/yarvolk-com/site-src
+      SITE_DEST_DIR: /home/yarvolk-com/htdocs/yarvolk.com
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,16 +26,27 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Preflight checks
+        run: |
+          set -euxo pipefail
+          command -v node
+          command -v npm
+          command -v rsync
+          command -v git
+          test -d dist
+          test -d "$SITE_DEST_DIR"
+
       - name: Update server source backup
         run: |
-          if [ -d /home/yarvolk-com/site-src/.git ]; then
-            git -C /home/yarvolk-com/site-src fetch --all --prune
-            git -C /home/yarvolk-com/site-src reset --hard origin/main
-          else
-            git clone https://github.com/volkov-yaroslav/yarvolk.com.git /home/yarvolk-com/site-src
-          fi
+          set -euxo pipefail
+          mkdir -p "$SITE_SRC_DIR"
+          rsync -az --delete \
+            --exclude ".git/" \
+            --exclude "node_modules/" \
+            "$GITHUB_WORKSPACE/" "$SITE_SRC_DIR/"
 
       - name: Deploy
         run: |
+          set -euxo pipefail
           rm -f dist/.gitignore
-          rsync -az --delete dist/ /home/yarvolk-com/htdocs/yarvolk.com/
+          rsync -az --delete dist/ "$SITE_DEST_DIR/"
