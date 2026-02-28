@@ -1,0 +1,46 @@
+---
+draft: false
+date: "2025-07-03"
+title: "Motor City Pets"
+description: "WordPress website built for pets rescue and adoption services in Detroit, Michigan."
+image: /images/portfolio/motor-city-pets.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "WebmastersDesktop"
+  - title: "Timeline"
+    data: "2 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Blocksy, Greenshift and ACF
+      - User membership and login system
+      - Pet adoption listings and management
+  - title: "Website"
+    data: "https://www.motorcitypets.com/"
+---
+
+## Project overview
+
+Motor City Pets is a nonprofit pet rescue and adoption website I built in WordPress for an organization in Detroit, Michigan, as part of the WebmastersDesktop team. The goal was to make pet adoption easier while also giving community members a structured way to submit and manage adoption listings.
+
+The UI direction started from a Blocksy template and was implemented with Greenshift blocks, while the platform logic was tailored for real adoption workflows instead of a standard brochure site.
+
+![Motor City Pets single pet listing.](/images/portfolio/motor-city-pets-1.webp)
+
+## Challenge
+
+The main challenge was building a listing system that felt simple on the frontend but handled more advanced data and permissions behind the scenes. Pet entries needed structured attributes like pet type, name, age, breed, and status, and only registered users should be able to submit listings.
+
+At the same time, users had to be able to maintain their own listings after submission, while admins still kept moderation and status control for adoption flow.
+
+## Solution
+
+I used **ACF** to build a custom **Pets** post type and custom fields for pet profile data. For account and submission logic, I implemented the **Ultimate Membership** plugin, which handles registration, login, and member-only pet submissions.
+
+Once a signed-in user submits a pet profile with required details and photos, the listing appears automatically in the pets archive. Users can edit, update, or remove their own listings, while both submitters and site admins can update pet status from **Available** to **Adopted**.
+
+That status powers frontend behavior: adopted listings display a clear adopted label, and the **Adopt this pet** button is hidden. On available listings, clicking that button opens an inquiry popup form that emails the current owner or contact person, allowing direct adoption communication.
+
+![Motor City Pets submission form.](/images/portfolio/motor-city-pets-2.webp)
