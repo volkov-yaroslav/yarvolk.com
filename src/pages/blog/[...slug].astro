@@ -28,13 +28,14 @@ export async function getStaticPaths() {
 const { post, previousPost, nextPost } = Astro.props;
 
 const { title, description, category, image, date, keywords } = post.data;
+const coverImage = image || "/images/placeholder.webp";
 const formattedDate = formatDate(date);
 const postUrl = Astro.url.href;
 
 const { Content } = await post.render();
 ---
 
-<Layout title={title} description={description} image={image} keywords={keywords}>
+<Layout title={title} description={description} image={coverImage} keywords={keywords}>
   <section class="pt-16 md:pt-24 pb-20 md:pb-28">
     <div class="container">
       <div class="row justify-center">
@@ -50,29 +51,20 @@ const { Content } = await post.render();
           <p class="max-w-xl mx-auto text-balance">{description}</p>
         </div>
 
-        {image && (
-          <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
-            <div class="h-[460px] bg-black/20 overflow-hidden relative z-10 rounded-lg">
-              <img
-                class="w-auto h-[460px] object-cover object-center mx-auto z-10"
-                src={image}
-                alt={title}
-                width={`1020`}
-                height={`460`}
-              />
-              <img
-                class="w-full h-[500px] object-cover absolute inset-0 -z-10 blur-[3px]- scale-110-"
-                src={image}
-                alt={title}
-                width={`100`}
-                height={`100`}
-              />
-            </div>
+        <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
+          <div class="h-[460px] bg-black/20 overflow-hidden rounded-lg">
+            <img
+              class="w-full h-[460px] object-cover object-center"
+              src={coverImage}
+              alt={title}
+              width={`1020`}
+              height={`460`}
+            />
           </div>
-        )}
+        </div>
 
         <div class="xl:col-9 lg:col-10 mx-auto" data-aos="fade-in">
-          <div class={`w-full lg:flex lg:flex-nowrap ${image !== null ? "pt-20" : ""}`}>
+          <div class="w-full lg:flex lg:flex-nowrap pt-20">
             <div class="lg:order-2 lg:pl-12 xl:pl-24">
               <article class="content content-light">
                 <Content />
@@ -103,7 +95,7 @@ const { Content } = await post.render();
             <div class="relative group flex items-center z-10">
               <div class="shrink-0 relative overflow-hidden rounded sm:rounded-lg h-[4.5rem] w-[4.5rem] sm:h-28 sm:w-28 self-start pointer-events-none">
                 <img
-                  src={previousPost.data.image}
+                  src={previousPost.data.image || "/images/placeholder.webp"}
                   alt={previousPost.data.title}
                   width={300}
                   height={300}
@@ -157,7 +149,7 @@ const { Content } = await post.render();
               </div>
               <div class="shrink-0 relative overflow-hidden rounded sm:rounded-lg h-[4.5rem] w-[4.5rem] sm:h-28 sm:w-28 self-start pointer-events-none">
                 <img
-                  src={nextPost.data.image}
+                  src={nextPost.data.image || "/images/placeholder.webp"}
                   alt={nextPost.data.title}
                   width={300}
                   height={300}
