@@ -83,7 +83,7 @@ const { Content } = await portfolioItem.render();
 
         <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
           <img
-            class="aspect-[5/3] object-cover object-center rounded-lg bg-light/20 w-full"
+            class="w-full h-auto max-h-[80vh] object-contain object-center rounded-lg bg-light/20"
             src={image}
             alt={title}
             width={`1600`}
@@ -98,7 +98,7 @@ const { Content } = await portfolioItem.render();
 
       <div class="row justify-center" data-aos="fade-in">
         <div class="lg:col-8">
-          <article class="content content-light [&_img]:w-full">
+          <article class="content content-light [&_img]:max-w-full [&_img]:w-auto [&_img]:h-auto">
              <Content />
           </article>
         </div>

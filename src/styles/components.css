@@ -38,6 +38,7 @@ select:-webkit-autofill:focus {
   @apply prose-pre:p-6 prose-pre:rounded-lg;
   @apply prose-strong:font-medium;
   @apply prose-img:rounded-md;
+  @apply prose-img:max-w-full prose-img:h-auto prose-img:w-auto prose-img:object-contain;
   @apply prose-hr:border-light/15;
   @apply marker:text-white/40;
 }
