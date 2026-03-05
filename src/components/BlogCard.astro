@@ -2,11 +2,20 @@
 import { formatDate } from '@utils/formatDate';
 
 const { data, slug } = Astro.props;
-const { title, date, image, category } = data;
+const { title, date, image, category, Pinned } = data;
 const coverImage = image || '/images/placeholder.webp';
+const isPinned = Boolean(Pinned);
 ---
 
 <article class="relative group text-center">
+  {isPinned && (
+    <div class="mb-3 flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55">
+      <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" class="shrink-0">
+        <path d="M15.8 3.8a2 2 0 0 0-2.83 0L11 5.77l-1.97-1.97a2 2 0 1 0-2.83 2.83L8.17 8.6l-4.6 4.6a1 1 0 0 0 .7 1.7h5.02L11 20.73a1 1 0 0 0 1.9 0l1.71-5.83h5.02a1 1 0 0 0 .7-1.7l-4.6-4.6 1.97-1.97a2 2 0 0 0 0-2.83Z" fill="currentColor" />
+      </svg>
+      <span>pinned post</span>
+    </div>
+  )}
   <div class="relative overflow-hidden rounded-lg mb-8 aspect-[4/3]">
     <img
       src={coverImage}

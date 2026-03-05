@@ -1,6 +1,17 @@
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
+const pinnedField = z.preprocess((value) => {
+  if (value === undefined || value === null || value === '') return false;
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    if (['yes', 'true', '1', 'y'].includes(normalized)) return true;
+    if (['no', 'false', '0', 'n'].includes(normalized)) return false;
+  }
+  return value;
+}, z.boolean()).default(false);
+
 const blogCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -10,6 +21,8 @@ const blogCollection = defineCollection({
     image: z.string().optional(),
     date: z.string(),
     category: z.string(),
+    Pinned: pinnedField,
+    pinnedAt: z.string().optional(),
   }),
 });
 
@@ -22,6 +35,8 @@ const portfolioCollection = defineCollection({
     image: z.string().optional(),
     date: z.string(),
     category: z.string(),
+    Pinned: pinnedField,
+    pinnedAt: z.string().optional(),
     projectInfo: z.array(
       z.object({
         title: z.string(),

@@ -5,12 +5,39 @@ export const getPageCollection = async <C extends CollectionKey>(
   collectionName: C,
   limit?: number
 ): Promise<CollectionEntry<C>[]> => {
+  const parsePinned = (value: unknown): boolean => {
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") {
+      return ["yes", "true", "1", "y"].includes(value.trim().toLowerCase());
+    }
+    return false;
+  };
+
+  const getPinTimestamp = (entry: CollectionEntry<CollectionKey>): number => {
+    const rawPinDate = (entry.data as any).pinnedAt;
+    if (typeof rawPinDate === "string" && rawPinDate.trim()) {
+      const parsed = new Date(rawPinDate).valueOf();
+      if (!Number.isNaN(parsed)) return parsed;
+    }
+    return new Date((entry.data as any).date).valueOf();
+  };
+
   const allPages = await getCollection(collectionName);
 
   const publishedPages = allPages
     .filter((entry: CollectionEntry<C>) => entry.data.draft !== true)
-    .sort((a: CollectionEntry<C>, b: CollectionEntry<C>) => 
-      new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+    .sort((a: CollectionEntry<C>, b: CollectionEntry<C>) => {
+      const isPinSortableCollection = collectionName === "blog" || collectionName === "portfolio";
+      if (isPinSortableCollection) {
+        const aPinned = parsePinned((a.data as any).Pinned);
+        const bPinned = parsePinned((b.data as any).Pinned);
+        if (aPinned !== bPinned) return aPinned ? -1 : 1;
+        if (aPinned && bPinned) {
+          return getPinTimestamp(a as CollectionEntry<CollectionKey>) - getPinTimestamp(b as CollectionEntry<CollectionKey>);
+        }
+      }
+      return new Date((b.data as any).date).valueOf() - new Date((a.data as any).date).valueOf();
+    });
 
   return typeof limit === 'number' ? publishedPages.slice(0, limit) : publishedPages;
 };

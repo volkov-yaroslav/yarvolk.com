@@ -1,53 +1,62 @@
 ---
 const { slug, data, twoColumns } = Astro.props;
-const { title, description, image, category } = data;
+const { title, description, image, category, Pinned } = data;
 const coverImage = image || '/images/placeholder.webp';
+const isPinned = Boolean(Pinned);
 ---
 
-<div
-  class="rounded-lg overflow-hidden relative group h-full cursor-pointer"
->
+<article class="h-full">
+  {isPinned && (
+    <div class="mb-3 flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55">
+      <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" class="shrink-0">
+        <path d="M15.8 3.8a2 2 0 0 0-2.83 0L11 5.77l-1.97-1.97a2 2 0 1 0-2.83 2.83L8.17 8.6l-4.6 4.6a1 1 0 0 0 .7 1.7h5.02L11 20.73a1 1 0 0 0 1.9 0l1.71-5.83h5.02a1 1 0 0 0 .7-1.7l-4.6-4.6 1.97-1.97a2 2 0 0 0 0-2.83Z" fill="currentColor" />
+      </svg>
+      <span>pinned project</span>
+    </div>
+  )}
 
-  <div class="relative overflow-hidden aspect-[5/3]">
-    <img
-      src={coverImage}
-      alt={title}
-      width={1600}
-      height={900}
-      class="duration-700 group-hover:scale-[1.02] group-hover:grayscale group-hover:brightness-50 object-cover w-full h-full bg-light/20"
-      loading="lazy"
-    />
-  </div>
-
-  <div class="absolute inset-0 z-20 flex justify-center flex-col p-8 select-none cursor-pointer">
-    <span class="absolute h-full w-full duration-300 left-0 bottom-0 opacity-0 bg-black/55 group-hover:opacity-100 -z-10 pointer-events-none"></span>
-
-    <div class="flex items-center justify-between opacity-0 -mt-1 group-hover:opacity-100 group-hover:mt-0 duration-300 group-hover:delay-300">
-      <span class="uppercase text-white bg-white/10 text-sm font-light tracking-wider px-3 py-1 rounded-full backdrop-blur">
-        {category}
-      </span>
-      <a href={`/portfolio/${slug}`} class="stretched-link">
-        <img
-          class="inline-block rotate-[135deg]"
-          src="/images/arrow-right.svg"
-          alt="arrow"
-          height="22"
-          width="25"
-        />
-      </a>
+  <div class="rounded-lg overflow-hidden relative group h-full cursor-pointer">
+    <div class="relative overflow-hidden aspect-[5/3]">
+      <img
+        src={coverImage}
+        alt={title}
+        width={1600}
+        height={900}
+        class="duration-700 group-hover:scale-[1.02] group-hover:grayscale group-hover:brightness-50 object-cover w-full h-full bg-light/20"
+        loading="lazy"
+      />
     </div>
 
-    <div class="text-center mt-auto">
-      <h3 class="text-4xl font-secondary font-semibold text-white mb-2 relative overflow-hidden">
-        <span class="block translate-y-full group-hover:translate-y-0 duration-300">
-          {title}
+    <div class="absolute inset-0 z-20 flex justify-center flex-col p-8 select-none cursor-pointer">
+      <span class="absolute h-full w-full duration-300 left-0 bottom-0 opacity-0 bg-black/55 group-hover:opacity-100 -z-10 pointer-events-none"></span>
+
+      <div class="flex items-center justify-between opacity-0 -mt-1 group-hover:opacity-100 group-hover:mt-0 duration-300 group-hover:delay-300">
+        <span class="uppercase text-white bg-white/10 text-sm font-light tracking-wider px-3 py-1 rounded-full backdrop-blur">
+          {category}
         </span>
-      </h3>
-      <p class="text-white font-light relative overflow-hidden">
-        <span class="block translate-y-full group-hover:translate-y-0 duration-300 group-hover:delay-150">
-          {description}
-        </span>
-      </p>
+        <a href={`/portfolio/${slug}`} class="stretched-link">
+          <img
+            class="inline-block rotate-[135deg]"
+            src="/images/arrow-right.svg"
+            alt="arrow"
+            height="22"
+            width="25"
+          />
+        </a>
+      </div>
+
+      <div class="text-center mt-auto">
+        <h3 class="text-4xl font-secondary font-semibold text-white mb-2 relative overflow-hidden">
+          <span class="block translate-y-full group-hover:translate-y-0 duration-300">
+            {title}
+          </span>
+        </h3>
+        <p class="text-white font-light relative overflow-hidden">
+          <span class="block translate-y-full group-hover:translate-y-0 duration-300 group-hover:delay-150">
+            {description}
+          </span>
+        </p>
+      </div>
     </div>
   </div>
-</div>
+</article>
