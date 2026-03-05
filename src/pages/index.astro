@@ -13,10 +13,16 @@ const { banner, featuredBy, workProcess } : any = homepage?.data;
 if (!homepage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
 
 const portfolioPage = await getPage('pages', 'portfolio');
-const portfolioItems = await getPageCollection("portfolio", 5);
+const allPortfolioItems = await getPageCollection("portfolio");
+const portfolioItems = allPortfolioItems
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 5);
 
 const blogpage = await getPage('pages', 'blog');
-const blogs = await getPageCollection("blog", 3);
+const allBlogs = await getPageCollection("blog");
+const blogs = allBlogs
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 3);
 
 const featuredBrandLinks = [
 	"https://www.webmastersdesktop.com/",
