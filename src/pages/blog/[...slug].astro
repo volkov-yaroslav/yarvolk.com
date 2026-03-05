@@ -31,6 +31,7 @@ const { title, description, category, image, date, keywords } = post.data;
 const coverImage = image || "/images/placeholder.webp";
 const formattedDate = formatDate(date);
 const postUrl = Astro.url.href;
+const categoryLabel = category ? `${category.charAt(0).toUpperCase()}${category.slice(1)}` : category;
 
 const { Content } = await post.render();
 ---
@@ -42,7 +43,7 @@ const { Content } = await post.render();
         <div class="lg:col-8 text-center banner mb-16" data-aos="fade-up-sm">
           <div class="flex flex-wrap items-center justify-center mb-12 space-x-8">
             <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black">
-              {category}
+              {categoryLabel}
             </span>
             <span class="opacity-75 text-sm">{formattedDate}</span>
           </div>
@@ -106,7 +107,9 @@ const { Content } = await post.render();
                 <span class="absolute right-0 sm:-right-1/4 top-0 leading-[0.65] text-[16vh] md:text-[22vh] -z-10 opacity-[0.015] select-none">PREV</span>
                 <div class="flex flex-wrap items-center mb-4 space-x-5">
                   <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
-                    {previousPost.data.category}
+                    {previousPost.data.category
+                      ? `${previousPost.data.category.charAt(0).toUpperCase()}${previousPost.data.category.slice(1)}`
+                      : previousPost.data.category}
                   </span>
                   <span class="opacity-75 text-sm">
                     {formatDate(previousPost.data.date)}
@@ -135,7 +138,9 @@ const { Content } = await post.render();
                     {formatDate(nextPost.data.date)}
                   </span>
                   <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
-                    {nextPost.data.category}
+                    {nextPost.data.category
+                      ? `${nextPost.data.category.charAt(0).toUpperCase()}${nextPost.data.category.slice(1)}`
+                      : nextPost.data.category}
                   </span>
                 </div>
                 <h3 class="text-lg sm:text-2xl leading-snug text-right">

@@ -5,12 +5,13 @@ const { data, slug } = Astro.props;
 const { title, date, image, category, Pinned } = data;
 const coverImage = image || '/images/placeholder.webp';
 const isPinned = Boolean(Pinned);
+const categoryLabel = category ? `${category.charAt(0).toUpperCase()}${category.slice(1)}` : category;
 ---
 
 <article class="relative group text-center">
   {isPinned && (
     <div class="absolute left-1/2 -top-1 z-20 -translate-x-1/2 -translate-y-full flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55 pointer-events-none">
-      <img src="/images/pin.svg" alt="" width="12" height="12" aria-hidden="true" class="h-3 w-3 grayscale opacity-60" />
+      <img src="/images/pin.svg" alt="" width="12" height="12" aria-hidden="true" class="h-3 w-3 brightness-0 opacity-55" />
       <span>pinned post</span>
     </div>
   )}
@@ -27,7 +28,7 @@ const isPinned = Boolean(Pinned);
   <div class="px-6 transition-all duration-500 group-hover:opacity-60">
     <div class="flex flex-wrap items-center justify-center mb-4 space-x-5">
       <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
-        {category}
+        {categoryLabel}
       </span>
       <span class="opacity-75 text-sm">{formatDate(date)}</span>
     </div>

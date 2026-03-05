@@ -8,6 +8,8 @@ import PageHeader from "@components/PageHeader.astro";
 const blogpage = await getPage('pages', 'blog');
 if (!blogpage) return new Response(null, { status: 404, headers: { 'content-type': 'text/html' } });
 const { title, subtitle } : any = blogpage?.data;
+const formatCategoryLabel = (value: string) =>
+  value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : value;
 
 const blogs = await getPageCollection("blog");
 const categories = Array.from(
@@ -41,7 +43,7 @@ const categories = Array.from(
                 data-filter={category.toLowerCase()}
                 class="blog-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all hover:bg-black hover:text-white"
               >
-                {category}
+                {formatCategoryLabel(category)}
               </button>
             ))}
           </div>
