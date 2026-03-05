@@ -1,0 +1,44 @@
+# yarvolk.com
+
+Website: https://yarvolk.com
+Type: Personal portfolio + blog
+Owner: Yaroslav Volkov
+Primary focus: WordPress development, e-commerce websites, and business automation solutions.
+
+## Summary
+yarvolk.com is a static Astro website that presents services, portfolio projects, blog articles, and contact information.
+
+## Canonical public pages
+- https://yarvolk.com/
+- https://yarvolk.com/portfolio
+- https://yarvolk.com/blog
+- https://yarvolk.com/about
+- https://yarvolk.com/contact
+- https://yarvolk.com/privacy
+
+## Structured discovery
+- Sitemap index: https://yarvolk.com/sitemap-index.xml
+- Sitemap: https://yarvolk.com/sitemap-0.xml
+
+## Content scope
+- Portfolio case studies live under `/portfolio/*`
+- Blog posts live under `/blog/*`
+- Core pages: Home, About, Contact, Privacy
+
+## Source of truth in this repository
+- Site metadata: `src/config/site.config.json`
+- Navigation: `src/config/menus.json`
+- Page content: `src/content/pages/*.mdx`
+- Blog content: `src/content/blog/*.mdx`
+- Portfolio content: `src/content/portfolio/*.mdx`
+
+## Tech stack
+- Astro
+- MDX content collections
+- React components (where needed)
+- Tailwind CSS tooling
+
+## Notes for LLM consumers
+- Prefer canonical URLs listed above.
+- Use sitemap URLs for full page discovery.
+- This is a statically generated site; content changes are made in source files and then rebuilt.
