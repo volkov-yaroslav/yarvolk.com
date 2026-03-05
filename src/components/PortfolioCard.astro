@@ -5,12 +5,10 @@ const coverImage = image || '/images/placeholder.webp';
 const isPinned = Boolean(Pinned);
 ---
 
-<article class="h-full">
+<article class="relative h-full">
   {isPinned && (
-    <div class="mb-3 flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55">
-      <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" class="shrink-0">
-        <path d="M15.8 3.8a2 2 0 0 0-2.83 0L11 5.77l-1.97-1.97a2 2 0 1 0-2.83 2.83L8.17 8.6l-4.6 4.6a1 1 0 0 0 .7 1.7h5.02L11 20.73a1 1 0 0 0 1.9 0l1.71-5.83h5.02a1 1 0 0 0 .7-1.7l-4.6-4.6 1.97-1.97a2 2 0 0 0 0-2.83Z" fill="currentColor" />
-      </svg>
+    <div class="absolute left-0 -top-1 z-20 -translate-y-full flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55 pointer-events-none">
+      <img src="/images/pin.svg" alt="" width="12" height="12" aria-hidden="true" class="h-3 w-3 grayscale opacity-60" />
       <span>pinned project</span>
     </div>
   )}
