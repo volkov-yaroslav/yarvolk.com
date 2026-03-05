@@ -22,7 +22,6 @@ const blogCollection = defineCollection({
     date: z.string(),
     category: z.string(),
     Pinned: pinnedField,
-    pinnedAt: z.string().optional(),
   }),
 });
 
@@ -36,7 +35,6 @@ const portfolioCollection = defineCollection({
     date: z.string(),
     category: z.string(),
     Pinned: pinnedField,
-    pinnedAt: z.string().optional(),
     projectInfo: z.array(
       z.object({
         title: z.string(),
