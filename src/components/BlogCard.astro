@@ -3,8 +3,9 @@ import { formatDate } from '@utils/formatDate';
 
 const { data, slug } = Astro.props;
 const { title, date, image, category, Pinned } = data;
+const showPinnedBadge = Astro.props.showPinnedBadge ?? false;
 const coverImage = image || '/images/placeholder.webp';
-const isPinned = Boolean(Pinned);
+const isPinned = Boolean(Pinned) && showPinnedBadge;
 const categoryLabel = category ? `${category.charAt(0).toUpperCase()}${category.slice(1)}` : category;
 ---
 

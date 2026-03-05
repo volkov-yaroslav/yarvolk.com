@@ -1,8 +1,9 @@
 ---
 const { slug, data, twoColumns } = Astro.props;
 const { title, description, image, category, Pinned } = data;
+const showPinnedBadge = Astro.props.showPinnedBadge ?? false;
 const coverImage = image || '/images/placeholder.webp';
-const isPinned = Boolean(Pinned);
+const isPinned = Boolean(Pinned) && showPinnedBadge;
 ---
 
 <article class="relative h-full">
@@ -14,6 +15,7 @@ const isPinned = Boolean(Pinned);
   )}
 
   <div class="rounded-lg overflow-hidden relative group h-full cursor-pointer">
+    <a href={`/portfolio/${slug}`} class="absolute inset-0 z-30" aria-label={`Open project ${title}`}></a>
     <div class="relative overflow-hidden aspect-[5/3]">
       <img
         src={coverImage}
@@ -32,7 +34,7 @@ const isPinned = Boolean(Pinned);
         <span class="uppercase text-white bg-white/10 text-sm font-light tracking-wider px-3 py-1 rounded-full backdrop-blur">
           {category}
         </span>
-        <a href={`/portfolio/${slug}`} class="stretched-link">
+        <span aria-hidden="true">
           <img
             class="inline-block rotate-[135deg]"
             src="/images/arrow-right.svg"
@@ -40,7 +42,7 @@ const isPinned = Boolean(Pinned);
             height="22"
             width="25"
           />
-        </a>
+        </span>
       </div>
 
       <div class="text-center mt-auto">

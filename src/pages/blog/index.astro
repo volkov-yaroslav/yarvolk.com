@@ -63,7 +63,7 @@ const categories = Array.from(
               "--sm-delay": `${(index % 2) * 75}ms`
             }}
           >
-            <BlogCard slug={blog.slug} data={blog.data} />
+            <BlogCard slug={blog.slug} data={blog.data} showPinnedBadge={true} />
           </div>
         ))}
       </div>

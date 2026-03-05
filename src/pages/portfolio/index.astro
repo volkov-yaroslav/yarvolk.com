@@ -62,7 +62,7 @@ const categories = Array.from(
               "--sm-delay": `${(index % 2) * 75}ms`
             }}
           >
-            <PortfolioCard slug={portfolioItem.slug} data={portfolioItem.data} twoColumns={true} />
+            <PortfolioCard slug={portfolioItem.slug} data={portfolioItem.data} twoColumns={true} showPinnedBadge={true} />
           </div>
         ))}
       </div>
