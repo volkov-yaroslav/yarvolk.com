@@ -1,0 +1,122 @@
+---
+draft: false
+date: "2026-03-08"
+title: "Trimnest"
+description: "Personal WooCommerce apparel brand that became my long-term lab for e-commerce, plugin development, SEO, and self-hosted infrastructure."
+image: /images/portfolio/trimnest.webp
+category: "Website"
+Pinned: Yes
+
+projectInfo:
+  - title: "Client"
+    data: "Personal project"
+  - title: "Timeline"
+    data: "2018 to present"
+  - title: "What's included"
+    data: |
+      - WordPress + WooCommerce print-on-demand store
+      - Blocksy + Greenshift build
+      - 1,200+ product catalog with 600+ unique designs
+      - Stripe payments and U.S. business setup
+      - 3 custom WordPress plugins
+      - Performance optimization, social login, spam protection, and self-hosted VPS deployment
+  - title: "Website"
+    data: "[trimnest.com](https://www.trimnest.com/)"
+---
+
+## Project overview
+
+Trimnest is not a client project. It is my own brand, my longest-running web build, and the project that pushed me into doing websites and front-end work professionally.
+
+The idea started in 2018, after a few years of working remotely for a New York City e-commerce company where I managed orders, suppliers, and customer support inside OpenCart. That job gave me a clear picture of how online retail actually works, and I became obsessed with the idea of building something similar on my own. At that point, I was not attached to one specific product. I was attached to the model itself: making something real online from a laptop, from anywhere.
+
+Before Trimnest, I did not even know what WordPress was. This project became my sandbox, my education, and eventually a real business. The brand has already gone through two major design changes, and the business direction evolved with it. What began as a broad experiment eventually turned into a print-on-demand apparel store focused on t-shirts and hoodies, first shaped by music culture, especially hip-hop, and later expanded into pop, rock, gym, gaming, memes, retro, and other categories.
+
+Because this is a personal project, everything around the brand sits on my side: development, site structure, feature work, marketing, content, and the broader online footprint around the store.
+
+![Inspired by Hip-Hop tag landing page.](/images/portfolio/trimnest-1.webp)
+
+## From idea to operating business
+
+One reason Trimnest matters so much to me is that there was never a clean or measurable timeline. I built it over years of trial and error, learning each layer as I went. That freedom let me go much deeper than I usually could on a client project.
+
+In 2023, I formalized the business by opening **Trimnest, LLC** in Delaware through Stripe Atlas. Once the EIN was issued and the account was approved, Stripe became available as the payment processor, which turned the store from a long-running experiment into a real e-commerce operation.
+
+I also hired a designer, another Yaroslav, to help scale the catalog. Together we pushed the store past **1,200 total products** across t-shirts and hoodies, which translates to **600+ unique designs** as of March 2026. That expansion helped the brand develop a clearer identity instead of feeling like a generic POD storefront.
+
+![WooCommerce product list showing the scaled catalog.](/images/portfolio/trimnest-2.webp)
+
+## Custom functionality I built for the store
+
+The core stack is **WordPress**, **WooCommerce**, **Blocksy**, and **Greenshift**, plus a supporting plugin ecosystem. But Trimnest became much more than a theme-and-plugins build. It was the first project where I taught myself how to create custom WordPress plugins to remove repetitive work and add features that did not exist out of the box.
+
+### 1. Custom Upsell Linker
+
+This plugin scans recently added products and pairs matching t-shirts and hoodies that share the same design name. The relationship is then written into WooCommerce cross-sells, so a t-shirt can show its hoodie counterpart on the product page and the hoodie can point back to the t-shirt.
+
+I keep this process manual on purpose. I did not want another cron job running in the background and adding unnecessary server load. The matching logic is based on product naming conventions, where the design name stays the same and only the garment suffix changes.
+
+### 2. The SEO Framework - Dynamic Meta
+
+I migrated the store from Rank Math to **The SEO Framework** because I prefer a lighter, less bloated SEO setup. The tradeoff was losing some of the automation I liked, so I rebuilt that part myself.
+
+This addon fills meta titles and descriptions for newly created product tags and categories based on my own templates and placeholders. Instead of opening each taxonomy term and writing metadata by hand, the plugin populates those fields automatically the moment a new tag or category is created.
+
+Trimnest is also the project that forced me to learn SEO in practical terms. Early on I could not afford paid traffic, so organic search was not a nice extra. It was the only realistic growth channel I had.
+
+### 3. Pressidium Cookie Consent: Geo Add-on
+
+Because I am based in Europe, the store needed cookie consent behavior that respects EU requirements. At the same time, I did not want to show the banner blindly to visitors in regions where it was unnecessary and more likely to hurt trust.
+
+This addon works with **Pressidium Cookie Consent** and decides whether the banner should load for each visitor. It checks headers commonly provided by Cloudflare and other proxies or servers, including `CF-IPCountry`, `CF-Connecting-IP`, `X-Forwarded-For`, `X-Real-IP`, `MM_COUNTRY_CODE`, and `GEOIP_COUNTRY_CODE`, then falls back to WooCommerce geolocation when needed. The decision is made through an uncached AJAX request, which avoids Cloudflare or Varnish serving the wrong country-based behavior out of cache.
+
+The implementation was AI-assisted, but it still solved a real product gap and gave the store behavior that did not exist in the base plugin.
+
+![Region-aware cookie banner behavior on the storefront.](/images/portfolio/trimnest-3.webp)
+
+## Storefront, checkout, and product experience
+
+Beyond the custom plugins, Trimnest includes a lot of smaller quality-of-life improvements and PHP snippets that make the store feel intentionally built rather than loosely assembled. The site is spam-protected, supports social login through Google, Facebook, and X, and is designed to reduce friction from browsing through checkout.
+
+Stripe is the payment layer, and getting that live was one of the biggest milestones in the whole project because it required the business side to be real, not just the website side.
+
+![Checkout flow with Stripe card entry.](/images/portfolio/trimnest-4.webp)
+
+One example of the front-end polish is the product media behavior. On product pages, the image gallery updates dynamically when users switch color swatches, so they get immediate visual feedback instead of guessing what a variation actually looks like.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/trimnest.mp4" type="video/mp4" />
+</video>
+
+## Performance, hosting, and operations
+
+Trimnest pushed me far beyond page building. It taught me how to think about performance, caching, hosting, and infrastructure as part of the product itself.
+
+The site uses image optimization, a cache plugin, and server-level caching together, and as of this write-up it reaches **100/100 desktop PageSpeed performance** along with **100/100 SEO** and **100/100 Best Practices**. Achieving that on a WooCommerce store with a heavy plugin stack and custom functionality took deliberate work.
+
+I also moved away from managed hosting and started self-hosting my websites on a VPS. That decision gave me more control and lower costs, but it also forced me to learn server administration, deployment, migrations, and troubleshooting. AI significantly accelerated that learning curve, and it helped me move the store to new infrastructure in hours instead of turning it into a long, high-friction migration.
+
+![Desktop PageSpeed results for Trimnest.](/images/portfolio/trimnest-5.webp)
+
+## Business operations and what the project taught me
+
+Trimnest runs as a print-on-demand business. I am not naming the supplier in this case study, but the operation is set up to print and ship to most countries within days, typically around **3 to 7 days in the U.S.** and roughly **7 days or more across Europe and other international markets**.
+
+By March 2026, the store had already shipped to customers in **nine countries** across multiple continents, with no disputes and no shipping complaints. That matters to me because it proves the business side is not theoretical. The operation works.
+
+This project also forced me to learn things well outside design and development. Because the company is U.S.-based, I had to understand the tax side too. Starting with the **2025 filing cycle**, I began handling the company taxes myself instead of paying a CPA every year.
+
+## Outcome
+
+I did not build Trimnest and suddenly make millions selling t-shirts. That is not the honest version of the story. The real value is that Trimnest gave me deep, practical knowledge across WordPress, WooCommerce, plugin development, SEO, performance, hosting, payment processing, logistics, marketing, and business operations.
+
+More importantly, it changed the direction of my career. Trimnest is the reason I learned how to build websites professionally in the first place. It started as a dream about working remotely and building something of my own, and it became the project that shaped how I help clients today.
+
+For that reason alone, its value is hard to measure. It is proof that a long, messy, self-directed project can still become one of the most important things you ever build.
