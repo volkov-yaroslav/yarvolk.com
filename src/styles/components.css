@@ -70,3 +70,9 @@ select:-webkit-autofill:focus {
 .image img {
   @apply mt-0;
 }
+
+.card-surface-shadow {
+  box-shadow:
+    0 14px 32px rgb(15 23 42 / 0.08),
+    0 0 0 1px rgb(15 23 42 / 0.04);
+}
