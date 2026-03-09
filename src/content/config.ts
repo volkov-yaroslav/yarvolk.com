@@ -21,7 +21,7 @@ const blogCollection = defineCollection({
     image: z.string().optional(),
     date: z.string(),
     category: z.string(),
-    Pinned: pinnedField,
+    pinned: pinnedField,
   }),
 });
 
@@ -34,7 +34,7 @@ const portfolioCollection = defineCollection({
     image: z.string().optional(),
     date: z.string(),
     category: z.string(),
-    Pinned: pinnedField,
+    pinned: pinnedField,
     projectInfo: z.array(
       z.object({
         title: z.string(),

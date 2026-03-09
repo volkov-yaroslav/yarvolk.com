@@ -1,9 +1,9 @@
 ---
 const { slug, data, twoColumns } = Astro.props;
-const { title, description, image, category, Pinned } = data;
+const { title, description, image, category, pinned } = data;
 const showPinnedBadge = Astro.props.showPinnedBadge ?? false;
 const coverImage = image || '/images/placeholder.webp';
-const isPinned = Boolean(Pinned) && showPinnedBadge;
+const isPinned = Boolean(pinned) && showPinnedBadge;
 ---
 
 <article class="relative h-full">

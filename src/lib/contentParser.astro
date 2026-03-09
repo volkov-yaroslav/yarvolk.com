@@ -20,8 +20,8 @@ export const getPageCollection = async <C extends CollectionKey>(
     .sort((a: CollectionEntry<C>, b: CollectionEntry<C>) => {
       const isPinSortableCollection = collectionName === "blog" || collectionName === "portfolio";
       if (isPinSortableCollection) {
-        const aPinned = parsePinned((a.data as any).Pinned);
-        const bPinned = parsePinned((b.data as any).Pinned);
+        const aPinned = parsePinned((a.data as any).pinned);
+        const bPinned = parsePinned((b.data as any).pinned);
         if (aPinned !== bPinned) return aPinned ? -1 : 1;
       }
       return new Date((b.data as any).date).valueOf() - new Date((a.data as any).date).valueOf();
