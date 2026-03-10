@@ -1,0 +1,54 @@
+---
+draft: false
+date: "2022-08-01"
+title: "The Good Bible"
+description: "WordPress website for a nonprofit Christian platform, combining blog content, videos, audio, speakers, and later WooCommerce sales."
+image: /images/portfolio/the-good-bible.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "WebmastersDesktop"
+  - title: "Timeline"
+    data: "2 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Blocksy + Greenshift build
+      - Dynamic YouTube video integration
+      - Audio page for biblical songs
+      - Speakers custom post type archive
+      - WooCommerce product add-ons via custom plugin
+  - title: "Website"
+    data: "https://thegoodbible.com/"
+---
+
+## Project overview
+
+The Good Bible is a nonprofit WordPress project I built as part of the WebmastersDesktop team. The original goal was not e-commerce. It started as a content platform focused on sharing biblical excerpts and Christian information in a simple format, without adding denominational commentary or pushing a specific church perspective. The Bible itself was the source and the center of the project.
+
+Over time, the website expanded beyond a blog into a broader media platform. The structure grew to support written content, video, audio, and a dedicated speakers section, while still keeping the experience organized and easy to navigate.
+
+![Homepage section explaining the value of reading the Bible.](/images/portfolio/the-good-bible-2.webp)
+
+## Challenge
+
+The real challenge was that the website kept evolving. What began as an informational project later needed to support much richer content types and, eventually, e-commerce as well.
+
+On the media side, the team also launched a YouTube channel with both short-form vertical videos and longer horizontal content. My role was to make that output work naturally on the website. I implemented a YouTube integration that pulls videos from the channel and displays them dynamically on a dedicated page as well as in a homepage section, so newly published content appears on the site automatically after a short delay.
+
+The platform also needed a separate page for biblical songs, with an in-browser audio player, and a speakers archive powered by a custom post type for preachers and public figures who share biblical teaching with wider audiences.
+
+## Solution
+
+I built the website with **WordPress**, using **Blocksy** as the theme and **Greenshift** for page building. That stack gave the project enough flexibility to support different content sections without overcomplicating the editing workflow.
+
+The e-commerce layer came later, in **2025**, about three years after the original launch. By then, WooCommerce was added so the site could sell a small number of Bibles through a dropshipping supplier. That part introduced a new challenge: the products needed more than standard variations.
+
+Each Bible product page had to support optional add-ons that behaved almost like hidden companion products, such as note-taking micron pens and name imprinting. These add-ons were not meant to live as standalone catalog items. They needed to appear directly on the Bible product page, allow users to select or deselect them, and in the case of name imprinting, reveal a conditional input field with its own validation and character limits.
+
+Because I could not find a plugin that handled that workflow the way the project needed, I built a custom solution. The plugin manages the add-on logic on the product page and also carries that data through to order confirmation emails and the WooCommerce order view inside WordPress admin. I tested the workflow carefully to make sure the checkout and fulfillment side stayed smooth.
+
+![Bible product page with custom add-ons.](/images/portfolio/the-good-bible-1.webp)
+
+The final result is a nonprofit content platform that grew into a multi-format Christian website with blog publishing, dynamic video integration, audio content, speaker archives, and later a custom WooCommerce layer for Bible sales. It is a good example of a project that started simple, then expanded over time without losing structural clarity.
