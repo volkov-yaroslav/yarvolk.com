@@ -57,17 +57,11 @@ I also added a WordPress admin interface with import logs, so the client could s
 
 The second challenge was language. Because the business operates in Norway, the default language needed to be **Norwegian** so the site could make sense to users and index properly in local search. That part was manageable for regular pages. I translated those with AI assistance and configured the site so visitors could switch between Norwegian and English.
 
-The problem was the imported product catalog. The parts data coming from the source store was in **English**, or optionally **German**, not Norwegian. So the informational pages were in Norwegian, while product pages, categories, and tags came into the site in another language. That created a mismatch between the brand side of the website and the commerce side.
+The real issue was the imported catalog. Product data was coming from the source store in **English**, or optionally **German**, while the site itself needed to be Norwegian-first. That meant the brand pages and the store pages were speaking different languages by default.
 
-There were more advanced ways to solve it. We could have translated the catalog upstream before generating the CSV, using AI translation or a service like DeepL, so Norwegian product data would be imported as the primary version from the start. But at 5,000+ products, each with titles, descriptions, categories, tags, and metadata, that would have added a meaningful ongoing cost.
+A full server-side translation pipeline for 5,000+ imported products would have required a larger ongoing budget, so the client chose the simpler route. I handled the regular pages in Norwegian first, then used **LocoAI**, **Loco Translate**, and **GTranslate** to make the storefront usable in both Norwegian and English.
 
-Because of that budget reality, the client chose the simpler route instead of funding a full server-side multilingual pipeline. My job was to make that compromise work as cleanly as possible inside WordPress.
-
-For the static content side, I translated and structured the regular pages in Norwegian first, then enabled English as the secondary storefront language. For the product side, I relied on **LocoAI**, **Loco Translate**, and **GTranslate** to bridge the gap between the imported English catalog and the Norwegian-first site.
-
-This matters because GTranslate can be used in two very different ways. In this project, the practical choice was the JavaScript-based translation layer rather than GTranslate's SEO-oriented setup with separate translated URLs. That meant the translated product experience was handled in the browser after page load, based on the user's selected language or browser language, instead of being stored as a fully translated second version of the catalog on the server.
-
-The tradeoff is important: this made the storefront usable for real visitors in both languages, but it did not create a fully indexable multilingual product catalog. With a client-side translation layer, search engines still see the original source pages, not a separately stored and indexed translated product version. Within the available budget, though, it was the right operational compromise. The client got a working bilingual browsing experience without paying for a much larger translation and synchronization system.
+In practice, that meant a JavaScript-based translation layer for the imported catalog rather than fully stored translated product pages. It worked well for visitors, but it did not create a separately indexable multilingual product catalog. Within the project constraints, it was the right tradeoff between cost, speed, and usability.
 
 ## Solution and result
 
