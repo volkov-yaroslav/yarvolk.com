@@ -1,0 +1,85 @@
+---
+draft: false
+date: "2025-12-10"
+title: "AC Schnitzer"
+description: "WordPress and WooCommerce website for the Norwegian AC Schnitzer distributor, built around product synchronization, used vehicles, and bilingual delivery."
+image: /images/portfolio/ac-schnitzer.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "4 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Elementor-based build for fast delivery
+      - WooCommerce storefront for car parts
+      - Cars custom post type for used vehicle listings
+      - Custom ACS Auto Importer plugin
+      - Bilingual storefront setup in Norwegian and English
+  - title: "Website"
+    data: "https://acschnitzer.yarvolk.com/"
+---
+
+## Project overview
+
+AC Schnitzer is a tuning brand based in Aachen, Germany, focused on BMW and MINI cars, as well as BMW motorcycles. This website, however, was built for the **official Norwegian distributor** rather than the German parent company itself.
+
+The project needed to do more than present the brand. It had to support a WooCommerce storefront for performance parts, a separate inventory section for used vehicles listed on the local market, and a bilingual experience for Norwegian and English users.
+
+Because delivery speed was a major requirement, I used a WordPress template as the base rather than building everything from scratch. The stack was **WordPress**, **Elementor**, and **WooCommerce**, with the template already providing a **cars custom post type**, which turned out to be useful because the client was also listing used vehicles for sale.
+
+![Used vehicles grid powered by the cars custom post type.](/images/portfolio/ac-schnitzer-1.webp)
+
+## Challenge
+
+The real difficulty in this project was not visual design. It was operations. Two things made the build technically interesting: synchronizing a large parts catalog from the official German store, and making a bilingual storefront work under real budget constraints.
+
+The car-parts store was the heavier side of the project. At the time of development, it involved **5,000+ products**, and the client wanted the Norwegian site to stay aligned with the German source store. If a product was added there, it should appear here. If it was removed, disabled, or sold out there, the Norwegian store had to reflect that as well.
+
+![WooCommerce storefront with parts filters and catalog browsing.](/images/portfolio/ac-schnitzer-2.webp)
+
+## Challenge 1: Product synchronization without an API
+
+The biggest technical problem was that the German store had **no public API endpoint** or official synchronization method for this type of catalog sharing. That meant there was no ready-made WooCommerce integration to rely on.
+
+Because the requirement went beyond a typical WordPress plugin setup, another developer joined the project to handle the external automation side. He built a custom system that periodically scanned the German store, generated a WooCommerce-compatible CSV file, and exposed that file through a secured server endpoint. In practice, that became our own internal API layer.
+
+My part was making WordPress consume that data reliably. I built a custom plugin called **ACS Auto Importer** that runs on a scheduled cron job and pulls the CSV from the secured endpoint once a day, or on any other chosen interval. The plugin imports new products, updates existing ones, and keeps the catalog aligned with the source store.
+
+I also added a WordPress admin interface with import logs, so the client could see exactly what happened during each run: how many products were updated, when it happened, and whether anything failed. To keep that practical long-term, I included a retention setting for the log file so it would not grow indefinitely.
+
+![ACS Auto Importer admin screen with update logs.](/images/portfolio/ac-schnitzer-3.webp)
+
+## Challenge 2: Bilingual delivery on a large imported catalog
+
+The second challenge was language. Because the business operates in Norway, the default language needed to be **Norwegian** so the site could make sense to users and index properly in local search. That part was manageable for regular pages. I translated those with AI assistance and configured the site so visitors could switch between Norwegian and English.
+
+The problem was the imported product catalog. The parts data coming from the source store was in **English**, or optionally **German**, not Norwegian. So the informational pages were in Norwegian, while product pages, categories, and tags came into the site in another language. That created a mismatch between the brand side of the website and the commerce side.
+
+There were more advanced ways to solve it. We could have translated the catalog on the server before generating the CSV, using AI translation or services like DeepL, so that Norwegian data was imported as the source of truth. But at 5,000+ products with long descriptions, titles, categories, and metadata, that path would have created a significantly larger cost for the client.
+
+I chose the faster in-house solution instead. Using translation tooling such as **LocoAI**, **Loco Translate**, and **GTranslate**, I set up a workflow where regular pages translated in the usual Norwegian-to-English direction, while product content was handled in reverse so users could still browse the catalog in the language they selected, or based on the browser default.
+
+That approach was not perfect. Because the translation happened client-side, one version would not be indexed as cleanly as a fully server-rendered multilingual setup. But within the budget and timeline, it was the right compromise: the storefront remained usable for real visitors, and the client got a working bilingual experience without funding a much larger translation pipeline.
+
+## Solution and result
+
+The finished website combines brand presentation, used vehicle listings, and a large WooCommerce parts catalog in one system. The use of a template helped speed up delivery, but the real value of the project came from the custom logic added around it, especially the synchronization workflow and admin-side visibility.
+
+On the front end, I also added smaller touches that gave the website a more polished feel, such as the homepage blog slider shown below, which scrolls horizontally with a custom pointer interaction.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/ac-schnitzer.mp4" type="video/mp4" />
+</video>
+
+The final result is a fast-delivered automotive website that handles a surprisingly complex backend requirement under the hood. It gave the client a bilingual storefront, used car listings, and a scalable path for keeping thousands of products aligned with a source store that did not offer a proper integration to begin with.
