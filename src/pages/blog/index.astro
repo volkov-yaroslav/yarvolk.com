@@ -68,16 +68,7 @@ const categories = Array.from(
         ))}
       </div>
 
-      <div class="mt-12 text-center">
-        <button
-          id="blog-load-more"
-          type="button"
-          class="button button-dark cursor-pointer"
-        >
-          <span>Load more</span>
-        </button>
-      </div>
-      <div id="blog-load-more-sentinel" class="h-1 w-full" aria-hidden="true"></div>
+      <div id="blog-pagination" class="mt-12 flex justify-center"></div>
       <p id="blog-empty-state" class="hidden text-black/45 text-center mt-8">
         No posts in this category yet.
       </p>
@@ -88,15 +79,14 @@ const categories = Array.from(
     document.addEventListener("DOMContentLoaded", () => {
       const filterButtons = Array.from(document.querySelectorAll(".blog-filter-btn"));
       const items = Array.from(document.querySelectorAll(".blog-filter-item"));
-      const loadMoreBtn = document.querySelector("#blog-load-more");
-      const loadMoreSentinel = document.querySelector("#blog-load-more-sentinel");
+      const paginationRoot = document.querySelector("#blog-pagination");
       const emptyState = document.querySelector("#blog-empty-state");
       if (!filterButtons.length || !items.length) return;
-      if (!loadMoreBtn || !loadMoreSentinel || !emptyState) return;
+      if (!paginationRoot || !emptyState) return;
 
       const PAGE_SIZE = 12;
       let activeFilter = "all";
-      let visibleCount = PAGE_SIZE;
+      let currentPage = 1;
 
       const setActiveButton = (filterValue) => {
         filterButtons.forEach((btn) => {
@@ -115,15 +105,102 @@ const categories = Array.from(
         });
       };
 
+      const buildPageList = (totalPages, page) => {
+        const pageList = [];
+        if (totalPages <= 4) {
+          for (let i = 1; i <= totalPages; i += 1) pageList.push(i);
+          return pageList;
+        }
+
+        const pages = new Set([1, totalPages, page]);
+        if (page > 1) pages.add(page - 1);
+        if (page < totalPages) pages.add(page + 1);
+
+        const sortedPages = Array.from(pages).sort((a, b) => a - b);
+        sortedPages.forEach((current, index) => {
+          const prev = sortedPages[index - 1];
+          if (prev !== undefined && current - prev > 1) pageList.push("...");
+          pageList.push(current);
+        });
+        return pageList;
+      };
+
+      const updateUrl = () => {
+        const url = new URL(window.location.href);
+        if (activeFilter === "all") {
+          url.searchParams.delete("category");
+        } else {
+          url.searchParams.set("category", activeFilter);
+        }
+
+        if (currentPage <= 1) {
+          url.searchParams.delete("page");
+        } else {
+          url.searchParams.set("page", String(currentPage));
+        }
+
+        window.history.replaceState({}, "", url);
+      };
+
+      const renderPagination = (filteredCount) => {
+        const totalPages = Math.max(1, Math.ceil(filteredCount / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages);
+        paginationRoot.innerHTML = "";
+
+        if (filteredCount === 0 || totalPages <= 1) return;
+
+        const nav = document.createElement("nav");
+        nav.className = "flex flex-wrap justify-center gap-1 text-center";
+        nav.setAttribute("aria-label", "Pagination");
+
+        const addButton = (label, targetPage, isActive = false, disabled = false) => {
+          const el = document.createElement(disabled ? "span" : "button");
+          el.className = isActive
+            ? "border border-dark/20 px-6 py-3 rounded-full font-medium bg-black text-white pointer-events-none"
+            : "border border-dark/20 px-6 py-3 rounded-full font-medium transition-all hover:bg-black hover:text-white";
+          el.textContent = label;
+          if (!disabled && !isActive) {
+            el.type = "button";
+            el.addEventListener("click", () => {
+              currentPage = targetPage;
+              items.forEach((item) => {
+                item.dataset.filterAnimated = "";
+              });
+              renderVisibleItems();
+            });
+          }
+          nav.appendChild(el);
+        };
+
+        addButton("Prev", currentPage - 1, false, currentPage === 1);
+        buildPageList(totalPages, currentPage).forEach((entry) => {
+          if (entry === "...") {
+            const ellipsis = document.createElement("span");
+            ellipsis.className = "px-4 py-3";
+            ellipsis.textContent = "...";
+            nav.appendChild(ellipsis);
+            return;
+          }
+          addButton(String(entry), Number(entry), Number(entry) === currentPage, false);
+        });
+        addButton("Next", currentPage + 1, false, currentPage === totalPages);
+
+        paginationRoot.appendChild(nav);
+      };
+
       const renderVisibleItems = () => {
         const filteredItems = getFilteredItems();
+        const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages);
+        const startIndex = (currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
 
         items.forEach((item) => {
           item.classList.add("hidden");
         });
 
         filteredItems.forEach((item, index) => {
-          const shouldShow = index < visibleCount;
+          const shouldShow = index >= startIndex && index < endIndex;
           item.classList.toggle("hidden", !shouldShow);
           if (shouldShow) {
             item.classList.add("aos-animate");
@@ -142,39 +219,17 @@ const categories = Array.from(
           }
         });
 
-        const hasMore = filteredItems.length > visibleCount;
-        loadMoreBtn.classList.toggle("hidden", !hasMore);
         emptyState.classList.toggle("hidden", filteredItems.length > 0);
+        renderPagination(filteredItems.length);
+        updateUrl();
       };
 
       const applyFilter = (filterValue) => {
         activeFilter = filterValue;
-        visibleCount = PAGE_SIZE;
+        currentPage = 1;
         renderVisibleItems();
         setActiveButton(filterValue);
-
-        const url = new URL(window.location.href);
-        if (filterValue === "all") {
-          url.searchParams.delete("category");
-        } else {
-          url.searchParams.set("category", filterValue);
-        }
-        window.history.replaceState({}, "", url);
       };
-
-      loadMoreBtn.addEventListener("click", () => {
-        visibleCount += PAGE_SIZE;
-        renderVisibleItems();
-      });
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !loadMoreBtn.classList.contains("hidden")) {
-            loadMoreBtn.click();
-          }
-        });
-      }, { rootMargin: "200px 0px" });
-      observer.observe(loadMoreSentinel);
 
       filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -187,11 +242,14 @@ const categories = Array.from(
 
       const params = new URLSearchParams(window.location.search);
       const requestedFilter = (params.get("category") || "").toLowerCase();
+      const requestedPage = Number(params.get("page") || "1");
       const validFilter = filterButtons.some((btn) => btn.dataset.filter === requestedFilter)
         ? requestedFilter
         : "all";
-
-      applyFilter(validFilter);
+      currentPage = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+      activeFilter = validFilter;
+      setActiveButton(validFilter);
+      renderVisibleItems();
     });
   </script>
 </Layout>
