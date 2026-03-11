@@ -80,6 +80,7 @@ const categories = Array.from(
 
   <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
+      const filtersRoot = document.querySelector("#portfolio-filters");
       const filterButtons = Array.from(document.querySelectorAll(".portfolio-filter-btn"));
       const items = Array.from(document.querySelectorAll(".portfolio-filter-item"));
       const paginationRoot = document.querySelector("#portfolio-pagination");
@@ -90,6 +91,13 @@ const categories = Array.from(
       const PAGE_SIZE = 12;
       let activeFilter = "all";
       let currentPage = 1;
+
+      const scrollToFilters = () => {
+        if (!filtersRoot) return;
+        const headerOffset = window.innerWidth >= 1024 ? 130 : 116;
+        const top = filtersRoot.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      };
 
       const setActiveButton = (filterValue) => {
         filterButtons.forEach((btn) => {
@@ -170,6 +178,7 @@ const categories = Array.from(
                 item.dataset.filterAnimated = "";
               });
               renderVisibleItems();
+              scrollToFilters();
             });
           }
           nav.appendChild(el);
@@ -240,6 +249,7 @@ const categories = Array.from(
             item.dataset.filterAnimated = "";
           });
           applyFilter(btn.dataset.filter || "all");
+          scrollToFilters();
         });
       });
 
