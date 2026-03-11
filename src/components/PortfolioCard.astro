@@ -4,6 +4,7 @@ const { title, description, image, category, pinned } = data;
 const showPinnedBadge = Astro.props.showPinnedBadge ?? false;
 const coverImage = image || '/images/placeholder.webp';
 const isPinned = Boolean(pinned) && showPinnedBadge;
+const showDescription = twoColumns !== false;
 ---
 
 <article class="relative h-full">
@@ -51,11 +52,13 @@ const isPinned = Boolean(pinned) && showPinnedBadge;
             {title}
           </span>
         </h3>
-        <p class="text-white font-light relative overflow-hidden">
-          <span class="block translate-y-full group-hover:translate-y-0 duration-300 group-hover:delay-150">
-            {description}
-          </span>
-        </p>
+        {showDescription && (
+          <p class="text-white font-light relative overflow-hidden">
+            <span class="block translate-y-full group-hover:translate-y-0 duration-300 group-hover:delay-150">
+              {description}
+            </span>
+          </p>
+        )}
       </div>
     </div>
   </div>
