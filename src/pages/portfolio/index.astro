@@ -11,6 +11,10 @@ if (!portfolioPage) return new Response(null, { status: 404, headers: { 'content
 const { title, subtitle } : any = portfolioPage?.data;
 
 const portfolioItems = await getPageCollection("portfolio");
+const formatCategoryLabel = (value: string) => {
+  if (!value) return value;
+  return value.toLowerCase() === "website" ? "Websites" : value;
+};
 const categories = Array.from(
   new Set(
     portfolioItems
@@ -42,7 +46,7 @@ const categories = Array.from(
                 data-filter={category.toLowerCase()}
                 class="portfolio-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all hover:bg-black hover:text-white"
               >
-                {category}
+                {formatCategoryLabel(category)}
               </button>
             ))}
           </div>
