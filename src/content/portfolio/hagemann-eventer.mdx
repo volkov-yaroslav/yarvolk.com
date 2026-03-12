@@ -1,0 +1,86 @@
+---
+draft: false
+date: "2025-10-15"
+title: "Hagemann Eventer"
+description: "WordPress event platform for a Norwegian race organizer, built around rock-inspired branding and automated RACE RESULT event publishing."
+image: /images/portfolio/hagemanneventer.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "5 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Blocksy + Greenshift + ACF
+      - Custom RACE RESULT Integration plugin
+      - Event custom post type with filters and archives
+      - Norwegian-first content with English frontend translation
+      - SEO setup with The SEO Framework
+  - title: "Website"
+    data: "https://hagemanneventer.com/"
+---
+
+## Project overview
+
+Hagemann Eventer is a Norwegian event organizer based in Svelvik, in the Buskerud region. The business focuses mainly on running events, marathons, and cross-country skiing, but the brand also has a strong rock and metal influence that shapes how the events are promoted.
+
+Before this website existed, the organizer was relying mostly on social platforms like Facebook and Instagram to present races and share sign-up links. The new site needed to feel much more like a real event platform: something with its own identity, its own event structure, and a better way to present races over time.
+
+From a design perspective, the direction was intentionally more expressive than a standard sports site. The brief leaned into a rock and metal visual language, closer in spirit to a band website than a generic athletics template. I developed the initial page structure and styling direction, and later a dedicated designer joined to refine pieces such as the event cards, typography, and a number of smaller section-level details.
+
+![Events grid with custom event cards.](/images/portfolio/hagemanneventer-1.webp)
+
+## Challenge
+
+This project had two real challenges. The first was visual: building a race website that still felt energetic, branded, and a little heavier in tone than the typical endurance-sports design.
+
+The second challenge was much more technical: integrating **RACE RESULT** into WordPress in a way that did not require manually rebuilding event pages every time a new race was created.
+
+RACE RESULT is primarily an event management and race-timing platform. It is used to handle registration, participants, results, live timing, and the broader timing workflow around competitive events. Their standard website integration approach relies heavily on JavaScript embeds, which makes it easy to place race modules on a page, but not ideal if you want WordPress itself to behave like a structured event catalog with archives, filters, and indexable event pages.
+
+![RACE RESULT dashboard with event list.](/images/portfolio/hagemanneventer-3.webp)
+
+## The integration problem
+
+At first glance, the obvious route was to use the embed code exactly as intended: create an event inside RACE RESULT, copy the JavaScript snippet, and paste it into a WordPress page. But that creates a lot of manual work and does not give the site a proper event system of its own.
+
+I spent time going back and forth with RACE RESULT support and reviewing their documentation. My conclusion at the time was that their official REST API was not designed for the kind of event-list synchronization I needed on the website side. It was more oriented toward communication with RACE RESULT infrastructure, such as decoders and related timing systems, rather than acting like a simple content API for event publishing.
+
+That meant I needed a smarter WordPress-side solution.
+
+## Raceresult Integration plugin
+
+The biggest part of this project was a custom plugin I built called **Raceresult Integration**. Its job was to turn externally managed race data into structured WordPress content.
+
+Instead of treating every race like a manually built page, the plugin creates a proper event system inside WordPress:
+
+- A dedicated event custom post type
+- Taxonomies for things like event type, month, year, and distance
+- Custom fields for date, location, cutoff details, and other race information
+- Settings for manual sync and automated sync frequency
+- Frontend shortcodes for registration, participants, results, live timing, and tabbed event layouts
+
+The most important part is the automation. The plugin reads a RACE RESULT web endpoint and fetches the list of event IDs from a specific account or event group. Based on the configured schedule, it checks for changes and keeps WordPress aligned with that source. If a new event appears in RACE RESULT, it can be created automatically in WordPress. If an event disappears from the source, it can be drafted or removed based on the chosen behavior.
+
+That meant we were still using RACE RESULT's own JavaScript modules where appropriate, but in a much more scalable way. New races no longer required manually creating separate pages, manually pasting embed code, or manually organizing archive listings and filters all over again.
+
+![Raceresult Integration settings inside WordPress admin.](/images/portfolio/hagemanneventer-4.webp)
+
+## Event pages and frontend structure
+
+Once the event data lived inside WordPress, the rest of the site could behave like a real event platform instead of a collection of disconnected pages.
+
+I created event card templates that display the most important information at a glance, including title, cover image, date, and race details. Each card includes a `Learn more` action and a `Register` action. If the event has already passed, the register button is hidden automatically.
+
+The event archive page is populated dynamically from the event custom post type and includes filtering by year, event category, and related race metadata. That made the site much easier to browse than a manually maintained page list and also gave the project a much stronger SEO foundation, because each event could exist as its own indexable page with dedicated metadata configured through **The SEO Framework**.
+
+![Single event page with embedded event details and registration.](/images/portfolio/hagemanneventer-2.webp)
+
+## Result
+
+The final website gives Hagemann Eventer something much stronger than a promotional landing page. It is now a branded event platform with its own archives, filters, and race pages, while still staying connected to the RACE RESULT system used for registration and timing operations.
+
+For me, this project stands out because the main value was not just design or page building. It was solving the gap between an external race-management platform and a WordPress website in a way that reduced manual work, improved structure, and made the site feel like a real product rather than a set of embeds pasted into pages.
