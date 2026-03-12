@@ -25,7 +25,10 @@ const promoItems = Array.from({ length: 8 });
             <span class="promo-track">
               {promoItems.map(() => (
                 <span class="promo-unit">
-                  <span class="promo-text">Click to get started</span>
+                  <span class="promo-text">
+                    <span class="inline sm:hidden">Tap to get started</span>
+                    <span class="hidden sm:inline">Click to get started</span>
+                  </span>
                   <img
                     class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
                     src="/images/arrow-right.svg"
@@ -38,7 +41,10 @@ const promoItems = Array.from({ length: 8 });
               ))}
               {promoItems.map(() => (
                 <span class="promo-unit" aria-hidden="true">
-                  <span class="promo-text">Click to get started</span>
+                  <span class="promo-text">
+                    <span class="inline sm:hidden">Tap to get started</span>
+                    <span class="hidden sm:inline">Click to get started</span>
+                  </span>
                   <img
                     class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
                     src="/images/arrow-right.svg"
