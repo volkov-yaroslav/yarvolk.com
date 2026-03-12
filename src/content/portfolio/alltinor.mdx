@@ -1,0 +1,81 @@
+---
+draft: false
+date: "2025-11-20"
+title: "Alltinor"
+description: "WordPress service website for a Norwegian cleaning and transport company, built around multilingual pages and a structured booking workflow."
+image: /images/portfolio/alltinor.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "3 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Blocksy + Greenshift build
+      - Multilingual setup in Norwegian and English
+      - Premium booking plugin integration
+      - SVG service-area map
+      - Custom admin login redirect into the booking dashboard
+  - title: "Website"
+    data: "https://alltinor.no/"
+---
+
+## Project overview
+
+Alltinor is a service company offering cleaning, moving, waste management, and transport across several of Norway's major cities, including **Rogaland, Kristiansand, Oslo, Bergen, and Trondheim**. Because the business has a clear separation between services, the website could be structured the same way: each core service has its own page and its own booking flow.
+
+This project moved quickly because the homepage design was already provided by a UI designer. That gave me a solid visual foundation to extend into the rest of the website, even though the other pages still needed to be built and systematized from that single starting point.
+
+The site was built in **WordPress** using **Blocksy**, **Greenshift**, a premium booking plugin, and **The SEO Framework**. The primary language is Norwegian, with English available as a secondary language through **GTranslate**.
+
+![SVG map section showing Norway and service coverage pins.](/images/portfolio/alltinor-1.webp)
+
+## Challenge
+
+The main challenge was not just building service pages. It was making the entire website behave like a service operation rather than a static brochure.
+
+Almost every important page on the site leads into either a contact form or a booking flow. For the service pages, the booking experience needed to stay separated by service type. A cleaning appointment should not block a transport slot, and vice versa. That meant the scheduling logic had to be structured carefully so the website reflected how the business actually operates.
+
+The geography layer mattered too. The site includes a custom SVG-based map section rather than a flat image. That made it possible to highlight different countries, place city pins on a separate layer, and keep the section flexible enough for future expansion if the client ever wants those cities to become clickable entry points.
+
+## Booking flow
+
+What makes this project stand out most is the booking system. On the front end, users can choose a date and time, enter their details, confirm the booking, and move on without unnecessary friction.
+
+![Booking form step for selecting a date.](/images/portfolio/alltinor-2.webp)
+
+The final step captures the customer information needed for fulfillment, such as name, phone, address, and email. From the user's point of view, the process stays simple. From the business side, it opens a much deeper workflow behind the scenes.
+
+![Final booking form step for customer details.](/images/portfolio/alltinor-3.webp)
+
+Once a booking is submitted, the system sends a confirmation flow to both sides. The customer gets a message that the request is pending review, while the owner or service manager receives an approval email. They can either log in to the booking dashboard with their own credentials or confirm the booking directly from the email itself.
+
+After approval, the automation continues: the customer receives a confirmed booking notice, a reminder email the day before the service, and a follow-up message two days after completion asking for a review. The confirmation experience also includes a convenient way to add the booking to a calendar or scan a QR code on mobile and open the event with details prefilled.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/alltinor.mp4" type="video/mp4" />
+</video>
+
+## Backend workflow
+
+On the admin side, the system is even more capable. The booking dashboard allows the team to approve or reject appointments, manage statuses, create invoices, attach payment links, assign workers, add internal notes, and manage payments from one place.
+
+The booking software also gave enough flexibility to define custom fields, custom emails, user roles with limited permissions, and service-specific workflows. To keep that experience cleaner for staff, I also built a custom login page tied into the WordPress login flow, redirecting admins straight into the booking dashboard so they never have to deal with the full WordPress backend if they do not need it.
+
+![Booking dashboard for admins and service managers.](/images/portfolio/alltinor-4.webp)
+
+## Result
+
+The final website gives Alltinor a much more structured service platform than a standard marketing site. It combines multilingual presentation, clear service separation, informative contact paths, and a booking system that supports both customers and staff in a practical way.
+
+This project is a good example of how a service website becomes much more valuable once the operational logic is built into it. Instead of only presenting what the company does, the site now actively helps the business accept, review, confirm, and manage bookings at scale.
