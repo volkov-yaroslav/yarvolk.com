@@ -1,0 +1,56 @@
+---
+draft: false
+date: "2025-10-08"
+title: "Discsor"
+description: "WordPress and WooCommerce migration for a Norwegian disc golf store, focused on design, filtering, and product-detail UX."
+image: /images/portfolio/discsor.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "4 weeks"
+  - title: "What's included"
+    data: |
+      - Shopify to WordPress migration
+      - Blocksy + Greenshift build
+      - WooCommerce product and variation import
+      - Brand archives and logo-based navigation
+      - Custom disc-parameter display on product pages
+      - Norwegian storefront with WooCommerce localization
+  - title: "Website"
+    data: "https://discsor.no/"
+---
+
+## Project overview
+
+Discsor is a Norwegian **disc golf** store built as a redesign and platform migration from Shopify to WordPress. The client wanted a better-looking store and a stronger user experience, so the project started as a design and UX improvement. Once the client was open to moving away from Shopify, WordPress became the more flexible option for me, especially for WooCommerce customization and long-term control.
+
+That shift also removed the monthly Shopify subscription and gave the project a backend that was much easier to shape around specific store needs. The final stack was **WordPress**, **WooCommerce**, **Blocksy**, **Greenshift**, and **The SEO Framework**.
+
+The visual direction was partly inspired by my own [Trimnest](/portfolio/trimnest) store, which gave me a useful starting point for structure, product presentation, and filtering patterns. Since I already had solid experience building WooCommerce stores on WordPress, the core e-commerce side moved quickly.
+
+![Products archive with sidebar filters and top-level category shortcuts.](/images/portfolio/discsor-1.webp)
+
+## Challenge
+
+The migration itself was one of the more important technical parts of the project. Fortunately, Shopify exposed product data through a public endpoint, which made it possible to extract the JSON cleanly. With AI assistance, I put together a Python script that converted that data into a WooCommerce-ready CSV for import.
+
+That workflow preserved the catalog safely during the move, including **300+ products**, variations, and additional product images. This kept the migration practical instead of turning it into a slow manual rebuild.
+
+The other challenge was product presentation. Disc golf stores use a very specific visual shorthand for disc characteristics, typically showing values like **Speed, Glide, Turn, and Fade** directly on the product page. These numbers are part of how customers compare discs, so they needed to be visible and easy to interpret without disrupting the rest of the layout.
+
+## Solution
+
+I stored the disc characteristics inside WooCommerce attributes, then built a custom display layer for the frontend. A shortcode outputs the values as separate pills and adds a tooltip interaction so users can see what each number represents. On desktop that appears on hover, and on mobile it works on tap. Even though experienced disc golf buyers usually already understand the format, matching that industry convention was important for trust and usability.
+
+![Mega menu showing disc brands.](/images/portfolio/discsor-2.webp)
+
+The store carries products across **eight brands**, and WooCommerce's built-in brand system helped structure that side of the catalog. With the Blocksy addon, I also added brand logos so the brands could appear more clearly in navigation, sidebar filters, and archive pages. Category shortcuts such as **Sekker**, **Putter**, **Midrange**, **Fairway Driver**, and **Distance Driver** were also surfaced more visibly on archive pages to make browsing faster.
+
+The storefront itself was built in Norwegian, and the existing WooCommerce localization helped simplify that workflow. Payment was handled by the client through **Vipps**, which fit the store's local Norwegian setup.
+
+![Product page with price, color selection, and custom disc parameters.](/images/portfolio/discsor-3.webp)
+
+The final result is a cleaner and more flexible disc golf e-commerce store with a better browsing experience, preserved catalog data, and a product-page presentation that fits the expectations of this niche. It is a good example of how a platform migration can be more than a technical move; it can also be an opportunity to improve design, filtering, and merchandising at the same time.
