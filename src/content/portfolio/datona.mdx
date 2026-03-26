@@ -1,0 +1,88 @@
+---
+draft: false
+date: "2026-01-17"
+title: "Datona"
+description: "Minimal WordPress agency website built with Breakdance and ACPT, with dynamic portfolio content and guided modal contact flows."
+image: /images/portfolio/datona.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "3 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Breakdance Pro build
+      - ACPT-powered portfolio management
+      - Dynamic contact details option page
+      - Conditional modal inquiry flows
+      - Norwegian content setup across 8 pages
+  - title: "Website"
+    data: "https://datona.yarvolk.com/"
+---
+
+## Project overview
+
+Datona is a minimalist agency website I built in **WordPress** using **Breakdance Pro** and **ACPT**. The stack is intentionally light, but it still gives the client a flexible backend and enough dynamic behavior to keep the site practical well beyond launch.
+
+The client did not hand over a fully prepared Figma file. Instead, I received a collection of visual references, layout ideas, and general preferences around tone and simplicity. My job was to interpret that direction, shape it into a coherent interface, and deliver something calm, polished, and functional.
+
+The finished site launched in **Norwegian** and includes **8 pages** in total: Home, About, Portfolio, Blog, and 4 service pages. Even though the visual language stays restrained, the site does quite a bit under the hood in terms of content structure and visitor interaction.
+
+![Interactive service choice section with four clickable options.](/images/portfolio/datona-2.webp)
+
+## Challenge
+
+This project needed to look minimal without behaving like a static brochure. The client wanted a clean presentation, but also asked for more tailored interaction around inquiries and service discovery.
+
+That meant two things had to work together well. First, the website needed a manageable content system for portfolio updates and company details. Second, the contact flow needed to guide visitors through a few decision points instead of dropping everyone into the same generic form.
+
+Because the design references were loose rather than production-ready, a big part of the work was also design judgment: deciding what to keep subtle, where to introduce movement, and how to make the site feel thoughtful without overdesigning it.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/datona.mp4" type="video/mp4" />
+</video>
+
+## Dynamic structure
+
+ACPT was central to making the site easy to manage. I used it to create a custom post type for portfolio items, which gives the admin a dedicated place in the WordPress dashboard to add, edit, and organize agency work without touching layouts or code.
+
+In this case, the portfolio entries do not open into separate internal case-study pages. Instead, they act as curated listings on the archive page, and clicking one opens the live project in a new tab. Since every portfolio item represents an external website, that approach keeps the experience direct and makes sense for the end user.
+
+The same dynamic setup also powers a smaller featured portfolio section on the homepage. Whenever a new item is added in the dashboard, it can automatically appear across the site where portfolio content is being queried, which keeps the system efficient for future updates.
+
+## Contact flow and reusable content
+
+I also used ACPT to create a **Contact Details** options page for fields like phone number, email, and address. Those values are then pulled dynamically across the website, so the admin only has to update the information once for it to change everywhere it appears.
+
+That kind of setup matters more than it seems. It means future updates to business details do not require opening the page builder, hunting through multiple pages, or touching any code. For a client site, that makes ongoing maintenance much safer and more convenient.
+
+On the interaction side, Breakdance Pro provided the tools I needed for the inquiry flow. The site includes **3 modal windows**, with the main "Get in touch" path opening a popup that presents 4 choices first. From there, users can continue into more specific follow-up options based on what they selected. I built that using Breakdance's popup and form elements, its conditional logic features, and a small amount of custom JavaScript to refine the behavior.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/datona-1.mp4" type="video/mp4" />
+</video>
+
+## Result
+
+The final website gives Datona a calm, modern agency presence with a backend that stays easy to manage. It combines a lightweight WordPress stack, dynamic portfolio management, reusable global contact details, and a more guided inquiry experience than a standard contact page would offer.
+
+On the front end, small motion details such as hover states and the marquee treatment help the site feel more alive without breaking the minimalist direction. On the admin side, the structure is practical: new portfolio items can be added quickly, contact details can be updated once and reused everywhere, and the site can keep growing without becoming fragile.
+
+![Minimal footer design with navigation and dynamically managed contact details.](/images/portfolio/datona-1.webp)
