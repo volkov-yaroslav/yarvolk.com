@@ -1,0 +1,67 @@
+---
+draft: false
+date: "2026-09-14"
+title: "Forsikrings Info"
+description: "WordPress lead-generation website for insurance offers, built around a large conditional Fluent Forms flow and CRM-ready submissions."
+image: /images/portfolio/forsikringsinfo.webp
+category: "Website"
+
+projectInfo:
+  - title: "Client"
+    data: "Datona"
+  - title: "Timeline"
+    data: "2 weeks"
+  - title: "What's included"
+    data: |
+      - WordPress development
+      - Fluent Forms Pro lead form build
+      - Multi-step conditional insurance flow
+      - CRM and notification setup
+      - Facebook lead-event tracking
+  - title: "Website"
+    data: |
+      - https://forsikringsassistenten.no
+      - https://www.stormforsikring.no/be-om-tilbud/
+---
+
+## Project overview
+
+Forsikrings Info is an insurance lead-generation project built in **WordPress** with **Fluent Forms Pro**. The website itself is intentionally simple, because the real value of the project sits in the form workflow rather than in a content-heavy frontend.
+
+The business model is straightforward: the client acts as a middleman between people looking for better insurance offers and the actual insurance companies that buy qualified leads. Traffic is driven through **Google Ads** and **Facebook Ads**, and the website's job is to capture detailed lead information in a way that stays usable for visitors while producing valuable data for the companies receiving those leads.
+
+That meant the form could not be a basic contact form. It needed to qualify people, route them through the right questions, and collect a lot of information without the experience collapsing into friction.
+
+![Forsikrings Info homepage hero and the lead form entry point.](/images/portfolio/forsikringsinfo.webp)
+
+## Challenge
+
+The challenge in this project was not building a visually complex website. It was designing a form flow that could handle many insurance scenarios while still feeling organized from the user's point of view.
+
+At the top level, the form begins with **3 parent categories**: **Private**, **Housing association**, and **Company**. Each of those branches opens a different path. The Private branch alone includes **16 selectable insurance subcategories**, while Housing association includes **7**, and Company includes **14**.
+
+Users are allowed to choose multiple insurance types, which means the form then has to reveal only the follow-up questions that make sense for those specific selections. In practice, this is a much harder problem than a standard lead form because the logic has to stay readable for both the visitor and the admin maintaining it later.
+
+## Form architecture
+
+The exported Fluent Forms configuration shows how large the final solution became. The form contains **132 actual fields**, **56 elements with active conditional logic**, and **19 step markers** guiding the user through the full journey. It also uses a wide mix of field types, including **42 dropdowns**, **32 numeric fields**, **36 text-based inputs**, file upload, address fields, and agreement checkboxes.
+
+That scale was handled through a structured step-by-step flow rather than one overwhelming page. Users move from the initial insurance type selection into more relevant question groups, and the form only expands where it has to.
+
+For example, different insurance choices trigger different follow-up paths for things like vehicles, buildings, travel, family, business assets, or housing-association coverage. That lets the form gather much richer lead data than a generic quote request, while still keeping the process navigable.
+
+## Lead handling and tracking
+
+The end result was not just a frontend form. It was a lead pipeline.
+
+Submitted entries were connected to the client's CRM workflow, and the exported configuration also shows supporting output options such as **email notifications** and a **Google Sheets feed** setup. In other words, the form was designed as a flexible collection layer that could serve both immediate sales handling and broader reporting needs.
+
+I also added **Facebook Pixel** tracking with a dedicated lead event that fires only after a successful submission. That gives the client cleaner conversion data for campaign evaluation and helps improve ad performance over time by tracking actual completed leads rather than simple page visits.
+
+The form was first deployed on **forsikringsassistenten.no**, and later the same form logic was copied over to **stormforsikring.no** as well. That reuse matters because it shows the solution was not just built for one landing page. It was structured strongly enough to be redeployed in a second insurance context without rebuilding everything from scratch.
+
+## Result
+
+The final website is simple by design, but the lead system behind it is not. It gives the client a way to collect detailed insurance requests across multiple market segments, qualify those requests through layered logic, and pass them into follow-up workflows that are useful for real commercial lead handling.
+
+For me, this project stands out because it is a good example of where the real product is not the website itself, but the conversion engine inside it. The strongest part of the work was turning a large, branching insurance inquiry into a form experience that still feels manageable for users and valuable for the businesses buying the leads.
