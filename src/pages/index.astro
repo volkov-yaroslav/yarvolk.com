@@ -15,6 +15,7 @@ if (!homepage) return new Response(null, { status: 404, headers: { 'content-type
 const portfolioPage = await getPage('pages', 'portfolio');
 const allPortfolioItems = await getPageCollection("portfolio");
 const portfolioItems = allPortfolioItems
+  .filter((item) => item.data.category?.toLowerCase() === "website")
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
   .slice(0, 5);
 
