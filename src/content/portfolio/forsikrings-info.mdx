@@ -26,7 +26,7 @@ projectInfo:
 
 ## Project overview
 
-Forsikrings Info is a lead-generation website built in **WordPress** with **Fluent Forms Pro** for the Norwegian insurance market. The website itself is intentionally simple. The real work in this project was the form system, because the client's business depends on collecting qualified insurance leads and passing them on to insurance companies.
+Forsikrings Info is a lead-generation website built in **WordPress** with **Fluent Forms Pro** for the Norwegian insurance market. The website itself is intentionally simple. The real value in this project sits in the form system, because the client's business depends on collecting qualified insurance leads and passing them on to insurance companies.
 
 Traffic comes from **Google Ads** and **Facebook Ads**, so the form needed to do more than accept a name and email. It had to gather enough useful information to make each lead valuable, while still keeping the experience structured and easy to complete.
 
@@ -34,18 +34,26 @@ Traffic comes from **Google Ads** and **Facebook Ads**, so the form needed to do
 
 The core challenge was building a form that could handle many different insurance scenarios without becoming confusing. The first decision splits users into **3 parent categories**: **Private**, **Housing association**, and **Company**. From there, each path opens its own set of insurance options and follow-up questions.
 
-The Private branch alone includes **16 selectable subcategories**, while Housing association includes **7**, and Company includes **14**. Users can choose multiple insurance types, so the form then needs to reveal only the questions that are relevant to those selections. That is where the project became much more complex than a standard contact form.
+Users can choose multiple insurance types, so the form then needs to reveal only the questions that are relevant to those selections. That is what made this project much more complex than a standard contact form.
 
 ## Form architecture
 
-The exported form setup shows how large the final structure became: **132 fields**, **56 elements with active conditional logic**, and **19 step markers** guiding users through the process. Instead of overwhelming people on one page, the form moves in clear steps and expands only where it needs to.
+The exported form setup shows how large the final structure became:
 
-Different insurance choices trigger different paths for things like vehicles, property, travel, family coverage, or business-related policies. That allowed the client to collect much richer lead data without turning the experience into a mess.
+- `132` fields
+- `56` elements with active conditional logic
+- `19` step markers
+- `3` parent categories
+- `16` private subcategories
+- `7` housing-association subcategories
+- `14` company subcategories
+
+Instead of overwhelming people on one page, the form moves in clear steps and expands only where it needs to. Different insurance choices trigger different paths for things like vehicles, property, travel, family coverage, or business-related policies. That gave the client much richer lead data without making the form unusable.
 
 ![WordPress admin view of the Fluent Forms setup and conditional form structure.](/images/portfolio/forsikringsinfo-1.webp)
 
 ## Result
 
-The finished solution gives the client a proper lead pipeline rather than just a contact page. Submissions were connected into the client's CRM workflow, with supporting options for **email notifications** and **Google Sheets**, and I also added **Facebook Pixel** tracking with a dedicated lead event that fires only after a successful submission.
+The finished solution gives the client a proper lead pipeline rather than just a contact page. Submissions were connected into the client's CRM workflow, with supporting options for **email notifications** and **Google Sheets**. I also added **Facebook Pixel** tracking with a dedicated lead event that fires only after a successful submission.
 
-The form was first launched on **forsikringsinfo.no**, and later reused on **stormforsikring.no** as well. For me, this project stands out because the real product was not the website itself, but the conversion engine behind it. The main value was turning a large and branching insurance inquiry into something that still feels manageable for users and commercially useful for the businesses buying the leads.
+The form was first launched on **forsikringsinfo.no**, and later reused on **stormforsikring.no** as well. For me, this project stands out because the real product was not the website itself, but the conversion engine behind it.
