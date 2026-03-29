@@ -23,36 +23,36 @@ projectInfo:
 
 ## Project overview
 
-EZticketz is a US-based ticketing company that focuses on live events, from concerts to comedy shows and similar entertainment experiences. The business launched in Chicago in 2022 and has already covered more than 100 events while selling over 10,000 tickets.
+EZticketz is a US-based ticketing company focused on live events, from concerts to comedy shows and similar entertainment experiences. The business launched in Chicago in 2022 and quickly grew into a busy ticket seller with more than 100 events covered and over 10,000 tickets sold.
 
-Through the system, the business has sold tickets to shows connected to artists such as **Three 6 Mafia**, **G Herbo**, **Paul Wall**, **Randy Houser**, **Frankie J**, **Kameron Marlowe**, **Corey Kent**, and **Conner Smith**, among others.
-
-This project was built for **WebmastersDesktop**. The client wanted a more polished storefront for browsing events, but without replacing the existing Shopify ticketing and checkout flow that was already working for the business.
+This project was built for **WebmastersDesktop**. The goal was not to replace the existing Shopify side of the business, but to build a much better website around it: something that could present events properly, make browsing easier, and guide users into the ticket-purchase flow more clearly.
 
 ## Challenge
 
-The main challenge was creating a frontend that felt more like a proper event platform rather than a simple shop. Visitors needed a better way to discover shows, view event details, and understand what they were buying before being sent into checkout.
+The original need was straightforward: keep Shopify for products and checkout, but improve everything users see before that point. A ticketing business does not work well when the public-facing experience feels like a generic shop with product links.
 
-At the same time, the ticket-purchase flow needed to stay connected to Shopify, since that was still the core commerce engine behind the business.
+Visitors needed a cleaner way to discover events, open a dedicated event page, review the essential details, and then move into checkout without friction. At the same time, the client needed a workflow that was easy to maintain when publishing new events.
 
 ## Solution
 
-I built the storefront in **WordPress** using **Blocksy** and **Greenshift**, with **Events Manager** handling event listings and archive structure. To make each event page more useful, I also used **ACF** for custom fields such as the ticket purchase URL.
+I built the storefront in **WordPress** using **Blocksy** and **Greenshift**, with **Events Manager** handling event listings and archive structure. I also used **ACF** for custom fields on event pages, including the ticket URL that points to the matching Shopify product.
 
-That setup created a simple and practical content workflow. Events are published on the WordPress side with their own layout, description, date, time, and location details. When tickets are ready, the Shopify product link is added to the event entry, so visitors can browse everything inside the website first and then continue to Shopify only at the point of purchase.
+That gave the client a practical publishing flow. Events are added in WordPress with their own description, date, time, location, directions link, and map. When tickets are available, the Shopify product URL is inserted into the event entry, which creates a simple handoff: users discover the event on the website, read the event details on WordPress, and then click through to Shopify to complete the purchase.
 
 ![Events archive page with published shows.](/images/portfolio/ezticketz-1.webp)
 
 ## Event pages
 
-Each event page was designed to give users the information they usually look for before buying: event description, venue details, date and time, directions, and a map. The call to action is kept clear, with a direct **Purchase Tickets** handoff to the corresponding Shopify product.
+Each event page was designed to answer the key questions before purchase. Instead of dropping users straight onto a product page, the website gives them event context first: what the event is, when it happens, where it takes place, and how to get there.
 
-This helped separate content presentation from checkout logic. WordPress became the storefront and event discovery layer, while Shopify remained the transaction layer.
+This separation worked well for the business. WordPress became the content and event-discovery layer, while Shopify remained the transaction layer. The setup preserved the existing checkout system without sacrificing the quality of the storefront.
 
 ![Single event page with detailed information and purchase flow.](/images/portfolio/ezticketz-2.webp)
 
 ## Result
 
-The final website gave EZticketz a cleaner and more structured public-facing platform while preserving the existing Shopify setup behind the scenes. Instead of forcing users directly into product pages, the site now gives each event a proper presentation and a clearer path from discovery to purchase.
+The final website gave EZticketz a more structured and professional event platform while keeping the Shopify engine intact behind the scenes. It improved how events are presented, made the site easier to maintain, and created a clearer path from discovery to checkout.
 
-For this project, the value was not in rebuilding the whole system from scratch. It was in improving the experience around it and creating a more useful storefront for a growing live-events business.
+This setup has been used to present and sell tickets for shows connected to artists such as **Three 6 Mafia**, **G Herbo**, **Paul Wall**, **Randy Houser**, **Frankie J**, **Kameron Marlowe**, **Corey Kent**, and **Conner Smith**, among others.
+
+For this project, the value was in building a stronger frontend around an existing commerce flow and making the whole experience feel much closer to a real event website than a simple product catalog.
