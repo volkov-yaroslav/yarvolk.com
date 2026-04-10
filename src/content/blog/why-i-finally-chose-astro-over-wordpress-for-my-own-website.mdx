@@ -1,104 +1,174 @@
 ---
 draft: false
-title: "Why I finally chose Astro over WordPress for my own website"
-description: "After years of defaulting to WordPress for personal projects, Astro became the first alternative that felt simpler, faster, and more aligned with how I want to build."
-image: /images/placeholder.webp
+title: "The first time I did not choose WordPress for my own website"
+description: "After years of reaching for WordPress by default, Astro became the first stack that made my personal site feel lighter, clearer, and genuinely fun to build."
+image: /images/blog/wordpress-astro.webp
 date: "2026-04-10"
-category: "developer"
+category: "workflow"
 ---
 
-For a long time, WordPress was not just one of my tools. It was *the* tool.
+For most of my life on the web, WordPress was not just a tool I used. It was the answer before I had even finished asking the question.
 
-It powered client projects, experiments, business ideas, and most of the websites I built for myself. At some point it stopped feeling like a choice and started feeling like the obvious default. If I was building something personal, I reached for WordPress almost automatically.
+Client site? WordPress.
 
-That is why this website feels important to me.
+Personal experiment? WordPress.
 
-**yarvolk.com is the first personal project in my life where I consciously chose something else.** I built it with Astro, and I genuinely could not be happier with that decision.
+Business idea, landing page, content site, small store, weird side project I wanted to test at 2 a.m.? Also WordPress.
 
-This is not a post about WordPress being bad. I still think WordPress is an excellent fit for a huge number of websites. It gave me a career, taught me how the web works in practice, and helped me build projects that mattered to me personally. One of the best examples is [Trimnest](/portfolio/trimnest), my long-running e-commerce project built with WordPress and WooCommerce.
+So this website matters to me more than it probably should on paper, because **yarvolk.com is the first personal project in my life where I consciously chose something else**.
 
-But for this website, I wanted something different.
+I built it with Astro, and I have to be honest: I have not felt this relaxed inside my own website stack in a very long time.
 
-## WordPress had become my default
+## This is not a breakup post
 
-One of the strange things about working with a platform for years is that you stop questioning it. You know how to move fast in it. You know which plugins solve which problems. You know where the friction is, and you also know how to tolerate it.
+I am not writing this to take a cheap shot at WordPress. That would be dishonest.
+
+WordPress gave me a lot. It taught me how websites behave once they leave the design file and become real systems. It taught me theme structure, content modeling, plugin ecosystems, hosting headaches, performance tradeoffs, and how much work it takes to make a website feel smooth.
+
+It also helped shape projects that genuinely changed my life. [Trimnest](/portfolio/trimnest), for example, is my longest-running personal project and one of the clearest proofs that WordPress can still be incredibly powerful when you need a practical business foundation.
+
+This post is really about something smaller and more personal than that.
+
+For the first time, WordPress was not the automatic answer.
+
+## The default finally started feeling heavy
+
+When you know a platform deeply, its friction becomes invisible. You stop noticing how many layers sit between you and the final result because you have learned how to move around them quickly.
 
 That was me with WordPress.
 
-Even when parts of the experience felt heavier than they needed to be, I already knew the workarounds. I knew how to make it bend. So instead of asking whether it was still the right foundation, I kept asking how to make it fit one more project.
+I knew the admin. I knew the plugin logic. I knew the theme conventions. I knew how to fix things when the stack got weird. But somewhere along the way, I realized I was spending too much energy maintaining the *system around the content* instead of enjoying the content and the code themselves.
 
-For client work, that can still make a lot of sense. WordPress has a mature ecosystem, a familiar admin, and a publishing workflow that many people understand immediately.
+For a personal website, I do not really need:
 
-But a personal website is different.
+- a database
+- a heavy admin layer
+- media living in a separate mental model
+- plugin decisions for every small feature
+- extra abstraction between writing and publishing
 
-My own site does not need a big editorial backend. It does not need a plugin stack just to feel complete. It does not need layers of abstraction between me and the final page. What I wanted was a site that feels close to the code, easy to shape, and pleasant to maintain.
+What I wanted instead was something direct.
 
-## What changed for me
+## Astro felt direct in a way WordPress no longer did
 
-The biggest shift was not even visual. It was mental.
+That is the word I keep coming back to: **direct**.
 
-Over the last couple of years, I started enjoying workflows where content, structure, and styling live close together. I like opening a project and seeing the whole thing in front of me. I like knowing where the text lives, where a component lives, and how a page is assembled without jumping through a dashboard, a media library, plugin settings, and custom fields.
+With Astro, the project feels close to the source. Content sits in files. Routes are obvious. Components are right there. Layouts are right there. If I want to change the structure of a page, I can open the file and change the page.
 
-That becomes even more noticeable when AI enters the workflow.
+There is something weirdly calming about that.
 
-With a code-first setup, the project is much easier to reason about. The content is in files. The layouts are in files. The patterns are visible. If I want help rewriting a section, restructuring a page, or introducing a reusable component, the full context is already there.
+This is roughly what the site looks like from the inside:
 
-In WordPress, a lot of that context is spread across the database, the theme, the plugins, and the admin interface. It works, but it is not nearly as direct.
+```text
+src/
+├── components/
+├── content/
+│   ├── blog/
+│   │   ├── a-spectacular-rainbow-experience-in-poland.mdx
+│   │   └── why-i-finally-chose-astro-over-wordpress-for-my-own-website.mdx
+│   ├── pages/
+│   └── portfolio/
+├── layouts/
+├── lib/
+└── pages/
+    ├── blog/
+    │   ├── [...slug].astro
+    │   └── index.astro
+    ├── portfolio/
+    └── index.astro
+```
 
-I think that was the moment when something clicked for me: for a personal website, I no longer wanted the convenience of a CMS more than I wanted clarity.
+That structure tells me more, faster, than a dashboard ever could.
 
-## Why Astro felt right
+## The project is easier to reason about
 
-Astro landed at exactly the right time.
+One of the nicest surprises is how little mystery there is.
 
-It gave me the simplicity I wanted without making the project feel overly engineered. The pages are fast. The content model is easy to understand. Writing in MDX feels natural. Components stay available when I need them, but they do not take over the whole experience.
+The homepage pulls content in a way that is easy to read even months later:
 
-Most importantly, the site feels calm.
+```ts
+const blogpage = await getPage('pages', 'blog');
+const allBlogs = await getPageCollection("blog");
+const blogs = allBlogs
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 3);
+```
 
-There is no sense that I am constantly managing a system around the content. I am just building pages.
+That is such a small thing, but I love what it represents.
 
-That matters more to me than it used to.
+No plugin panel.
+No custom query hidden in a builder UI.
+No guessing where a homepage section is assembled.
 
-With Astro, I can keep the site lean, write posts in a format I actually enjoy, and make design changes without feeling like I am negotiating with a theme architecture. The result is a website that feels much closer to how I think.
+Just a file, a collection, and the logic sitting in front of me.
 
-It is also simply fun. That part matters too.
+The content model is equally readable:
 
-## This was not a rejection of WordPress
+```ts
+const blogCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    image: z.string().optional(),
+    date: z.string(),
+    category: z.string(),
+  }),
+});
+```
 
-If anything, choosing Astro made me appreciate WordPress more clearly for what it is actually good at.
+Again, it is not about novelty. It is about clarity.
 
-WordPress is still the better choice in many situations, especially when the project depends on an admin-driven publishing flow, multiple contributors, client handoff, or a plugin ecosystem that solves real business needs quickly.
+## AI made the tradeoff even more obvious
 
-I did not move away from it because it failed me.
+This part has become impossible for me to ignore.
 
-I moved away from it because, for once, I gave myself permission to choose based on what *this* project needed instead of what I already knew best.
+The more I work with AI inside real projects, the more I appreciate setups where the full context is already visible in the codebase. Astro fits that instinct much better than WordPress does for a personal site.
 
-That is an important distinction.
+When content lives in MDX files, components live in `src/components`, and page logic lives in `src/pages`, it becomes much easier to write, edit, refactor, and extend with AI assistance. The project is legible. The patterns are exposed. The agent does not have to guess how your site is stitched together behind a CMS interface.
 
-There is a big difference between outgrowing a default and outgrowing a tool. I have not outgrown WordPress. I just do not need it for everything anymore.
+That does not make WordPress obsolete. It just makes Astro feel better aligned with how I personally want to work now.
 
-## Why this personal site feels better
+## WordPress still wins in plenty of cases
 
-What makes me happiest is not one specific feature. It is the overall feeling of the project.
+I would still choose WordPress for many projects, especially when the site needs:
 
-The site is fast. It is lightweight. It is easier to maintain. It feels more transparent. I can open the repository and understand it immediately. I can write, tweak, and publish without carrying the overhead that usually comes with a traditional CMS setup.
+- a familiar admin for clients
+- a stronger editorial workflow
+- plugin-driven features with little custom engineering
+- multiple contributors working from a CMS first
 
-More than that, it feels like *mine*.
+But none of those were the main priority for this website.
 
-Not in the sense that WordPress sites are not mine, but in the sense that this one feels unusually direct. There is less between the idea and the output. Less ceremony. Less hidden complexity. Less maintenance just to preserve the baseline.
+This site is for me. It is my space to write, show work, tweak things, and iterate quickly. In that context, the lighter option ended up being the better option.
 
-That has made me more excited to keep improving it.
+## What I like most is the feeling
+
+It is hard to reduce this to a checklist, because what I enjoy most is not just speed or file structure or the fact that the site is static.
+
+It is the feeling that the stack gets out of my way.
+
+I open the repo and understand it.
+I add a post and it feels simple.
+I make a design change and it stays local to the code.
+I do not feel like I am negotiating with a platform.
+
+That has made me want to write more, ship more, and care more about the site again.
+
+And honestly, that alone makes the move worth it.
 
 ## Final thought
 
-For years, I built personal projects on WordPress because it was the platform I trusted most and knew most deeply. It earned that trust.
+For years, I kept choosing WordPress for my own projects because it was familiar, capable, and proven. All of that was true.
 
-But this is the first time I chose something else on purpose, and it reminded me that familiarity is not always the same thing as fit.
+But familiarity can quietly turn into inertia.
 
-Astro turned out to be a better fit for the kind of personal website I wanted to have now: simple, fast, flexible, and close to the code.
+This site was the first time I stopped and asked a different question: not *what do I already know best?*, but *what would actually feel best for this project?*
 
-I am sure I will keep building WordPress websites. That story is far from over.
+For `yarvolk.com`, the answer turned out to be Astro.
 
-Still, I think this project marks a small shift for me. Not because I abandoned WordPress, but because for the first time, I did not treat it as the automatic answer.
+Not because WordPress failed me.
+Not because Astro is trendy.
+Not because I suddenly think every personal site should be rebuilt from scratch.
 
-And honestly, that has been refreshing.
+Just because for the first time in a long time, the simpler option also felt like the more honest one.
