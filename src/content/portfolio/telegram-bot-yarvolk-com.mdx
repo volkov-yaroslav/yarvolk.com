@@ -1,0 +1,57 @@
+---
+draft: false
+date: "2026-02-15"
+title: "Telegram Bot Yarvolk.com"
+description: "Personal n8n automation that lets me create blog and portfolio drafts for this Astro website directly from Telegram, with AI-assisted writing and optional image publishing."
+image: /images/portfolio/telegram-bot-yarvolk-com.webp
+category: "Automation"
+
+projectInfo:
+  - title: "Client"
+    data: "Personal project"
+  - title: "Timeline"
+    data: "1 day"
+  - title: "What's included"
+    data: |
+      - Telegram bot publishing flow in n8n
+      - AI-assisted MDX draft generation
+      - GitHub publishing with optional image upload
+---
+
+## Project overview
+
+Telegram Bot Yarvolk.com is a personal automation I built in **n8n** with the help of **Codex** to make publishing to [my personal portfolio website built on Astro JS](/blog/astro-over-wordpress) much faster from my phone.
+
+Instead of opening the repo, creating a new file manually, and handling every content step by hand, I can send a message to a Telegram bot and let the workflow prepare a structured draft directly inside the site codebase.
+
+The workflow is currently active and built as a **38-node** automation that connects **Telegram**, **OpenAI**, and **GitHub**. Its job is not only to generate text, but to understand where the content should go, keep categories aligned with the existing repository, and optionally move an attached Telegram image into the correct public folder before publishing.
+
+## Challenge
+
+The challenge was reducing all the small publishing steps around the idea itself.
+
+When I want to capture something quickly away from the desk, the annoying part is usually not the writing. It is deciding whether the content belongs in the blog or portfolio, creating the MDX file, choosing a valid category, generating a slug, and placing everything in the right folder.
+
+I wanted the process to feel simple from Telegram, while still respecting the actual structure of the site.
+
+## Solution
+
+The workflow starts with a **Telegram Trigger** and a custom parser that supports **/start**, **/help**, **/write**, plus direct commands like **/write blog** and **/write portfolio**. It also includes a guided mode with simple Telegram buttons so I can choose the destination first and reply with the actual content after.
+
+![Telegram chat flow used to create a draft through the bot.](/images/blog/wordpress-astro-2.webp)
+
+Before anything else happens, the bot checks whether the user and chat are whitelisted. That keeps the publishing path private and prevents the workflow from becoming a public content endpoint.
+
+From there, the workflow reads the existing **blog** and **portfolio** MDX files from GitHub, extracts the categories already in use, and passes those real category lists into the AI prompt. That means the generated draft stays aligned with the site instead of inventing random taxonomy.
+
+Once that context is assembled, **OpenAI** generates structured JSON with the title, description, category, body, and file name. A follow-up code node turns that into a valid Astro MDX file and prepares the correct target path inside `src/content/blog` or `src/content/portfolio`.
+
+If the Telegram message includes a photo, the workflow downloads it, uploads it to GitHub, and updates the MDX so the image is referenced automatically. If not, it simply publishes the text draft.
+
+The final step creates the file directly in **GitHub** and returns a success message in Telegram with the published path.
+
+## Result
+
+The result is a practical publishing assistant that turns Telegram into a lightweight writing interface for my Astro site. It is much faster than opening the project manually for every draft, but still structured enough to respect the real content architecture of the repository.
+
+What makes it useful is not just the AI layer. It is the guardrails around it: private access, category awareness, file-path generation, GitHub publishing, and optional image handling. That makes the output far more usable than a generic chatbot response.

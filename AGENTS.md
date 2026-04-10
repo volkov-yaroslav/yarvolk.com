@@ -27,3 +27,4 @@ Lightweight rules for agents in this repository.
 ## Future Rules
 
 - Add new project-specific rules here as needed.
+- Prefer shorter slugs for blog posts. The filename slug does not need to mirror the full title; use a concise version of the title instead.
