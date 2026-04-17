@@ -1,10 +1,11 @@
 import { markdownify } from "@utils/textConverter";
+import { localeText, localizePagePath } from "@lib/i18n";
 import React from 'react';
 
-const AboutIntro = ({ about }) => {
+const AboutIntro = ({ about, locale = "en" }) => {
   const image = (about.images && about.images[0]) || "/images/about/yarvolk_about.webp";
-  const whatsappLink =
-    "https://wa.me/380932404066?text=Hello%2C%20Yaroslav.%20How%20are%20you%20doing%3F";
+  const text = localeText[locale];
+  const whatsappLink = `https://wa.me/380932404066?text=${encodeURIComponent(text.contact.whatsappIntro)}`;
 
   return (
     <div className="container">
@@ -27,13 +28,13 @@ const AboutIntro = ({ about }) => {
         <div className="lg:col-5 md:col-10 text-center lg:text-left">
           <div className="pl-0 lg:pl-8">
             <div className="mb-10 mt-2 md:mt-4 lg:mt-0">
-              <p className="text-2xl leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</p>
+              <h2 className="text-2xl leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</h2>
               <div className="text-black/75 text-balance" data-aos="fade-up-sm" data-aos-delay="100" dangerouslySetInnerHTML={{ __html: markdownify(about.description) }}></div>
             </div>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3" data-aos="fade-up-sm" data-aos-delay="150">
-              <a className="button button-dark h-[47px]" href="/contact">
-                <span className="inline-flex items-center h-full leading-none">Contact</span>
+              <a className="button button-dark h-[47px]" href={localizePagePath(locale, "contact")}>
+                <span className="inline-flex items-center h-full leading-none">{text.common.contact}</span>
               </a>
               <a
                 className="button button-whatsapp h-[47px]"
@@ -44,7 +45,7 @@ const AboutIntro = ({ about }) => {
               >
                 <span className="inline-flex items-center h-full gap-2 leading-none">
                   <img src="/images/whatsapp.svg" alt="" width="18" height="18" className="block" aria-hidden="true" />
-                  Whatsapp
+                  {text.common.whatsapp}
                 </span>
               </a>
             </div>

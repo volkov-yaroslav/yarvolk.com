@@ -1,0 +1,49 @@
+---
+draft: false
+date: "2026-02-15"
+title: "Telegram Bot Yarvolk.com"
+description: "Osobista automatyzacja w n8n, która pozwala mi tworzyć szkice do bloga i portfolio na tej stronie Astro bezpośrednio z Telegrama, z pomocą AI i opcjonalnym dodawaniem obrazów."
+image: /images/portfolio/telegram-bot-yarvolk-com.webp
+category: "Automation"
+
+projectInfo:
+  - title: "Klient"
+    data: "Projekt własny"
+  - title: "Czas realizacji"
+    data: "1 dzień"
+  - title: "Zakres prac"
+    data: |
+      - Proces publikacji przez bota Telegram w n8n
+      - Tworzenie szkiców MDX przy wsparciu AI
+      - Publikacja do GitHub z opcjonalnym przesyłaniem obrazów
+---
+
+## Przegląd projektu
+
+Telegram Bot Yarvolk.com to moja własna automatyzacja w **n8n**, zbudowana przy pomocy **Codex**, aby znacznie szybciej publikować nowe treści na tej stronie bezpośrednio z telefonu.
+
+Zamiast otwierać repozytorium, ręcznie tworzyć nowy plik i przechodzić przez cały techniczny proces publikacji, mogę po prostu napisać do Telegrama. Resztę przejmuje bot, który przygotowuje szkic i odkłada go w odpowiednie miejsce bazy kodu.
+
+## Co trzeba było rozwiązać
+
+Najważniejszym celem było usunięcie wszystkich drobnych, powtarzalnych kroków wokół samego pomysłu. Kiedy chcę szybko zapisać nowy materiał, najbardziej męczące nie jest napisanie tekstu, lecz to, co dzieje się później: wybór typu treści, utworzenie pliku MDX, dobranie kategorii, wygenerowanie sluga i zapisanie wszystkiego w odpowiednim folderze.
+
+Chciałem, aby z mojej perspektywy cały proces był prosty, ale jednocześnie szanował prawdziwą strukturę strony.
+
+## Jak działa ten proces
+
+Całość startuje od **Telegram Trigger** i obsługuje zarówno przyciski, jak i komendy typu **`/write blog`** oraz **`/write portfolio`**. Jest też tryb prowadzony, w którym najpierw wybieram typ treści, a dopiero potem wysyłam samą ideę.
+
+Zanim wydarzy się cokolwiek więcej, bot sprawdza, czy użytkownik i czat znajdują się na liście dozwolonych. Dzięki temu proces pozostaje prywatny i nie zamienia się w publiczne wejście do publikowania treści.
+
+Następnie n8n odczytuje bieżące pliki **MDX** z **GitHub**, wyciąga istniejące kategorie i przekazuje je do podpowiedzi dla **OpenAI**. Dzięki temu model pracuje w ramach realnej struktury strony zamiast tworzyć przypadkowe nowe kategorie. Kolejny węzeł kodu składa z tego poprawny plik **MDX** i zapisuje go w `src/content/blog` albo `src/content/portfolio`.
+
+Jeśli wiadomość z Telegrama zawiera obraz, proces przesyła go również do **GitHub** i od razu podstawia odpowiednie odwołanie w szkicu.
+
+![Rozmowa w Telegramie pokazująca krok po kroku tworzenie szkicu przez bota.](/images/blog/wordpress-astro-2.webp)
+
+## Efekt
+
+W praktyce otrzymałem bardzo wygodne narzędzie do publikacji, które zamienia Telegram w lekki interfejs do pisania. To znacznie szybsze niż ręczne otwieranie projektu za każdym razem, a jednocześnie wystarczająco uporządkowane, by nie psuć architektury strony.
+
+Największa wartość nie leży tu wyłącznie w AI, ale w całym zestawie zabezpieczeń wokół niego: prywatnym dostępie, kontroli kategorii, automatycznym budowaniu ścieżek plików, publikacji do GitHub i obsłudze obrazów. Dzięki temu cały proces nadaje się do realnego codziennego użycia.

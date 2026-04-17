@@ -1,20 +1,25 @@
 ---
+import { getRouteLabel, localeText, localizePagePath, type SiteLocale } from "@lib/i18n";
 import { titleify } from "@utils/textConverter";
 
 const { title, subtitle } = Astro.props;
+const locale: SiteLocale = Astro.props.locale ?? "en";
+const text = localeText[locale];
 
 // Generate breadcrumb items based on the current URL path
 const url = new URL(Astro.request.url);
 const pathname = url.pathname;
 const parts = pathname.split('/').filter(Boolean);
-let accumulatedPath = '';
+let accumulatedPath = locale === 'en' ? '' : `/${locale}`;
 const items = [];
 for (const part of parts) {
   if (part.toLowerCase() === 'page') break;
+  if (part.toLowerCase() === locale.toLowerCase()) continue;
   accumulatedPath += `/${part}`;
-  const label = part
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const routeLabel = getRouteLabel(part, locale);
+  const label = routeLabel === part
+    ? part.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    : routeLabel;
 
   items.push({ label, href: accumulatedPath });
 }
@@ -42,7 +47,7 @@ const lastIndex = items.length - 1;
                   <path d="M19 16l3 3l-3 3" />
                 </svg>
               </li>
-              <li><a class="link" href="/">Home</a></li>
+              <li><a class="link" href={localizePagePath(locale)}>{text.menu.home}</a></li>
               {items.map((item, index) => {
                 const isLast = index === lastIndex;
                 return (

@@ -1,0 +1,46 @@
+---
+draft: false
+date: "2025-07-03"
+title: "Motor City Pets"
+description: "Strona WordPress dla organizacji ratującej zwierzęta z Detroit, z ogłoszeniami adopcyjnymi, kontami użytkowników i wygodnym systemem zgłoszeń."
+image: /images/portfolio/motor-city-pets.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "WebmastersDesktop"
+  - title: "Czas realizacji"
+    data: "2 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Blocksy, Greenshift i ACF
+      - System kont użytkowników i logowania
+      - Ogłoszenia adopcyjne zwierząt i zarządzanie nimi
+  - title: "Strona"
+    data: "https://www.motorcitypets.com/"
+---
+
+## Przegląd projektu
+
+Motor City Pets to niekomercyjna strona poświęcona ratowaniu i adopcji zwierząt, którą zbudowałem w WordPressie dla organizacji z Detroit w Michigan jako część zespołu WebmastersDesktop. Celem było ułatwienie adopcji zwierząt, a jednocześnie danie społeczności uporządkowanego sposobu dodawania i zarządzania ogłoszeniami.
+
+Kierunek wizualny zaczął się od szablonu Blocksy i został zrealizowany przy użyciu bloków Greenshift, natomiast logika strony została dopasowana do realnego procesu adopcji zamiast do typowej strony wizytówkowej.
+
+![Pojedynczy pet listing na Motor City Pets.](/images/portfolio/motor-city-pets-1.webp)
+
+## Wyzwanie
+
+Główne wyzwanie polegało na zbudowaniu systemu ogłoszeń, który pozostaje prosty na froncie, ale obsługuje bardziej złożone dane i uprawnienia na zapleczu. Profile zwierząt potrzebowały uporządkowanych pól, takich jak typ zwierzęcia, imię, wiek, rasa i status, a możliwość dodawania ogłoszeń mieli mieć wyłącznie zarejestrowani użytkownicy.
+
+Jednocześnie użytkownicy musieli móc później utrzymywać własne ogłoszenia, a administratorzy zachować moderację i kontrolę statusów w całym procesie adopcyjnym.
+
+## Rozwiązanie
+
+Wykorzystałem **ACF**, aby zbudować własny typ wpisów **Pets** oraz pola dla danych profilu zwierzęcia. Dla logiki kont i zgłoszeń wdrożyłem wtyczkę **Ultimate Membership**, która obsługuje rejestrację, logowanie i dodawanie profili zwierząt tylko dla zalogowanych użytkowników.
+
+Po wysłaniu profilu zwierzęcia przez zalogowanego użytkownika, wraz z wymaganymi danymi i zdjęciami, wpis automatycznie pojawia się w archiwum zwierząt. Użytkownicy mogą edytować, aktualizować lub usuwać własne ogłoszenia, a zarówno autorzy zgłoszeń, jak i administratorzy mogą zmieniać status zwierzęcia z **Available** na **Adopted**.
+
+Ten status steruje zachowaniem frontendu: ogłoszenia oznaczone jako adopted pokazują wyraźną etykietę, a przycisk **Adopt this pet** zostaje ukryty. Dla wpisów ze statusem available kliknięcie tego przycisku otwiera formularz w oknie wyskakującym, który wysyła email do aktualnego właściciela lub osoby kontaktowej i pozwala bezpośrednio porozmawiać o adopcji.
+
+![Formularz zgłoszeniowy Motor City Pets.](/images/portfolio/motor-city-pets-2.webp)

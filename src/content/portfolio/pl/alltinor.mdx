@@ -1,0 +1,80 @@
+---
+draft: false
+date: "2025-11-20"
+title: "Alltinor"
+description: "Strona WordPress dla norweskiej firmy usługowej z czytelnym podziałem usług, wielojęzycznymi podstronami i dopracowanym systemem rezerwacji."
+image: /images/portfolio/alltinor.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "Datona"
+  - title: "Czas realizacji"
+    data: "3 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Budowa na Blocksy + Greenshift
+      - Multilingual konfiguracja po norwesku i angielsku
+      - Integracja premium booking plugin
+      - Mapa SVG z obszarem działania
+  - title: "Strona"
+    data: "https://alltinor.no/"
+---
+
+## Przegląd projektu
+
+Alltinor to firma usługowa oferująca sprzątanie, przeprowadzki, gospodarkę odpadami i transport w kilku dużych miastach Norwegii, między innymi w **Rogaland, Kristiansand, Oslo, Bergen i Trondheim**. Ponieważ biznes ma wyraźnie rozdzielone obszary usług, strona została ułożona w podobny sposób: każda główna usługa dostała osobną podstronę i własny proces rezerwacji.
+
+Projekt rozwijał się szybko, ponieważ projekt strony głównej był już przygotowany przez UI designera. Dało mi to mocny punkt wyjścia wizualnego, który mogłem rozciągnąć na resztę witryny, choć wszystkie pozostałe podstrony i tak trzeba było dopiero zaplanować i zbudować.
+
+Strona powstała w **WordPressie** z użyciem **Blocksy**, **Greenshift**, płatnej wtyczki do rezerwacji oraz **The SEO Framework**. Głównym językiem jest norweski, a angielski działa jako dodatkowa wersja dzięki **GTranslate**.
+
+![Sekcja mapy SVG pokazująca Norwegię i pinezki obszaru obsługi.](/images/portfolio/alltinor-1.webp)
+
+## Wyzwanie
+
+Główne wyzwanie nie polegało jedynie na zbudowaniu podstron usług. Chodziło o to, by cała witryna działała jak realne narzędzie operacyjne dla firmy usługowej, a nie jak zwykła statyczna strona wizytówkowa.
+
+Prawie każda ważna podstrona prowadzi albo do formularza kontaktowego, albo do procesu rezerwacji. W przypadku usług rezerwacje musiały pozostać rozdzielone według typu usługi. Rezerwacja sprzątania nie powinna blokować terminu dla transportu i odwrotnie. Oznaczało to, że logikę harmonogramu trzeba było zaprojektować bardzo uważnie, tak aby strona rzeczywiście odzwierciedlała sposób działania firmy.
+
+Ważna była też warstwa geograficzna. Zamiast zwykłej grafiki wykorzystałem własną mapę SVG. Dzięki temu można było podświetlać różne obszary, umieszczać miasta jako osobne znaczniki i zostawić tę sekcję wystarczająco elastyczną na przyszłość, jeśli klient kiedyś będzie chciał zamienić te punkty w klikalne wejścia.
+
+## Booking flow
+
+Najmocniej wyróżnia ten projekt sam system rezerwacji. Po stronie użytkownika można wybrać datę i godzinę, wpisać dane, potwierdzić rezerwację i przejść cały proces bez zbędnych przeszkód.
+
+![Krok booking form z wyborem daty.](/images/portfolio/alltinor-2.webp)
+
+Ostatni krok zbiera informacje potrzebne do realizacji usługi, takie jak imię, telefon, adres i email. Dla użytkownika wszystko pozostaje proste. Dla firmy uruchamia się jednak znacznie głębszy proces operacyjny.
+
+![Ostatni krok booking form z danymi klienta.](/images/portfolio/alltinor-3.webp)
+
+Po wysłaniu rezerwacji system uruchamia potwierdzenie po obu stronach. Klient dostaje wiadomość, że zgłoszenie czeka na weryfikację, a właściciel lub menedżer usług otrzymuje mail z możliwością zatwierdzenia. Może wejść do panelu zarządzania albo potwierdzić rezerwację bezpośrednio z wiadomości.
+
+Po potwierdzeniu automatyzacja działa dalej: klient otrzymuje wiadomość z zatwierdzoną rezerwacją, przypomnienie dzień przed usługą i kolejną wiadomość dwa dni po realizacji z prośbą o opinię. W całym procesie jest też wygodny sposób dodania rezerwacji do kalendarza lub otwarcia wydarzenia na telefonie przez kod QR.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/alltinor.mp4" type="video/mp4" />
+</video>
+
+## Zaplecze systemu
+
+Po stronie admina system jest jeszcze bardziej rozbudowany. Panel rezerwacji pozwala zespołowi zatwierdzać lub odrzucać zgłoszenia, zarządzać statusami, tworzyć faktury, dodawać linki do płatności, przypisywać wykonawców, zostawiać wewnętrzne notatki i obsługiwać płatności z jednego miejsca.
+
+System rezerwacji dał też wystarczającą elastyczność, by dodać własne pola, osobne szablony emaili, role z ograniczonymi uprawnieniami oraz różne procesy zależne od typu usługi. Żeby praca zespołu była prostsza, przygotowałem również własną stronę logowania, zintegrowaną z WordPressem i przekierowującą administratorów od razu do panelu rezerwacji.
+
+![Booking panelu dla administratorów i service managerów.](/images/portfolio/alltinor-4.webp)
+
+## Efekt
+
+Finalna strona daje Alltinor znacznie bardziej uporządkowaną platformę usługową niż zwykły marketingowy serwis. Łączy wielojęzyczną prezentację, czytelny podział usług, przemyślane ścieżki kontaktu i system rezerwacji, który realnie wspiera zarówno klientów, jak i zespół.
+
+Ten projekt dobrze pokazuje, jak wiele zyskuje strona usługowa, kiedy wbuduje się w nią logikę operacyjną. Zamiast tylko opisywać, czym zajmuje się firma, witryna realnie pomaga przyjmować, przeglądać, zatwierdzać i obsługiwać rezerwacje.

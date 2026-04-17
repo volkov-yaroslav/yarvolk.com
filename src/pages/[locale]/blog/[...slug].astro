@@ -1,0 +1,22 @@
+---
+import { getEntryBaseSlug, getLocalizedCollection } from "@lib/content";
+import { secondaryLocales } from "@lib/i18n";
+import BlogPostPage from "@src/views/BlogPostPage.astro";
+
+export async function getStaticPaths() {
+  const allPaths = await Promise.all(
+    secondaryLocales.map(async (locale) => {
+      const posts = await getLocalizedCollection("blog", locale);
+      return posts.map((post) => ({
+        params: { locale, slug: getEntryBaseSlug(post) },
+      }));
+    }),
+  );
+
+  return allPaths.flat();
+}
+
+const { locale, slug } = Astro.params;
+---
+
+<BlogPostPage locale={locale} slug={slug!} />

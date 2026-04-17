@@ -1,0 +1,15 @@
+---
+import { isSecondaryLocale, secondaryLocales } from "@lib/i18n";
+import HomePage from "@src/views/HomePage.astro";
+
+export function getStaticPaths() {
+  return secondaryLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params;
+if (!isSecondaryLocale(locale)) {
+  return new Response(null, { status: 404, headers: { "content-type": "text/html" } });
+}
+---
+
+<HomePage locale={locale} />

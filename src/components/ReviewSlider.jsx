@@ -1,9 +1,12 @@
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { A11y, Autoplay, Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import "swiper/css";
+import "swiper/css/navigation";
+import { localeText } from "@lib/i18n";
+import { A11y, Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-const ReviewSlider = ({ whatClientsSay }) => {
+const ReviewSlider = ({ whatClientsSay, locale = "en" }) => {
+  const text = localeText[locale];
+
   return (
     <div className="relative">
       <Swiper
@@ -33,13 +36,13 @@ const ReviewSlider = ({ whatClientsSay }) => {
             </SwiperSlide>
           ))
         ) : (
-          <div>No reviews available</div>
+          <div>{text.common.noReviews}</div>
         )}
       </Swiper>
 
       <button
         className="slide-prev md:absolute px-3 md:px-0 mt-14 md:mt-0 left-0 top-1/2 -translate-y-1/2 cursor-pointer z-50"
-        title="Slide Prev"
+        title={text.common.prev}
       >
         <img
           className="inline-block invert rotate-180"
@@ -51,7 +54,7 @@ const ReviewSlider = ({ whatClientsSay }) => {
       </button>
       <button
         className="slide-next md:absolute px-3 md:px-0 mt-14 md:mt-0 right-0 top-1/2 -translate-y-1/2 cursor-pointer z-50"
-        title="Slide Next"
+        title={text.common.next}
       >
         <img
           className="inline-block invert"

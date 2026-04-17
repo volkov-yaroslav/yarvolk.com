@@ -1,0 +1,83 @@
+---
+draft: false
+date: "2025-12-10"
+title: "AC Schnitzer"
+description: "Strona WordPress i WooCommerce dla norweskiego dystrybutora AC Schnitzer z synchronizowanym katalogiem części i dwujęzyczną obsługą."
+image: /images/portfolio/ac-schnitzer.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "Datona"
+  - title: "Czas realizacji"
+    data: "4 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Budowa na bazie Elementor dla szybkiego wdrożenia
+      - WooCommerce storefront dla części samochodowych
+      - Cars osobny typ wpisów dla ofert aut używanych
+      - Własna wtyczka ACS Auto Importer
+      - Konfiguracja dwujęzycznego storefrontu po norwesku i angielsku
+  - title: "Strona"
+    data: "https://acschnitzer.yarvolk.com/"
+---
+
+## Przegląd projektu
+
+AC Schnitzer to marka tuningowa z Akwizgranu w Niemczech, skupiona na samochodach BMW i MINI oraz motocyklach BMW. Ta strona nie powstała jednak dla niemieckiej spółki matki, lecz dla **oficjalnego norweskiego dystrybutora**.
+
+Projekt musiał robić więcej niż tylko prezentować markę. Potrzebny był sklep WooCommerce z częściami samochodowymi, osobna sekcja z autami używanymi wystawianymi lokalnie oraz dwujęzyczne doświadczenie dla użytkowników norweskich i anglojęzycznych.
+
+Ponieważ szybkość wdrożenia była ważnym wymaganiem, użyłem gotowego szablonu WordPress jako bazy zamiast budować wszystko od zera. Stos tworzyły **WordPress**, **Elementor** i **WooCommerce**, a sam szablon miał już **osobny typ wpisów dla samochodów**, co okazało się bardzo przydatne, ponieważ klient sprzedawał także auta używane.
+
+![Siatka aut używanych oparta o osobny typ wpisów dla samochodów.](/images/portfolio/ac-schnitzer-1.webp)
+
+## Wyzwanie
+
+Największa trudność tego projektu nie leżała w warstwie wizualnej. Chodziło o operacje. Dwie rzeczy sprawiły, że wdrożenie było technicznie ciekawe: synchronizacja dużego katalogu części z oficjalnym niemieckim sklepem oraz uruchomienie dwujęzycznej wersji przy realnych ograniczeniach budżetowych.
+
+Sklep z częściami był najtrudniejszą częścią projektu. W czasie developmentu obejmował **ponad 5000 produktów**, a klient chciał, aby norweska wersja pozostawała zsynchronizowana z niemieckim sklepem źródłowym. Jeśli produkt pojawiał się tam, miał pojawić się też tutaj. Jeśli był usuwany, wyłączany lub wyprzedany, norweski sklep również musiał to odzwierciedlać.
+
+![WooCommerce storefront z filtrami części i przeglądaniem katalogu.](/images/portfolio/ac-schnitzer-2.webp)
+
+## Wyzwanie 1: synchronizacja produktów bez API
+
+Największym problemem technicznym było to, że niemiecki sklep **nie miał publicznego API** ani oficjalnej metody synchronizacji takiego katalogu. Nie było więc gotowej integracji WooCommerce, na której można było się oprzeć.
+
+Ponieważ wymaganie wykraczało daleko poza typową konfigurację wtyczki WordPress, do projektu dołączył drugi programista odpowiedzialny za zewnętrzną część automatyzacji. Zbudował własny system, który okresowo skanował niemiecki sklep, generował WooCommerce-kompatybilny plik CSV i udostępniał go przez zabezpieczony adres serwera. W praktyce stało się to naszą wewnętrzną warstwą API.
+
+Moim zadaniem było sprawić, by WordPress niezawodnie pobierał te dane. Zbudowałem własną wtyczkę **ACS Auto Importer**, która działa według harmonogramu cron i raz dziennie, albo w innym wybranym odstępie, pobiera CSV z zabezpieczonego adresu. Wtyczka importuje nowe produkty, aktualizuje istniejące i utrzymuje katalog w zgodzie ze sklepem źródłowym.
+
+Dodałem też do WordPressa osobny ekran administracyjny z logami importu, aby klient dokładnie widział, co wydarzyło się przy każdym uruchomieniu: ile produktów zaktualizowano, kiedy to nastąpiło i czy pojawiły się błędy. Żeby to było praktyczne w dłuższej perspektywie, dodałem także ograniczenie przechowywania logów, aby plik nie rósł bez końca.
+
+![Ekran ACS Auto Importer w panelu admina z logami aktualizacji.](/images/portfolio/ac-schnitzer-3.webp)
+
+## Wyzwanie 2: dwujęzyczne wdrożenie dla dużego importowanego katalogu
+
+Drugim wyzwaniem był język. Ponieważ biznes działa w Norwegii, domyślnym językiem musiał być **norweski**, aby strona miała sens dla użytkowników i poprawnie indeksowała się lokalnie. Dla zwykłych stron było to do opanowania. Przetłumaczyłem je z pomocą AI i skonfigurowałem przełączanie między norweskim a angielskim.
+
+Prawdziwy problem dotyczył importowanego katalogu. Dane o produktach przychodziły ze sklepu źródłowego po **angielsku** lub opcjonalnie po **niemiecku**, podczas gdy sama strona musiała być przede wszystkim norweska. To oznaczało, że strony marki i strony sklepu domyślnie mówiły różnymi językami.
+
+Pełny serwerowy proces tłumaczenia dla ponad 5000 importowanych produktów wymagałby większego stałego budżetu, więc klient wybrał prostsze rozwiązanie. Zwykłe podstrony przygotowałem po norwesku, a następnie użyłem **LocoAI**, **Loco Translate** i **GTranslate**, aby sklep pozostał użyteczny po norwesku i angielsku.
+
+W praktyce oznaczało to oparty na JavaScript mechanizm tłumaczenia dla importowanego katalogu, a nie w pełni zapisane przetłumaczone strony produktów. Dla odwiedzających działało to dobrze, choć nie tworzyło osobnego indeksowalnego katalogu wielojęzycznego. W ramach ograniczeń projektu był to właściwy kompromis między kosztem, szybkością i wygodą.
+
+## Rozwiązanie i efekt
+
+Gotowa strona połączyła prezentację marki, oferty aut używanych i duży katalog części WooCommerce w jednym systemie. Użycie szablonu przyspieszyło wdrożenie, ale prawdziwa wartość projektu pojawiła się dzięki logice dobudowanej wokół niego, zwłaszcza przez proces synchronizacji i przejrzystość po stronie administracyjnej.
+
+Na froncie dodałem też drobniejsze elementy, które nadały stronie bardziej dopracowanego charakteru, na przykład poziomo przewijany slider blogowy na stronie głównej z własną interakcją kursora.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/ac-schnitzer.mp4" type="video/mp4" />
+</video>
+
+Efektem końcowym jest szybko wdrożona strona motoryzacyjna, która pod spodem obsługuje zaskakująco złożone wymaganie zaplecza. Dała klientowi dwujęzyczny sklep, oferty aut używanych oraz skalowalny sposób utrzymywania tysięcy produktów w synchronizacji ze sklepem źródłowym, który początkowo nie oferował odpowiedniej integracji.

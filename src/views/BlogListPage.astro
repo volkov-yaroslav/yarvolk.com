@@ -1,0 +1,269 @@
+---
+import { getEntryBaseSlug, getLocalizedCollection, getLocalizedEntry } from "@lib/content";
+import { getCategoryLabel, localeText, type SiteLocale } from "@lib/i18n";
+
+import Layout from "@layouts/Layout.astro";
+import BlogCard from "@components/BlogCard.astro";
+import PageHeader from "@components/PageHeader.astro";
+
+const { locale = "en" } = Astro.props as { locale?: SiteLocale };
+const text = localeText[locale];
+
+const blogPage = await getLocalizedEntry("pages", "blog", locale);
+if (!blogPage) {
+  return new Response(null, { status: 404, headers: { "content-type": "text/html" } });
+}
+
+const { title, subtitle }: any = blogPage.data;
+const blogs = await getLocalizedCollection("blog", locale);
+const categories = Array.from(new Set(blogs.map((blog) => blog.data.category?.trim()).filter(Boolean)));
+---
+
+<Layout locale={locale} title={title} description={title}>
+  <PageHeader title={title} subtitle={subtitle} locale={locale} />
+
+  <section class="pt-10 pb-20 md:pt-14 md:pb-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row mb-10">
+        <div class="col-12">
+          <div id="blog-filters" class="flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              data-filter="all"
+              class="blog-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all bg-black text-white"
+            >
+              {text.common.all}
+            </button>
+            {categories.map((category) => (
+              <button
+                type="button"
+                data-filter={category.toLowerCase()}
+                class="blog-filter-btn cursor-pointer border border-dark/20 px-5 py-2 rounded-full font-medium transition-all hover:bg-black hover:text-white"
+              >
+                {getCategoryLabel(category, locale)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="row md:gx-4 gy-6">
+        {blogs.map((blog, index) => (
+          <div
+            class="md:col-6 lg:col-4 init-delay blog-filter-item"
+            data-category={blog.data.category?.toLowerCase()}
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 3) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`,
+            }}
+          >
+            <BlogCard slug={getEntryBaseSlug(blog)} data={blog.data} showPinnedBadge={true} locale={locale} />
+          </div>
+        ))}
+      </div>
+
+      <div id="blog-pagination" class="mt-12 flex justify-center"></div>
+      <p id="blog-empty-state" class="hidden text-black/45 text-center mt-8">
+        {text.blog.noPostsInCategory}
+      </p>
+    </div>
+  </section>
+
+  <script
+    is:inline
+    define:vars={{
+      allLabel: text.common.all,
+      prevLabel: text.common.prev,
+      nextLabel: text.common.next,
+    }}
+  >
+    document.addEventListener("DOMContentLoaded", () => {
+      const filtersRoot = document.querySelector("#blog-filters");
+      const filterButtons = Array.from(document.querySelectorAll(".blog-filter-btn"));
+      const items = Array.from(document.querySelectorAll(".blog-filter-item"));
+      const paginationRoot = document.querySelector("#blog-pagination");
+      const emptyState = document.querySelector("#blog-empty-state");
+      if (!filterButtons.length || !items.length || !paginationRoot || !emptyState) return;
+
+      const PAGE_SIZE = 12;
+      let activeFilter = "all";
+      let currentPage = 1;
+
+      const scrollToFilters = () => {
+        if (!filtersRoot) return;
+        const headerOffset = window.innerWidth >= 1024 ? 130 : 116;
+        const top = filtersRoot.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      };
+
+      const setActiveButton = (filterValue) => {
+        filterButtons.forEach((btn) => {
+          const isActive = btn.dataset.filter === filterValue;
+          btn.classList.toggle("bg-black", isActive);
+          btn.classList.toggle("text-white", isActive);
+          btn.classList.toggle("hover:bg-black", !isActive);
+          btn.classList.toggle("hover:text-white", !isActive);
+        });
+      };
+
+      const getFilteredItems = () =>
+        items.filter((item) => {
+          const itemCategory = item.dataset.category || "";
+          return activeFilter === "all" || itemCategory === activeFilter;
+        });
+
+      const buildPageList = (totalPages, page) => {
+        const pageList = [];
+        if (totalPages <= 4) {
+          for (let i = 1; i <= totalPages; i += 1) pageList.push(i);
+          return pageList;
+        }
+
+        const pages = new Set([1, totalPages, page]);
+        if (page > 1) pages.add(page - 1);
+        if (page < totalPages) pages.add(page + 1);
+
+        const sortedPages = Array.from(pages).sort((a, b) => a - b);
+        sortedPages.forEach((current, index) => {
+          const prev = sortedPages[index - 1];
+          if (prev !== undefined && current - prev > 1) pageList.push("...");
+          pageList.push(current);
+        });
+        return pageList;
+      };
+
+      const updateUrl = () => {
+        const url = new URL(window.location.href);
+        if (activeFilter === "all") {
+          url.searchParams.delete("category");
+        } else {
+          url.searchParams.set("category", activeFilter);
+        }
+
+        if (currentPage <= 1) {
+          url.searchParams.delete("page");
+        } else {
+          url.searchParams.set("page", String(currentPage));
+        }
+
+        window.history.replaceState({}, "", url);
+      };
+
+      const renderPagination = (filteredCount) => {
+        const totalPages = Math.max(1, Math.ceil(filteredCount / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages);
+        paginationRoot.innerHTML = "";
+
+        if (filteredCount === 0 || totalPages <= 1) return;
+
+        const nav = document.createElement("nav");
+        nav.className = "flex flex-wrap justify-center gap-1 text-center";
+        nav.setAttribute("aria-label", "Pagination");
+
+        const addButton = (label, targetPage, isActive = false, disabled = false) => {
+          const el = document.createElement(disabled ? "span" : "button");
+          el.className = isActive
+            ? "border border-dark/20 px-6 py-3 rounded-full font-medium bg-black text-white pointer-events-none"
+            : "border border-dark/20 px-6 py-3 rounded-full font-medium transition-all hover:bg-black hover:text-white";
+          el.textContent = label;
+          if (!disabled && !isActive) {
+            el.type = "button";
+            el.addEventListener("click", () => {
+              currentPage = targetPage;
+              items.forEach((item) => {
+                item.dataset.filterAnimated = "";
+              });
+              renderVisibleItems();
+              scrollToFilters();
+            });
+          }
+          nav.appendChild(el);
+        };
+
+        if (currentPage > 1) {
+          addButton(prevLabel, currentPage - 1);
+        }
+        buildPageList(totalPages, currentPage).forEach((entry) => {
+          if (entry === "...") {
+            const ellipsis = document.createElement("span");
+            ellipsis.className = "px-4 py-3";
+            ellipsis.textContent = "...";
+            nav.appendChild(ellipsis);
+            return;
+          }
+          addButton(String(entry), Number(entry), Number(entry) === currentPage, false);
+        });
+        if (currentPage < totalPages) {
+          addButton(nextLabel, currentPage + 1);
+        }
+
+        paginationRoot.appendChild(nav);
+      };
+
+      const renderVisibleItems = () => {
+        const filteredItems = getFilteredItems();
+        const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE));
+        currentPage = Math.min(currentPage, totalPages);
+        const startIndex = (currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+
+        items.forEach((item) => item.classList.add("hidden"));
+
+        filteredItems.forEach((item, index) => {
+          const shouldShow = index >= startIndex && index < endIndex;
+          item.classList.toggle("hidden", !shouldShow);
+          if (shouldShow) {
+            item.classList.add("aos-animate");
+            item.style.opacity = "1";
+            item.style.transform = "translate3d(0, 0, 0)";
+            if (!item.dataset.filterAnimated) {
+              item.dataset.filterAnimated = "true";
+              item.animate(
+                [
+                  { opacity: 0, transform: "translate3d(0, 8px, 0)" },
+                  { opacity: 1, transform: "translate3d(0, 0, 0)" },
+                ],
+                { duration: 220, easing: "ease-out" },
+              );
+            }
+          }
+        });
+
+        emptyState.classList.toggle("hidden", filteredItems.length > 0);
+        renderPagination(filteredItems.length);
+        updateUrl();
+      };
+
+      const applyFilter = (filterValue) => {
+        activeFilter = filterValue;
+        currentPage = 1;
+        renderVisibleItems();
+        setActiveButton(filterValue);
+      };
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          items.forEach((item) => {
+            item.dataset.filterAnimated = "";
+          });
+          applyFilter(btn.dataset.filter || "all");
+          scrollToFilters();
+        });
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const requestedFilter = (params.get("category") || "").toLowerCase();
+      const requestedPage = Number(params.get("page") || "1");
+      const validFilter = filterButtons.some((btn) => btn.dataset.filter === requestedFilter)
+        ? requestedFilter
+        : "all";
+      currentPage = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+      activeFilter = validFilter;
+      setActiveButton(validFilter);
+      renderVisibleItems();
+    });
+  </script>
+</Layout>

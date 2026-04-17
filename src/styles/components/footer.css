@@ -1,11 +1,24 @@
 .footer-promo {
   overflow: hidden;
+  cursor: pointer;
+}
+
+.footer-promo * {
+  cursor: inherit;
+}
+
+.footer-link {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .promo-row {
   display: flex;
   width: 100%;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .promo-track {
@@ -23,11 +36,13 @@
   align-items: center;
   gap: 1rem;
   padding-bottom: 6px;
+  pointer-events: none;
 }
 
 .promo-arrow {
   opacity: 0.8;
   transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
 }
 
 .promo-arrow-reverse {

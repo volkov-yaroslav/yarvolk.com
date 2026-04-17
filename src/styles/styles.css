@@ -1,120 +1,160 @@
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-400.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-500.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-600.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-600.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-700.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-700.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-800.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-400-italic.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-400-italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-500-italic.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-500-italic.woff2") format("woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-600-italic.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-600-italic.woff2") format("woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-700-italic.woff2") format("woff2");
+  font-family: "Google Sans";
+  src: url("/fonts/Google Sans/google-sans-700-italic.woff2") format("woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Rubik";
-  src: url("/fonts/Rubik/rubik-800-italic.woff2") format("woff2");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Jost";
-  src: url("/fonts/Jost/jost-400.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Jost";
-  src: url("/fonts/Jost/jost-500.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Jost";
-  src: url("/fonts/Jost/jost-600.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-600.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Jost";
-  src: url("/fonts/Jost/jost-700.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-700.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Jost";
-  src: url("/fonts/Jost/jost-800.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-800.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-900.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-500-italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-600-italic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-700-italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-800-italic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/inter-900-italic.woff2") format("woff2");
+  font-weight: 900;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -142,6 +182,6 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  --font-primary: "Rubik", "sans-serif";
-  --font-secondary: "Jost", "sans-serif";
+  --font-primary: "Inter", "sans-serif";
+  --font-secondary: "Google Sans", "sans-serif";
 }

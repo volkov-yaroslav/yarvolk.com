@@ -1,19 +1,22 @@
 ---
 import { formatDate } from '@utils/formatDate';
+import { getCategoryLabel, localeText, localizeBlogPath, type SiteLocale } from '@lib/i18n';
 
 const { data, slug } = Astro.props;
+const locale: SiteLocale = Astro.props.locale ?? 'en';
 const { title, date, image, category, pinned } = data;
 const showPinnedBadge = Astro.props.showPinnedBadge ?? false;
 const coverImage = image || '/images/placeholder.webp';
 const isPinned = Boolean(pinned) && showPinnedBadge;
-const categoryLabel = category ? `${category.charAt(0).toUpperCase()}${category.slice(1)}` : category;
+const categoryLabel = getCategoryLabel(category, locale);
+const text = localeText[locale];
 ---
 
 <article class="relative group text-center">
   {isPinned && (
     <div class="absolute left-1/2 -top-1 z-20 -translate-x-1/2 -translate-y-full flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-wide text-black/55 pointer-events-none">
       <img src="/images/pin.svg" alt="" width="10" height="10" aria-hidden="true" class="h-[10px] w-[10px] -mt-[2px] brightness-0 opacity-55" />
-      <span>pinned post</span>
+      <span>{text.blog.pinnedPost}</span>
     </div>
   )}
   <div class="card-surface-shadow relative overflow-hidden rounded-lg mb-8 aspect-[4/3]">
@@ -31,10 +34,10 @@ const categoryLabel = category ? `${category.charAt(0).toUpperCase()}${category.
       <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize">
         {categoryLabel}
       </span>
-      <span class="opacity-75 text-sm">{formatDate(date)}</span>
+      <span class="opacity-75 text-sm">{formatDate(date, 'short', localeText[locale].meta.intlLocale)}</span>
     </div>
     <h3 class="text-2xl leading-tight">
-      <a href={`/blog/${slug}`} class="stretched-link">
+      <a href={localizeBlogPath(locale, slug)} class="stretched-link">
         {title}
       </a>
     </h3>

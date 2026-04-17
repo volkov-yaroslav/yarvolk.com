@@ -1,36 +1,66 @@
 ---
-import '@styles/components/footer.css';
+import "@styles/components/footer.css";
 
-import menu from '@config/menus.json';
-import siteConfig from '@config/site.config.json';
+import siteConfig from "@config/site.config.json";
+import {
+  defaultLocale,
+  getAlternatePaths,
+  localeText,
+  localizePagePath,
+  type SiteLocale,
+} from "@lib/i18n";
 
-const { isContactPage = false } = Astro.props;
+interface Props {
+  isContactPage?: boolean;
+  locale?: SiteLocale;
+  pathname?: string;
+}
 
-const { socialLinks } = siteConfig;
-const { footerMenu } = menu;
+const {
+  isContactPage = false,
+  locale = defaultLocale,
+  pathname = "/",
+} = Astro.props;
 
+const text = localeText[locale];
+const socialLinks = siteConfig.socialLinks.map((item) => {
+  if (item.fullName !== "WhatsApp") return item;
+
+  return {
+    ...item,
+    link: `https://wa.me/380932404066?text=${encodeURIComponent(localeText[locale].contact.whatsappIntro)}`,
+  };
+});
 const year = new Date().getFullYear();
 const promoItems = Array.from({ length: 8 });
+const footerMenu = [
+  {
+    name: text.menu.privacy,
+    link: localizePagePath(locale, "privacy"),
+  },
+];
+const languageLinks = getAlternatePaths(pathname);
+const contactPath = localizePagePath(locale, "contact");
 ---
 
-<footer class={`${isContactPage ? 'pt-20 md:pt-24' : 'pt-28'} pb-16 sticky bottom-0 z-[1]`}>
+<footer class={`${isContactPage ? "pt-20 md:pt-24" : "pt-28"} pb-16 relative z-30 isolate pointer-events-auto`}>
   {!isContactPage && (
     <div class="mb-20 overflow-hidden">
       <a
-        href="/contact"
-        class="footer-promo relative w-[1920px] max-w-full mx-auto block text-4xl md:text-5xl text-white font-secondary font-medium group"
+        href={contactPath}
+        class="footer-promo relative z-10 w-[1920px] max-w-full mx-auto block cursor-pointer text-4xl md:text-5xl text-white font-secondary font-medium group"
       >
         {[0, 1].map((row) => (
-          <span class={`promo-row ${row === 0 ? 'promo-row-forward mb-5' : 'promo-row-reverse'}`}>
+          <span class={`promo-row ${row === 0 ? "promo-row-forward mb-5" : "promo-row-reverse"}`}>
             <span class="promo-track">
               {promoItems.map(() => (
                 <span class="promo-unit">
                   <span class="promo-text">
-                    <span class="inline sm:hidden">Tap to get started</span>
-                    <span class="hidden sm:inline">Click to get started</span>
+                    <span class="inline sm:hidden">{text.footer.tapToGetStarted}</span>
+                    <span class="hidden sm:inline">{text.footer.clickToGetStarted}</span>
                   </span>
                   <img
-                    class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
+                    class={`promo-arrow ${row === 1 ? "promo-arrow-reverse" : ""}`}
                     src="/images/arrow-right.svg"
                     alt="arrow-right"
                     height="31"
@@ -42,11 +72,11 @@ const promoItems = Array.from({ length: 8 });
               {promoItems.map(() => (
                 <span class="promo-unit" aria-hidden="true">
                   <span class="promo-text">
-                    <span class="inline sm:hidden">Tap to get started</span>
-                    <span class="hidden sm:inline">Click to get started</span>
+                    <span class="inline sm:hidden">{text.footer.tapToGetStarted}</span>
+                    <span class="hidden sm:inline">{text.footer.clickToGetStarted}</span>
                   </span>
                   <img
-                    class={`promo-arrow ${row === 1 ? 'promo-arrow-reverse' : ''}`}
+                    class={`promo-arrow ${row === 1 ? "promo-arrow-reverse" : ""}`}
                     src="/images/arrow-right.svg"
                     alt=""
                     height="31"
@@ -62,13 +92,15 @@ const promoItems = Array.from({ length: 8 });
     </div>
   )}
 
-  <div class="container">
+  <div class="container relative z-10">
     <div class="row">
       <div class="lg:col-6 text-center lg:text-left mb-4 order-1">
         <ul class="inline-flex flex-wrap justify-center lg:grid lg:grid-flow-col lg:auto-cols-max lg:grid-rows-2 lg:justify-start gap-x-6 gap-y-2">
           {socialLinks.map((item) => (
             <li class="inline-block hover:opacity-75 transition-op duration-300">
-              <a href={item.link} target="_blank" rel="noopener noreferrer" class="link">{item.fullName}</a>
+              <a href={item.link} target="_blank" rel="noopener noreferrer" class="link footer-link">
+                {item.fullName}
+              </a>
             </li>
           ))}
         </ul>
@@ -78,37 +110,36 @@ const promoItems = Array.from({ length: 8 });
         <ul class="inline-flex flex-wrap justify-center lg:justify-end gap-x-6">
           {footerMenu.map((item) => (
             <li class="inline-block hover:opacity-75 transition-op duration-300">
-              <a href={item.link} class="link text-white/75">{item.name}</a>
+              <a href={item.link} class="link footer-link text-white/75">
+                {item.name}
+              </a>
             </li>
           ))}
         </ul>
       </div>
 
       <div class="lg:col-6 text-center lg:text-left mt-3 lg:mt-0 mb-4 lg:mb-0 order-4 lg:order-3">
-        <p class="text-white/75">&copy; {year} Yarvolk. All rights reserved.</p>
+        <p class="text-white/75">&copy; {year} Yarvolk. {text.footer.rightsReserved}</p>
       </div>
 
       <div class="lg:col-6 text-center lg:text-right mb-4 lg:mb-0 order-2 lg:order-2">
         <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 p-1">
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-sm text-white bg-white/10"
-            aria-current="true"
-          >
-            EN
-          </button>
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-sm text-white/70 hover:text-white transition-colors duration-300"
-          >
-            UA
-          </button>
-          <button
-            type="button"
-            class="rounded-full px-3 py-1 text-sm text-white/70 hover:text-white transition-colors duration-300"
-          >
-            PL
-          </button>
+          {languageLinks.map((item) => {
+            const isCurrent = item.locale === locale;
+            return (
+              <a
+                href={item.href}
+                data-locale-switch
+                data-locale={item.locale}
+                class={`footer-link rounded-full px-3 py-1 text-sm transition-colors duration-300 ${
+                  isCurrent ? "text-white bg-white/10" : "text-white/70 hover:text-white"
+                }`}
+                aria-current={isCurrent ? "true" : undefined}
+              >
+                {localeText[item.locale].meta.label}
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>

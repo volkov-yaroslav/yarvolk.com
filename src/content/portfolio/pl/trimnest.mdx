@@ -1,0 +1,124 @@
+---
+draft: false
+date: "2018-03-01"
+title: "Trimnest"
+description: "Moja osobista marka odzieżowa oparta na WooCommerce, która stała się długoterminowym laboratorium dla handlu internetowego, SEO i własnych rozwiązań."
+image: /images/portfolio/trimnest.webp
+category: "Website"
+pinned: Yes
+
+projectInfo:
+  - title: "Klient"
+    data: "Projekt własny"
+  - title: "Czas realizacji"
+    data: "2018 do dziś"
+  - title: "Zakres prac"
+    data: |
+      - WordPress + WooCommerce sklep odzieżowy z drukiem na zamówienie
+      - Budowa na Blocksy + Greenshift
+      - Katalog 1,200+ produktów z 600+ unikalnymi wzorami
+      - Płatności przez Stripe i przygotowanie firmy w USA
+      - 3 autorskie wtyczki WordPress
+      - Optymalizacja wydajności, logowanie społecznościowe, ochrona przed spamem i wdrożenie na własnym VPS
+  - title: "Strona"
+    data: "https://www.trimnest.com/"
+---
+
+## Przegląd projektu
+
+Trimnest nie jest projektem klientowskim. To moja własna marka, najdłużej rozwijana strona i projekt, który popchnął mnie w stronę zawodowej pracy przy stronach i frontendzie.
+
+Pomysł narodził się w 2018 roku, po kilku latach pracy zdalnej dla firmy e-commerce z Nowego Jorku, gdzie zarządzałem zamówieniami, dostawcami i obsługą klienta w OpenCart. Ta praca dała mi bardzo konkretne zrozumienie tego, jak naprawdę działa handel internetowy, i sprawiła, że zacząłem myśleć o zbudowaniu czegoś podobnego samodzielnie. W tamtym momencie nie byłem przywiązany do jednego konkretnego produktu. Fascynował mnie sam model: stworzyć coś realnego w internecie z laptopa, skądkolwiek.
+
+Przed Trimnest nawet nie wiedziałem, czym jest WordPress. Ten projekt stał się dla mnie polem do eksperymentów, edukacją i ostatecznie realnym biznesem. Marka przeszła już przez dwa duże odświeżenia wyglądu, a jej kierunek rozwijał się razem z nią. To, co zaczęło się jako szeroki eksperyment, ostatecznie przekształciło się w sklep odzieżowy z drukiem na zamówienie skupiony na koszulkach i bluzach z kapturem, początkowo inspirowany kulturą muzyczną, zwłaszcza hip-hopem, a później rozszerzony o pop, rock, siłownię, gry, memy, retro i inne kategorie.
+
+Ponieważ jest to projekt własny, wszystko wokół marki leży po mojej stronie: rozwój, struktura strony, nowe funkcje, marketing, treść i cała szersza obecność sklepu w internecie.
+
+![Landing page Inspired by Hip-Hop.](/images/portfolio/trimnest-1.webp)
+
+## Od pomysłu do działającego biznesu
+
+Jednym z powodów, dla których Trimnest tak wiele dla mnie znaczy, jest to, że nigdy nie było tutaj czystego ani łatwo mierzalnego harmonogramu. Budowałem go przez lata metodą prób i błędów, ucząc się kolejnych warstw po drodze. Ta swoboda pozwoliła mi wejść dużo głębiej, niż zwykle jest to możliwe w projekcie klientowskim.
+
+W 2023 roku sformalizowałem biznes, otwierając **Trimnest, LLC** w Delaware przez Stripe Atlas. Gdy otrzymałem EIN i konto zostało zaakceptowane, Stripe stał się dostępny jako operator płatności, a sklep zmienił się z długiego eksperymentu w realnie działającą działalność internetową.
+
+Zatrudniłem też projektanta, również o imieniu Yaroslav, aby rozbudować katalog. Razem rozszerzyliśmy sklep do **1200+ produktów** w kategoriach koszulek i bluz z kapturem, co przekłada się na **600+ unikalnych wzorów** według stanu na March 2026. To pomogło marce nabrać wyraźniejszej tożsamości zamiast przypominać bezosobowy sklep print-on-demand.
+
+![Lista WooCommerce products pokazująca skalę katalogu.](/images/portfolio/trimnest-2.webp)
+
+## Własna funkcjonalność, którą zbudowałem dla sklepu
+
+Podstawowy zestaw to **WordPress**, **WooCommerce**, **Blocksy** i **Greenshift**, plus ekosystem wspierających wtyczek. Ale Trimnest szybko stał się czymś więcej niż stroną złożoną z motywu i wtyczek. To był pierwszy projekt, na którym nauczyłem się tworzyć własne wtyczki do WordPressa, aby usuwać powtarzalną pracę i dodawać funkcje, których brakowało od razu po instalacji.
+
+### 1. Custom Upsell Linker
+
+Ta wtyczka skanuje ostatnio dodane produkty i łączy pasujące koszulki oraz bluzy z kapturem z tą samą nazwą wzoru. Relacja jest następnie zapisywana do WooCommerce cross-sells, dzięki czemu koszulka może pokazywać odpowiadającą jej bluzę na stronie produktu, a bluza prowadzić z powrotem do koszulki.
+
+Celowo utrzymuję ten proces ręcznie. Nie chciałem kolejnego zadania cron działającego w tle i dokładającego niepotrzebne obciążenie serwera. Logika dopasowania opiera się na zasadach nazewnictwa produktów, gdzie nazwa wzoru pozostaje taka sama, a zmienia się jedynie końcówka oznaczająca rodzaj ubrania.
+
+### 2. The SEO Framework - Dynamic Meta
+
+Przeniosłem sklep z Rank Math do **The SEO Framework**, bo wolę lżejsze i mniej przeładowane rozwiązanie SEO. Kompromisem była utrata części automatyzacji, którą lubiłem, więc odbudowałem ją sam.
+
+To rozszerzenie uzupełnia meta tytuły i opisy dla nowych tagów i kategorii produktów na podstawie moich własnych szablonów i zmiennych. Zamiast otwierać każdy element taksonomii i ręcznie wpisywać metadane, wtyczka uzupełnia te pola automatycznie w chwili utworzenia nowego tagu lub kategorii.
+
+Trimnest to też projekt, który zmusił mnie do nauczenia się SEO w praktyce. Na początku nie mogłem sobie pozwolić na płatny ruch, więc ruch organiczny nie był miłym dodatkiem. Był jedynym realistycznym kanałem wzrostu.
+
+### 3. Pressidium Cookie Consent: Geo Add-on
+
+Ponieważ mieszkam w Europie, sklep potrzebował zachowania cookie bannera zgodnego z wymogami UE. Jednocześnie nie chciałem ślepo wyświetlać banera użytkownikom z regionów, gdzie jest to zbędne i może tylko obniżać zaufanie.
+
+To rozszerzenie współpracuje z **Pressidium Cookie Consent** i decyduje, czy baner powinien zostać załadowany dla konkretnego użytkownika. Sprawdza nagłówki często dostarczane przez Cloudflare i inne serwery pośredniczące lub zwykłe serwery, między innymi `CF-IPCountry`, `CF-Connecting-IP`, `X-Forwarded-For`, `X-Real-IP`, `MM_COUNTRY_CODE` i `GEOIP_COUNTRY_CODE`, a w razie potrzeby korzysta z geolokalizacji WooCommerce. Decyzja zapada przez uncached AJAX request, dzięki czemu Cloudflare lub Varnish nie serwują z pamięci podręcznej niewłaściwego zachowania dla innego kraju.
+
+Implementacja powstawała przy wsparciu AI, ale rozwiązała realną lukę w produkcie i dała sklepowi zachowanie, którego brakowało w bazowej wtyczce.
+
+![Działanie cookie bannera zależne od regionu w sklepie.](/images/portfolio/trimnest-3.webp)
+
+## Witryna sklepu, zamówienie i doświadczenie klienta
+
+Poza autorskimi wtyczkami Trimnest zawiera także wiele mniejszych usprawnień i fragmentów PHP, które sprawiają, że sklep wygląda jak świadomie zbudowany produkt, a nie przypadkowo złożona strona. Strona jest chroniona przed spamem, wspiera logowanie przez Google, Facebook i X oraz została zaprojektowana tak, aby ograniczać tarcie od przeglądania do finalizacji zamówienia.
+
+Stripe odpowiada za płatności, a uruchomienie tej warstwy było jednym z największych kamieni milowych całego projektu, ponieważ wymagało, by realna była nie tylko strona, ale i sama działalność.
+
+![Proces zamówienia z płatnością kartą przez Stripe.](/images/portfolio/trimnest-4.webp)
+
+Jednym z przykładów dopracowanego frontendu jest zachowanie mediów produktowych. Na stronach produktów galeria aktualizuje się dynamicznie, gdy użytkownicy przełączają warianty kolorystyczne, dzięki czemu od razu widzą wybraną wersję zamiast się domyślać.
+
+<video
+  class="block w-full h-auto rounded-lg"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+>
+  <source src="/videos/portfolio/trimnest.mp4" type="video/mp4" />
+</video>
+
+## Wydajność, hosting i codzienna obsługa
+
+Trimnest wyprowadził mnie daleko poza samo składanie stron. Nauczył mnie myślenia o wydajności, pamięci podręcznej, hostingu i infrastrukturze jako o części samego produktu.
+
+Strona wykorzystuje optymalizację obrazów, wtyczkę cache i cache na poziomie serwera jednocześnie, a według tego opisu osiąga **100/100 w PageSpeed dla wersji komputerowej**, a także **100/100 SEO** i **100/100 Best Practices**. Osiągnięcie takich wyników na sklepie WooCommerce z ciężkim zestawem wtyczek i własną funkcjonalnością wymagało bardzo świadomej pracy.
+
+Zrezygnowałem też z managed hosting i zacząłem samodzielnie utrzymywać strony na VPS. Ta decyzja dała mi większą kontrolę i niższe koszty, ale zmusiła mnie także do nauki administracji serwerami, wdrożeń, migracji i rozwiązywania problemów. AI znacząco przyspieszyło ten proces nauki i pomogło mi przenosić sklep na nową infrastrukturę w ciągu godzin zamiast zamieniać to w długą, frustrującą migrację.
+
+![Wyniki PageSpeed dla wersji komputerowej Trimnest.](/images/portfolio/trimnest-5.webp)
+
+## Jak działa biznes i czego nauczył mnie ten projekt
+
+Trimnest działa jako biznes oparty na druku na zamówienie. Nie podaję nazwy dostawcy w tym opisie, ale cały model operacyjny jest ustawiony tak, aby drukować i wysyłać do większości krajów w ciągu kilku dni, zwykle około **3–7 dni w USA** i około **7+ dni w Europie oraz na innych rynkach międzynarodowych**.
+
+Według stanu na marzec 2026 sklep wysłał już zamówienia do klientów w **dziewięciu krajach** na wielu kontynentach, bez sporów i bez skarg na dostawę. To ma dla mnie znaczenie, bo pokazuje, że biznesowa strona nie jest tu teoretyczna. Operacja faktycznie działa.
+
+Musiałem też rozgryźć drobniejsze kwestie operacyjne, które wiele usług z USA zakłada domyślnie, w tym posiadanie amerykańskiego numeru telefonu do rejestracji i weryfikacji SMS. Ponieważ rozmowy telefoniczne nie są istotną częścią sposobu, w jaki prowadzę ten biznes, tradycyjna linia byłaby zbędnym kosztem. **VoIP.ms** okazało się praktycznym rozwiązaniem: niedrogim, stabilnym i wystarczającym do weryfikacji oraz konfiguracji kont. Wybrałem nawet numer **302**, który odpowiada stanowi Delaware i naturalnie pasował do całej struktury firmy.
+
+Projekt zmusił mnie również do nauczenia się rzeczy wykraczających daleko poza projektowanie i programowanie. Ponieważ spółka działa w USA, musiałem zrozumieć także stronę podatkową. Począwszy od **cyklu rozliczeniowego 2025**, zacząłem prowadzić podatki firmy samodzielnie zamiast co roku płacić CPA.
+
+## Efekt końcowy
+
+Nie zbudowałem Trimnest i nie zacząłem nagle zarabiać milionów na sprzedaży koszulek. To nie byłaby uczciwa wersja tej historii. Prawdziwa wartość polega na tym, że Trimnest dał mi głęboką, praktyczną wiedzę o WordPressie, WooCommerce, tworzeniu wtyczek, SEO, wydajności, hostingu, obsłudze płatności, logistyce, marketingu i prowadzeniu biznesu.
+
+Co ważniejsze, zmienił kierunek mojej kariery. Trimnest to powód, dla którego w ogóle nauczyłem się budować strony profesjonalnie. Zaczęło się od marzenia o pracy zdalnej i stworzeniu czegoś własnego, a skończyło się projektem, który ukształtował sposób, w jaki dziś pomagam klientom.
+
+Choćby z tego powodu jego wartość trudno zmierzyć. To dowód, że długi, chaotyczny i prowadzony własnymi siłami projekt może stać się jedną z najważniejszych rzeczy, jakie kiedykolwiek zbudujesz.

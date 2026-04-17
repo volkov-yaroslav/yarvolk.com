@@ -1,0 +1,126 @@
+---
+import { getAdjacentEntries, getEntryBaseSlug, getLocalizedCollection, getLocalizedEntry } from "@lib/content";
+import {
+  getCategoryLabel,
+  getProjectInfoKey,
+  getProjectInfoLabel,
+  localeText,
+  type SiteLocale,
+} from "@lib/i18n";
+import { markdownify } from "@lib/utils/textConverter";
+
+import PortfolioCard from "@components/PortfolioCard.astro";
+import Layout from "@layouts/Layout.astro";
+
+const { locale = "en", slug } = Astro.props as { locale?: SiteLocale; slug: string };
+const text = localeText[locale];
+const portfolioItem = await getLocalizedEntry("portfolio", slug, locale);
+
+if (!portfolioItem) {
+  return new Response(null, { status: 404, headers: { "content-type": "text/html" } });
+}
+
+const portfolioItems = await getLocalizedCollection("portfolio", locale);
+const { previous, next } = getAdjacentEntries(portfolioItems, slug);
+void previous;
+void next;
+const relatedPortfolioItems = portfolioItems
+  .filter((item) => getEntryBaseSlug(item) !== slug)
+  .slice(0, 3);
+
+const { title, description, image, category, projectInfo } = portfolioItem.data as any;
+const infoItems = projectInfo || [];
+const detailsItems = infoItems.filter((item: any) =>
+  ["client", "timeline", "website"].includes(getProjectInfoKey(item?.title) || ""),
+);
+const includesItem = infoItems.find((item: any) => getProjectInfoKey(item?.title) === "what's included");
+
+const { Content } = await portfolioItem.render();
+---
+
+<Layout locale={locale} title={title} description={description} image={image}>
+  <section class="pt-16 md:pt-24 pb-20 md:pb-28">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8 text-center banner mb-12 md:mb-16" data-aos="fade-up-sm">
+          <span class="inline-block text-sm rounded-full bg-[#efefef] px-3 py-1 capitalize text-black mb-8">
+            {getCategoryLabel(category, locale)}
+          </span>
+          <h1 class="text-4xl md:text-5xl font-secondary font-semibold mb-4 !leading-tight text-balance">{title}</h1>
+          <p class="max-w-xl mx-auto text-balance">{description}</p>
+        </div>
+
+        <div class="lg:col-10 mb-10 md:mb-12" data-aos="fade-up-sm" data-aos-delay="80">
+          <ul class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 text-white">
+            <li class="min-w-0 h-full rounded-lg bg-light/10 hover:bg-light/20 transition-colors duration-300 p-5 sm:p-6">
+              {detailsItems.map((item: any) => (
+                <div class="mb-5 last:mb-0">
+                  <p class="text-white/50 text-xs uppercase tracking-wider mb-2 text-left">
+                    {getProjectInfoLabel(item.title, locale)}
+                  </p>
+                  <div
+                    class="text-left break-words [overflow-wrap:anywhere] [&_a]:underline [&_a]:hover:no-underline [&_a]:break-all [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:mt-1"
+                    set:html={markdownify(item.data, true)}
+                  ></div>
+                </div>
+              ))}
+            </li>
+            {includesItem && (
+              <li class="min-w-0 h-full rounded-lg bg-light/10 hover:bg-light/20 transition-colors duration-300 p-5 sm:p-6">
+                <p class="text-white/50 text-xs uppercase tracking-wider mb-2 text-left">
+                  {getProjectInfoLabel(includesItem.title, locale)}
+                </p>
+                <div
+                  class="text-left break-words [overflow-wrap:anywhere] [&_a]:underline [&_a]:hover:no-underline [&_a]:break-all [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:mt-1"
+                  set:html={markdownify(includesItem.data, true)}
+                ></div>
+              </li>
+            )}
+          </ul>
+        </div>
+
+        <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
+          <img class="block w-full h-auto rounded-lg" src={image} alt={title} width="1600" height="960" />
+        </div>
+
+        <div class="lg:col-8">
+          <hr class="opacity-5 mt-16 md:mt-20 mb-16 md:mb-24" />
+        </div>
+      </div>
+
+      <div class="row justify-center" data-aos="fade-in">
+        <div class="lg:col-8">
+          <article class="content content-light [&_img]:max-w-full [&_img]:w-auto [&_img]:h-auto">
+            <Content />
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl overflow-hidden">
+    <div class="container">
+      <div class="mb-16">
+        <h2 class="text-4xl md:text-5xl font-secondary font-medium -mt-[6px] text-center">
+          {text.portfolio.moreWork}
+        </h2>
+      </div>
+      <div class="row md:gx-4 gy-4">
+        {relatedPortfolioItems.map((item, index) => (
+          <div
+            class="lg:col-4 md:col-6 init-delay"
+            data-aos="fade-up-sm"
+            data-aos-duration="500"
+            style={{
+              "--lg-delay": `${(index % 3) * 75}ms`,
+              "--md-delay": `${(index % 2) * 75}ms`,
+              "--sm-delay": `${(index % 2) * 75}ms`,
+            }}
+          >
+            <PortfolioCard slug={getEntryBaseSlug(item)} data={item.data} twoColumns={false} locale={locale} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

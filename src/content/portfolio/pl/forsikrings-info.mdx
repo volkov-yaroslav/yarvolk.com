@@ -1,0 +1,59 @@
+---
+draft: false
+date: "2025-09-14"
+title: "Forsikrings Info"
+description: "Strona WordPress do pozyskiwania leadów ubezpieczeniowych, zbudowana wokół dużej wieloetapowej formy we Fluent Forms i gotowa do pracy z CRM."
+image: /images/portfolio/forsikringsinfo.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "Datona"
+  - title: "Czas realizacji"
+    data: "2 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Budowa formularza leadowego na Fluent Forms Pro
+      - Wieloetapowy scenariusz ubezpieczeniowy z logiką warunkową
+      - Konfiguracja CRM i powiadomień
+      - Śledzenie zdarzenia leada w Facebooku
+  - title: "Strona"
+    data: |
+      - https://forsikringsinfo.no/
+      - https://www.stormforsikring.no/be-om-tilbud/
+---
+
+## Przegląd projektu
+
+Forsikrings Info to strona do pozyskiwania leadów zbudowana w **WordPressie** z użyciem **Fluent Forms Pro** dla norweskiego rynku ubezpieczeniowego. Sama witryna jest celowo prosta. Prawdziwa wartość projektu tkwi w systemie formularzy, ponieważ biznes klienta zależy od zbierania kwalifikowanych leadów ubezpieczeniowych i przekazywania ich firmom ubezpieczeniowym.
+
+Ruch pochodzi z **Google Ads** i **Facebook Ads**, więc formularz musiał robić więcej niż tylko przyjmować imię i email. Miał zebrać wystarczająco dużo użytecznych informacji, by każdy lead był wartościowy, a jednocześnie pozostać uporządkowany i łatwy do ukończenia.
+
+## Wyzwanie
+
+Główne wyzwanie polegało na zbudowaniu formularza, który obsłuży wiele różnych scenariuszy ubezpieczeniowych bez stawania się mylącym. Pierwsza decyzja dzieli użytkowników na **3 główne kategorie**: **Private**, **Housing association** i **Company**. Stamtąd każda ścieżka otwiera własny zestaw opcji ubezpieczeniowych i pytań uzupełniających.
+
+Użytkownicy mogą wybierać wiele typów ubezpieczeń, więc formularz musi pokazywać tylko te pytania, które są istotne dla danych wyborów. To właśnie sprawiło, że projekt stał się dużo bardziej złożony niż zwykły formularz kontaktowy.
+
+## Architektura formularza
+
+Finalna struktura formularza obejmowała:
+
+- **132** pola
+- **56** elementów z aktywną logiką warunkową
+- **19** markerów kroków
+- **3** główne kategorie
+- **16** prywatnych podkategorii
+- **7** podkategorii dla housing association
+- **14** podkategorii dla company
+
+Zamiast przytłaczać użytkownika jedną stroną, formularz przechodzi przez czytelne kroki i rozwija się tylko tam, gdzie to potrzebne. Różne wybory ubezpieczeniowe uruchamiają różne ścieżki dla przypadków takich jak vehicle, property, travel, family coverage czy business-related policies. Dzięki temu klient dostał znacznie bogatsze dane o leadach bez uczynienia formularza nieużywalnym.
+
+![Widok WordPress-owego panelu z konfiguracją Fluent Forms i strukturą wieloetapowej formy.](/images/portfolio/forsikringsinfo-1.webp)
+
+## Efekt
+
+Gotowe rozwiązanie dało klientowi prawdziwy pipeline leadów zamiast zwykłej strony kontaktowej. Zgłoszenia zostały podłączone do procesu CRM klienta wraz z obsługą **email notifications** i **Google Sheets**. Dodałem też śledzenie przez **Facebook Pixel** z dedykowanym zdarzeniem leada, które uruchamia się dopiero po poprawnym wysłaniu formularza.
+
+Formularz został najpierw wdrożony na **forsikringsinfo.no**, a później ponownie wykorzystany na **stormforsikring.no**. Dla mnie ten projekt wyróżnia się tym, że właściwym produktem nie była sama strona, lecz mechanizm konwersji działający za nią.

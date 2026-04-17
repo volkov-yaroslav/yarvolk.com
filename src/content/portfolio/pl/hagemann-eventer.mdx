@@ -1,0 +1,86 @@
+---
+draft: false
+date: "2025-10-15"
+title: "Hagemann Eventer"
+description: "Platforma WordPress dla norweskiego organizatora biegów, zbudowana wokół wyrazistego rockowego stylu i zautomatyzowanej publikacji wydarzeń z RACE RESULT."
+image: /images/portfolio/hagemanneventer.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "Datona"
+  - title: "Czas realizacji"
+    data: "5 tygodni"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Blocksy + Greenshift + ACF
+      - Własna wtyczka RACE RESULT Integration
+      - Osobny typ wpisów dla wydarzeń z filtrami i archiwami
+      - Treść po norwesku z anglojęzyczną wersją strony
+      - Konfiguracja SEO w The SEO Framework
+  - title: "Strona"
+    data: "https://hagemanneventer.com/"
+---
+
+## Przegląd projektu
+
+Hagemann Eventer to norweski organizator wydarzeń z Svelvik w regionie Buskerud. Biznes skupia się głównie na biegach, maratonach i narciarstwie biegowym, ale marka ma również silny rockowy i metalowy charakter, który mocno wpływa na sposób promowania wydarzeń.
+
+Zanim powstała ta strona, organizator polegał głównie na Facebooku i Instagramie do prezentowania biegów i udostępniania linków rejestracyjnych. Nowa strona miała znacznie bardziej przypominać pełnoprawną platformę wydarzeń: z własną tożsamością, własną strukturą wydarzeń i lepszym sposobem pokazywania biegów w czasie.
+
+Pod względem wizualnym kierunek był celowo bardziej ekspresyjny niż standardowa strona sportowa. Brief skłaniał się ku rockowej i metalowej estetyce, bliższej stronie zespołu niż typowemu szablonowi dla lekkiej atletyki. Opracowałem początkową strukturę stron i kierunek stylistyczny, a później do projektu dołączył projektant, który dopracował karty wydarzeń, typografię i szereg drobniejszych detali w sekcjach.
+
+![Siatka wydarzeń z autorskimi kartami.](/images/portfolio/hagemanneventer-1.webp)
+
+## Wyzwanie
+
+Projekt miał dwa prawdziwe wyzwania. Pierwsze było wizualne: zbudować stronę o biegach, która nadal będzie energetyczna, wyrazista i trochę cięższa w tonie niż typowy projekt dla sportów wytrzymałościowych.
+
+Drugie wyzwanie było znacznie bardziej techniczne: zintegrować **RACE RESULT** z WordPressem tak, aby nie trzeba było ręcznie budować stron wydarzeń za każdym razem, gdy pojawia się nowy bieg.
+
+RACE RESULT to przede wszystkim platforma do zarządzania wydarzeniami i pomiaru czasu. Służy do rejestracji, list uczestników, wyników, live timing oraz całego procesu związanego z obsługą zawodów. Ich standardowy sposób integracji ze stroną mocno opiera się na osadzanych elementach JavaScript, co dobrze działa przy umieszczaniu modułów na stronie, ale nie jest idealne, jeśli WordPress ma zachowywać się jak uporządkowany katalog wydarzeń z archiwami, filtrami i osobnymi indeksowanymi podstronami.
+
+![Panel RACE RESULT z listą wydarzeń.](/images/portfolio/hagemanneventer-3.webp)
+
+## Problem integracji
+
+Na pierwszy rzut oka oczywista droga wyglądała tak: użyć kodu osadzenia dokładnie zgodnie z przeznaczeniem, stworzyć wydarzenie w RACE RESULT, skopiować fragment JavaScript i wkleić go do strony WordPress. Tyle że tworzy to mnóstwo ręcznej pracy i nie daje stronie własnego systemu wydarzeń.
+
+Poświęciłem czas na kontakt z zespołem wsparcia RACE RESULT i analizę dokumentacji. Mój wniosek był taki, że ich oficjalne REST API nie zostało zaprojektowane pod synchronizację listy wydarzeń po stronie strony internetowej. Bardziej służy komunikacji z infrastrukturą RACE RESULT, taką jak dekodery i powiązane systemy pomiaru czasu, niż roli prostego API treści do publikowania wydarzeń.
+
+Potrzebowałem więc mądrzejszego rozwiązania po stronie WordPressa.
+
+## Wtyczka Raceresult Integration
+
+Największą częścią projektu była własna wtyczka **Raceresult Integration**, którą zbudowałem. Jej zadaniem było zamienić zewnętrznie zarządzane dane o biegach w uporządkowaną treść WordPressa.
+
+Zamiast traktować każdy bieg jak ręcznie tworzoną podstronę, wtyczka tworzy pełnoprawny system wydarzeń wewnątrz WordPressa:
+
+- dedykowany typ wpisów dla wydarzeń
+- taksonomie dla typu wydarzenia, miesiąca, roku i dystansu
+- dodatkowe pola dla daty, lokalizacji, limitu czasu i innych informacji o biegu
+- ustawienia dla ręcznej synchronizacji i automatycznej częstotliwości aktualizacji
+- shortcody dla rejestracji, list uczestników, wyników, live timing i układów zakładkowych na stronie wydarzenia
+
+Najważniejsza część to automatyzacja. Wtyczka odczytuje web endpoint RACE RESULT i pobiera listę identyfikatorów wydarzeń z konkretnego konta lub grupy wydarzeń. Na podstawie ustawionego harmonogramu sprawdza zmiany i utrzymuje WordPress w synchronizacji z tym źródłem. Jeśli w RACE RESULT pojawia się nowe wydarzenie, może zostać automatycznie utworzone w WordPressie. Jeśli wydarzenie znika ze źródła, może zostać przeniesione do szkicu lub usunięte zgodnie z wybranym zachowaniem.
+
+To oznaczało, że nadal korzystaliśmy z modułów JavaScript od RACE RESULT tam, gdzie miało to sens, ale w dużo bardziej skalowalny sposób. Nowe biegi nie wymagały już ręcznego tworzenia osobnych stron, wklejania kodu osadzenia i ponownego organizowania archiwów oraz filtrów.
+
+![Ustawienia Raceresult Integration w panelu WordPress.](/images/portfolio/hagemanneventer-4.webp)
+
+## Strony wydarzeń i struktura frontendu
+
+Gdy dane o wydarzeniach znalazły się już w WordPressie, reszta strony mogła działać jak prawdziwa platforma wydarzeń, a nie zbiór oderwanych od siebie podstron.
+
+Stworzyłem szablony kart wydarzeń, które pokazują najważniejsze informacje na pierwszy rzut oka: nazwę, główne zdjęcie, datę i szczegóły biegu. Każda karta ma akcję `Learn more` oraz `Register`. Jeśli wydarzenie już się odbyło, przycisk rejestracji jest automatycznie ukrywany.
+
+Strona archiwum jest dynamicznie zasilana z typu wpisów wydarzeń i zawiera filtry po roku, kategorii wydarzenia i powiązanych metadanych biegu. Dzięki temu strona stała się znacznie wygodniejsza w użyciu niż ręcznie utrzymywana lista podstron, a przy tym zyskała mocniejszą podstawę pod SEO, ponieważ każde wydarzenie mogło istnieć jako osobna indeksowana podstrona z własnymi metadanymi przez **The SEO Framework**.
+
+![Podstrona wydarzenia z detalami i rejestracją.](/images/portfolio/hagemanneventer-2.webp)
+
+## Efekt
+
+Finalna strona dała Hagemann Eventer coś dużo mocniejszego niż zwykła strona promocyjna. To teraz rozpoznawalna platforma wydarzeń z własnymi archiwami, filtrami i podstronami biegów, która nadal pozostaje połączona z systemem RACE RESULT używanym do rejestracji i pomiaru czasu.
+
+Dla mnie ten projekt wyróżnia się tym, że główna wartość nie leżała wyłącznie w projekcie graficznym czy składaniu stron. Chodziło o zamknięcie luki pomiędzy zewnętrzną platformą do zarządzania biegami a stroną WordPress w taki sposób, by ograniczyć ręczną pracę, poprawić strukturę i sprawić, że strona zaczęła przypominać prawdziwy produkt, a nie zestaw osadzonych elementów.

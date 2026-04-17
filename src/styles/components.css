@@ -32,7 +32,7 @@ select:-webkit-autofill:focus {
 /* prose/typography */
 .content {
   @apply prose max-w-none;
-  @apply prose-headings:mt-8 prose-headings:mb-4 prose-headings:font-normal;
+  @apply prose-headings:mt-8 prose-headings:mb-4 prose-headings:font-normal prose-headings:font-secondary;
   @apply prose-p:my-3 prose-h1:text-3xl;
   @apply prose-a:font-normal prose-a:transition-all prose-a:hover:opacity-80;
   @apply prose-pre:p-6 prose-pre:rounded-lg;

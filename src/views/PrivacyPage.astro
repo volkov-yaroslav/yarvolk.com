@@ -1,0 +1,34 @@
+---
+import { getLocalizedEntry } from "@lib/content";
+import { type SiteLocale } from "@lib/i18n";
+import { render } from "astro:content";
+
+import PageHeader from "@components/PageHeader.astro";
+import Layout from "@layouts/Layout.astro";
+
+const { locale = "en" } = Astro.props as { locale?: SiteLocale };
+const privacyPage = await getLocalizedEntry("pages", "privacy", locale);
+
+if (!privacyPage) {
+  return new Response(null, { status: 404, headers: { "content-type": "text/html" } });
+}
+
+const { title, subtitle }: any = privacyPage.data;
+const { Content } = await render(privacyPage);
+---
+
+<Layout locale={locale} title={title} description={subtitle}>
+  <PageHeader title={title} subtitle={subtitle} locale={locale} />
+
+  <section class="py-20 md:py-28 bg-white text-dark rounded-b-2xl">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="content content-dark">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

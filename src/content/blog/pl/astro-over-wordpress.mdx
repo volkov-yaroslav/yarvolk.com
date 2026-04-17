@@ -1,0 +1,137 @@
+---
+draft: false
+title: "Dlaczego w końcu wybrałem Astro zamiast WordPressa dla własnej strony"
+description: "WordPress przez lata był moją drogą wejścia do tworzenia stron, ale Astro stało się pierwszą alternatywą, która wydała mi się lżejsza, szybsza i lepiej dopasowana do tego, jak pracuję dziś."
+image: /images/blog/wordpress-astro.webp
+date: "2026-04-10"
+category: "development"
+---
+
+WordPress był moją drogą wejścia do tworzenia stron internetowych.
+
+Nie studiowałem informatyki, nie kończyłem formalnych kursów programowania, a mój dyplom uniwersytecki jest z **lingwistyki**. Lata temu WordPress dał mi sposób wejścia w świat stron internetowych, zanim naprawdę wiedziałem, co robię. Na początku oznaczało to głównie przesuwanie elementów w kreatorach stron, eksperymentowanie i naukę metodą prób i błędów. Z czasem projekty stawały się coraz bardziej złożone, a wraz z nimi rosło moje zrozumienie stosu technologicznego, który za nimi stoi.
+
+Po latach budowania na WordPressie nauczyłem się naprawdę wiele, nie idąc tradycyjną drogą. Potrafię czytać i pracować z **PHP, HTML i CSS**, czego trudno uniknąć, gdy schodzi się głębiej niż tylko po powierzchni. Dlatego nadal mam ogromny szacunek do WordPressa. To nie był objazd. To był fundament. Projekty takie jak [Trimnest](/pl/portfolio/trimnest) nie powstałyby bez niego, i szczerze mówiąc, cały mój zawodowy kierunek prawdopodobnie też by bez niego nie istniał.
+
+Dlatego ta strona jest dla mnie ważna.
+
+**yarvolk.com to pierwszy osobisty projekt w moim życiu, w którym świadomie wybrałem coś innego niż WordPress.**
+
+I tym wyborem było <a href="https://astro.build/" target="_blank" rel="noopener noreferrer"><strong>Astro</strong></a>.
+
+## Co się dla mnie zmieniło
+
+Największą zmianą było AI.
+
+Jak dla wielu osób, AI zmieniło tempo, w jakim mogę się uczyć, eksperymentować i poszerzać to, co potrafię. Nie zastąpiło myślenia, ale usunęło sporo tarcia związanego z próbowaniem nowych rzeczy i rozumieniem obcego kodu.
+
+To otworzyło mi wiele drzwi technicznych, a jednymi z nich było **Astro JS**.
+
+Kiedy zacząłem spędzać więcej czasu w podejściu opartym na kodzie, WordPress zaczął ekscytować mnie mniej niż kiedyś. Nie dlatego, że nagle stał się zły, ale dlatego, że dla wielu prostszych stron zaczął wydawać się cięższy, niż to konieczne.
+
+Dla wielu stron osobistych, portfolio i prostych projektów, w których najważniejsza jest treść, naprawdę nie potrzebuję pełnego interfejsu CMS, zaplecza opartego o bazę danych ani szerszej warstwy aplikacyjnej PHP, która zwykle idzie z WordPressem. Ten zestaw jest przydatny, kiedy projekt faktycznie go potrzebuje. Ale czasem to po prostu więcej mechaniki, niż wymaga sama strona.
+
+Astro sprawiło, że ten kontrast stał się dla mnie dużo bardziej widoczny.
+
+## Dlaczego Astro było inne
+
+Pierwszą rzeczą, która spodobała mi się w Astro, była jego bezpośredniość.
+
+Treść znajduje się w plikach markdown lub MDX. Trasy są proste do zrozumienia. Struktura jest widoczna. Między treścią, kodem i gotową stroną jest znacznie mniejszy dystans.
+
+Mniej więcej o takiej strukturze mówię:
+
+```text
+src/
+├── components/
+├── content/
+│   ├── blog/
+│   │   ├── post-one.mdx
+│   │   └── post-two.mdx
+│   ├── pages/
+│   └── portfolio/
+├── layouts/
+├── lib/
+└── pages/
+    ├── blog/
+    │   ├── [...slug].astro
+    │   └── index.astro
+    ├── portfolio/
+    └── index.astro
+```
+
+Takie podejście działa świetnie z agentami AI, bo projekt jest widoczny w zwykłych plikach. Wpisy nie są zamknięte w bazie danych, wzorce łatwiej prześledzić, a agent może naprawdę przeczytać stronę taką, jaka jest.
+
+Ta różnica okazała się dla mnie dużo ważniejsza, niż się spodziewałem.
+
+W WordPressie treść jest rozproszona po bazie danych, motywie, strukturach kreatora stron, ustawieniach wtyczek, dodatkowych polach i wszystkim innym, co strona zdążyła zebrać przez lata. Agent AI musi zużyć znacznie więcej kontekstu tylko po to, by odtworzyć, czym jest ta strona i jak działa, zanim będzie w stanie realnie pomóc.
+
+W Astro wpis to po prostu plik. Komponent to po prostu plik. Trasa to po prostu plik. Struktura jest prostsza, treść łatwiej przejrzeć, a ilość kontekstu potrzebnego agentowi, by był użyteczny, jest dużo mniejsza. Markdown i MDX są do tego szczególnie dobre, bo sam tekst pozostaje czytelny, a jednocześnie żyje obok komponentów i logiki układu, które go wspierają.
+
+Zbudowałem nawet [automatyzację z botem Telegram dla strony](/pl/portfolio/telegram-bot-yarvolk-com), dzięki której mogę wysłać pomysł z telefonu i opublikować wpis na blogu albo nową realizację w portfolio bezpośrednio do repozytorium, będąc w drodze.
+
+![Rozmowa na Telegramie pokazująca krok po kroku tworzenie wpisu na blog.](/images/blog/wordpress-astro-2.webp)
+
+To właśnie ten element sprawił, że wszystko kliknęło. Z WordPressem często pracowałem *przez* platformę. W Astro czuję się dużo bliżej samej strony. Nie ma ciężkiej warstwy administracyjnej pomiędzy treścią a wynikiem, a przy takiej osobistej stronie zrozumiałem, że naprawdę nie potrzebuję jej aż tak bardzo, jak kiedyś myślałem. Astro nadal świetnie nadaje się do blogowania, tylko robi to przez zupełnie inne podejście.
+
+## Ta szybkość nadal wydaje mi się nierealna
+
+Kolejną rzeczą, która naprawdę mnie zaskoczyła, były wyniki **Google PageSpeed**.
+
+Po raz pierwszy w życiu patrzę na **100 punktów w Performance, Accessibility, Best Practices i SEO jednocześnie na komputerze i telefonie**.
+
+Nie przesadzam, mówiąc, że było to niemal niewiarygodne.
+
+Przez wszystkie lata budowania na WordPressie nigdy nie udało mi się osiągnąć tak czystych wyników jednocześnie na komputerze i telefonie. Dobry wynik na jednej platformie sam w sobie jest już trudny. Zobaczenie pełnego kompletu na obu wydaje się zupełnie innym poziomem.
+
+Astro jest po prostu niesamowicie szybkie.
+
+Nie "w miarę zoptymalizowane".
+Nie "szybkie, jeśli bardzo się postarasz".
+Mam na myśli naprawdę, zaskakująco szybkie.
+
+<figure class="my-8 rounded-lg border border-white/15 bg-white/5 p-4">
+  <img
+    class="block w-full h-auto rounded-md"
+    src="/images/blog/wordpress-astro-3.webp"
+    alt="Raport Google PageSpeed dla strony Astro na komputerze."
+    width="1600"
+    height="960"
+  />
+  <figcaption class="mt-3 text-sm uppercase tracking-wide text-white/70">
+    Wyniki PageSpeed dla wersji komputerowej.
+  </figcaption>
+</figure>
+
+<figure class="my-8 rounded-lg border border-white/15 bg-white/5 p-4">
+  <img
+    class="block w-full h-auto rounded-md"
+    src="/images/blog/wordpress-astro-4.webp"
+    alt="Raport Google PageSpeed dla strony Astro na telefonie."
+    width="1600"
+    height="960"
+  />
+  <figcaption class="mt-3 text-sm uppercase tracking-wide text-white/70">
+    Wyniki PageSpeed dla wersji mobilnej.
+  </figcaption>
+</figure>
+
+Dla mnie te raporty były jednym z najczytelniejszych dowodów na to, że to nie jest tylko subiektywne odczucie. Strona nie tylko wydawała się lżejsza podczas budowy. Ona naprawdę jest lżejsza.
+
+## To nie jest koniec WordPressa dla mnie
+
+Chcę to jasno powiedzieć.
+
+Jestem pewien, że nadal będę budować na WordPressie. To wciąż świetny wybór dla wielu typów projektów, zwłaszcza gdy potrzebujesz znajomego panelu administracyjnego, mocniejszego procesu redakcyjnego albo bardziej tradycyjnego podejścia do CMS.
+
+Ale ta strona pokazała mi coś ważnego: nie muszę domyślnie wybierać WordPressa tylko dlatego, że to właśnie on mnie tutaj doprowadził.
+
+I to chyba jest prawdziwa historia tego wpisu.
+
+Nie to, że Astro zastępuje wszystko.
+Nie to, że WordPress jest przestarzały.
+Nie to, że jeden zestaw narzędzi musi "wygrać".
+
+Po prostu po raz pierwszy w życiu pozwoliłem sobie wybrać coś innego dla własnego projektu.
+
+I okazało się, że była to jedna z najbardziej odświeżających decyzji technicznych, jakie podjąłem od lat.

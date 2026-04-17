@@ -1,7 +1,8 @@
 // Format the date to a string
 export const formatDate = (
   dateInput: string | Date,
-  format: 'long' | 'short' = 'short'
+  format: 'long' | 'short' = 'short',
+  locale = 'en-US',
 ): string => {
   const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
 
@@ -15,5 +16,5 @@ export const formatDate = (
     year: 'numeric'
   };
 
-  return new Intl.DateTimeFormat('en-US', options).format(date);
+  return new Intl.DateTimeFormat(locale, options).format(date);
 };

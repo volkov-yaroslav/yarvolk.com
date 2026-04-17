@@ -1,0 +1,56 @@
+---
+draft: false
+date: "2025-10-08"
+title: "Discsor"
+description: "Migracja WordPress i WooCommerce dla norweskiego sklepu disc golf, z naciskiem na design, filtrowanie i wygodną prezentację produktu."
+image: /images/portfolio/discsor.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "Datona"
+  - title: "Czas realizacji"
+    data: "4 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Migracja z Shopify do WordPress
+      - Budowa na Blocksy + Greenshift
+      - Import WooCommerce products i variations
+      - Brand archives i nawigacja oparta o logotypy
+      - Własna prezentacja parametrów dysków na product pages
+      - Norweski storefront z lokalizacją WooCommerce
+  - title: "Strona"
+    data: "https://discsor.no/"
+---
+
+## Przegląd projektu
+
+Discsor to norweski sklep **disc golf**, który powstał jako redesign i migracja z Shopify do WordPressa. Klient chciał atrakcyjniejszego sklepu i lepszego doświadczenia użytkownika, więc projekt zaczął się od pracy nad designem i UX. Gdy stało się jasne, że można odejść od Shopify, WordPress okazał się dla mnie znacznie bardziej elastycznym wyborem, zwłaszcza pod kątem dostosowania WooCommerce i długoterminowej kontroli nad sklepem.
+
+Ta zmiana usunęła też miesięczną subskrypcję Shopify i dała projektowi zaplecze znacznie łatwiejsze do dopasowania do realnych potrzeb sklepu. Finalny stos to **WordPress**, **WooCommerce**, **Blocksy**, **Greenshift** i **The SEO Framework**.
+
+Kierunek wizualny był częściowo inspirowany moim własnym sklepem [Trimnest](/pl/portfolio/trimnest), co dało dobry punkt wyjścia dla struktury, prezentacji produktów i logiki filtrowania. Ponieważ miałem już spore doświadczenie w budowie sklepów WooCommerce na WordPressie, podstawowa część e-commerce poszła sprawnie.
+
+![Archiwum produktów z filtrami bocznymi i skrótami kategorii.](/images/portfolio/discsor-1.webp)
+
+## Wyzwanie
+
+Sama migracja była jedną z ważniejszych technicznych części projektu. Na szczęście Shopify udostępniał dane produktowe przez publiczny adres, co pozwoliło bezpiecznie wyciągnąć JSON. Z pomocą AI złożyłem skrypt w Pythonie, który zamieniał te dane na CSV gotowe do importu w WooCommerce.
+
+Ten proces bezpiecznie przeniósł katalog, w tym **ponad 300 produktów**, warianty i dodatkowe zdjęcia produktów. Dzięki temu migracja pozostała praktyczna zamiast zamienić się w powolną ręczną przebudowę.
+
+Drugim wyzwaniem była prezentacja produktu. Sklepy disc golf używają bardzo charakterystycznego sposobu pokazywania parametrów dysków, zwykle wyświetlając wartości **Speed, Glide, Turn i Fade** bezpośrednio na stronie produktu. To właśnie po tych liczbach klienci porównują dyski, więc musiały być dobrze widoczne i łatwe do zrozumienia bez rozbijania układu strony.
+
+## Rozwiązanie
+
+Przechowałem charakterystyki dysków w atrybutach WooCommerce, a następnie zbudowałem własny sposób ich prezentacji na froncie. Shortcode wyświetla wartości jako osobne pigułki i dodaje podpowiedzi, dzięki którym użytkownik może sprawdzić, co oznacza każda liczba. Na komputerze działa to po najechaniu, a na telefonie po stuknięciu. Nawet jeśli doświadczeni gracze disc golf i tak rozumieją ten format, dopasowanie się do branżowego standardu było ważne dla zaufania i wygody.
+
+![Mega menu pokazujące marki dysków.](/images/portfolio/discsor-2.webp)
+
+Sklep sprzedaje produkty **ośmiu marek**, a wbudowany system marek WooCommerce pomógł uporządkować tę część katalogu. Dzięki dodatkowi Blocksy dodałem też logotypy marek, aby były bardziej widoczne w nawigacji, filtrach bocznych i na stronach archiwalnych. Kategorie skrótowe takie jak **Sekker**, **Putter**, **Midrange**, **Fairway Driver** i **Distance Driver** również zostały mocniej wyeksponowane, aby przeglądanie było szybsze.
+
+Sam sklep powstał po norwesku, a istniejąca lokalizacja WooCommerce uprościła tę część pracy. Obsługę płatności klient rozwiązał przez **Vipps**, co dobrze pasowało do lokalnego norweskiego rynku.
+
+![Product page z ceną, wyborem koloru i własną prezentacją parametrów dysku.](/images/portfolio/discsor-3.webp)
+
+Finalnym efektem jest czystszy i bardziej elastyczny sklep disc golf z lepszym doświadczeniem przeglądania, zachowanymi danymi katalogowymi i stronami produktów odpowiadającymi oczekiwaniom tej niszy. To dobry przykład tego, że migracja platformy może być czymś więcej niż ruchem technicznym; może stać się okazją do jednoczesnej poprawy designu, filtrowania i ekspozycji produktów.

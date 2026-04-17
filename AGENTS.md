@@ -17,6 +17,12 @@ Lightweight rules for agents in this repository.
 
 5. If credentials/secrets are missing, stop and report exactly what is needed.
 
+6. Keep all live site languages in sync:
+- Before changing content, check which site languages exist.
+- Any user-facing content change must be updated for every supported language before the task is done.
+- Keep names, company names, product names, software names, project titles, and universal terms like `SEO` in English unless localization is clearly better.
+- Localized content must read naturally, not like half-English hybrids. Translate generic words and phrases fully, and feel free to adapt wording for readability instead of mirroring English literally.
+
 ## Quick Pre-Push
 
 1. `git status --short`

@@ -1,0 +1,54 @@
+---
+draft: false
+date: "2022-08-01"
+title: "The Good Bible"
+description: "Strona WordPress dla chrześcijańskiego projektu non-profit, łącząca blog, wideo, audio, strony mówców i późniejszą sprzedaż Biblii przez WooCommerce."
+image: /images/portfolio/the-good-bible.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "WebmastersDesktop"
+  - title: "Czas realizacji"
+    data: "2 tygodnie"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - Budowa na Blocksy + Greenshift
+      - Dynamiczna integracja wideo z YouTube
+      - Osobna strona audio dla pieśni biblijnych
+      - Archiwum mówców na osobnym typie wpisów
+      - Dodatkowe opcje WooCommerce przez własną wtyczkę
+  - title: "Strona"
+    data: "https://thegoodbible.com/"
+---
+
+## Przegląd projektu
+
+The Good Bible to chrześcijański projekt non-profit oparty na WordPressie, który zbudowałem jako część zespołu WebmastersDesktop. Pierwotnym celem nie był e-commerce. Na początku była to platforma treści skupiona na udostępnianiu fragmentów Biblii i materiałów chrześcijańskich w prostym formacie, bez komentarza z perspektywy konkretnego wyznania i bez promowania jednej linii kościelnej. Sama Biblia była źródłem i centrum całego projektu.
+
+Z czasem strona wyszła daleko poza blog i stała się szerszą platformą medialną. Jej struktura rozwinęła się tak, aby wspierać treści pisane, wideo, audio oraz osobny dział z mówcami, a przy tym pozostać uporządkowana i łatwa w nawigacji.
+
+![Sekcja strony głównej o wartości czytania Biblii.](/images/portfolio/the-good-bible-2.webp)
+
+## Wyzwanie
+
+Prawdziwym wyzwaniem było to, że strona cały czas się rozwijała. To, co zaczęło się jako projekt informacyjny, z czasem musiało obsługiwać znacznie bogatsze typy treści i ostatecznie także e-commerce.
+
+Po stronie mediów zespół uruchomił również kanał YouTube z krótkimi pionowymi materiałami i dłuższymi filmami poziomymi. Moją rolą było sprawienie, by ten materiał działał naturalnie na stronie. Wdrożyłem integrację YouTube, która pobiera filmy z kanału i dynamicznie wyświetla je na dedykowanej podstronie oraz na stronie głównej, dzięki czemu nowo opublikowane treści pojawiają się automatycznie po krótkim czasie.
+
+Platforma potrzebowała również osobnej strony dla pieśni biblijnych z wbudowanym odtwarzaczem audio oraz archiwum mówców opartego na osobnym typie wpisów dla kaznodziejów i innych osób dzielących się nauczaniem biblijnym z szerszą publicznością.
+
+## Rozwiązanie
+
+Zbudowałem stronę na **WordPressie**, używając **Blocksy** jako motywu i **Greenshift** do budowy stron. Ten zestaw dał projektowi wystarczającą elastyczność, by obsługiwać różne sekcje treści bez nadmiernego komplikowania procesu edycji.
+
+Warstwa e-commerce pojawiła się później, w **2025 roku**, około trzech lat po pierwszym uruchomieniu. Wtedy dodano WooCommerce, aby strona mogła sprzedawać niewielką liczbę Biblii przez dostawcę dropshippingowego. Ta część wprowadziła nowe wyzwanie: produkty potrzebowały więcej niż standardowych wariantów.
+
+Każda strona produktu z Biblią musiała wspierać dodatkowe opcje działające niemal jak ukryte produkty towarzyszące, na przykład cienkopisy Micron do notatek albo personalizację z imieniem. Nie miały funkcjonować jako osobne elementy katalogu. Trzeba je było pokazać bezpośrednio na stronie Biblii, pozwolić użytkownikowi je zaznaczać lub odznaczać, a przy personalizacji dodatkowo otwierać osobne pole tekstowe z własną walidacją i limitem znaków.
+
+Ponieważ nie znalazłem wtyczki, która obsługiwałaby ten proces dokładnie tak, jak wymagał projekt, zbudowałem własne rozwiązanie. Wtyczka zarządza logiką dodatków na stronie produktu i przekazuje te dane dalej do maili z potwierdzeniem zamówienia oraz do widoku zamówienia w WooCommerce. Cały proces dokładnie przetestowałem, aby zakup i późniejsza realizacja działały płynnie.
+
+![Strona produktu z Biblią i własnymi dodatkowymi opcjami.](/images/portfolio/the-good-bible-1.webp)
+
+Finalny rezultat to niekomercyjna platforma treści, która rozwinęła się w wieloformatową chrześcijańską stronę z blogiem, dynamiczną integracją wideo, treściami audio, archiwum mówców i późniejszą własną warstwą WooCommerce do sprzedaży Biblii. To dobry przykład projektu, który zaczął się prosto, a potem rozwijał się bez utraty strukturalnej przejrzystości.

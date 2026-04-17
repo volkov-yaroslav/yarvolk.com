@@ -1,5 +1,5 @@
 .button {
-  @apply bg-dark/60 backdrop-blur-[10px] py-4 px-7 rounded-full text-white inline-block font-medium uppercase text-[15px] leading-none overflow-hidden relative;
+  @apply bg-dark/60 backdrop-blur-[10px] py-4 px-7 rounded-full text-white inline-block font-semibold uppercase text-[15px] leading-none overflow-hidden relative;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   backface-visibility: hidden;
   -webkit-transform: translateZ(0);

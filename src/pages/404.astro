@@ -1,19 +1,23 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import { getLocaleFromPathname, localeText, localizePagePath } from '@lib/i18n';
+
+const locale = getLocaleFromPathname(Astro.url.pathname);
+const text = localeText[locale];
 ---
 
-<Layout title="Page Not Found">
+<Layout title={text.common.notFound} locale={locale}>
   <section class="py-28 text-white rounded-b-2xl h-[60dvh] flex items-center">
     <div class="container">
       <div class="row justify-center">
         <div class="lg:col-10">
           <div class="text-center">
             <h1 class="font-medium mb-4 text-white/75">404</h1>
-            <p class="text-6xl -ml-4 -mb-2 -rotate-12 text-white/50">Page</p>
-            <p class="text-6xl">Not</p>
-            <p class="text-6xl -rotate-12 -mt-4 ml-2 text-white/50">Found</p>
-            <a href="/" class="button mt-12">
-              <span>Back to home</span>
+            <p class="text-6xl -ml-4 -mb-2 -rotate-12 text-white/50">{text.common.notFound.split(" ")[0] ?? "Page"}</p>
+            <p class="text-6xl">{text.common.notFound.split(" ").slice(1, 2).join(" ") || "Not"}</p>
+            <p class="text-6xl -rotate-12 -mt-4 ml-2 text-white/50">{text.common.notFound.split(" ").slice(2).join(" ") || "Found"}</p>
+            <a href={localizePagePath(locale)} class="button mt-12">
+              <span>{text.common.backToHome}</span>
             </a>
           </div>
         </div>
