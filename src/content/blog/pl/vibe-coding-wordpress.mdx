@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Jak vibe coding zmienił mój sposób pracy z WordPressem"
-description: "Agenci AI i WP-CLI zmieniają to, jak planuję, scaffolduję i buduję strony WordPress, i nie sądzę, żebym chciał wracać do starego podejścia."
+description: "Agenci AI i WP-CLI zmieniają to, jak planuję, przygotowuję strukturę i buduję strony WordPress, i nie sądzę, żebym chciał wracać do starego podejścia."
 image: /images/blog/generate-press-codex.webp
 date: "2026-05-02"
 category: "development"
@@ -9,15 +9,15 @@ category: "development"
 
 Zwykle uczę się nowych rzeczy wtedy, gdy wymusza to prawdziwy projekt dla klienta.
 
-Śledzę narzędzia, trendy i workflow, ale większość odkryć staje się realna dopiero wtedy, gdy rozwiązuje konkretny problem przede mną. Dokładnie tak było i tym razem.
+Śledzę narzędzia, trendy i nowe sposoby pracy, ale większość odkryć staje się realna dopiero wtedy, gdy rozwiązuje konkretny problem przede mną. Dokładnie tak było i tym razem.
 
 Przez lata mój sprawdzony stack WordPress wyglądał mniej więcej tak: **Blocksy**, edytor blokowy oraz wtyczki typu **Greenshift**, kiedy potrzebowałem większej elastyczności w designie. Jeśli klient nie miał bardzo precyzyjnego kierunku wizualnego, często startowałem od gotowego szablonu i pracowałem na nim dalej: podmieniałem sekcje, dodawałem nowe, usuwałem zbędne i krok po kroku doprowadzałem stronę do efektu, którego chciałem pod względem wyglądu, struktury i funkcji.
 
 To działało. Wciąż działa.
 
-Ale to też zajmuje czas, a spora część tego czasu to ręczna konfiguracja, powtarzalne budowanie stron, układanie treści i scaffold projektu, zanim w ogóle zacznie się prawdziwy etap dopracowywania.
+Ale to też zajmuje czas, a spora część tego czasu to ręczna konfiguracja, powtarzalne budowanie stron, układanie treści i wstępne przygotowanie projektu, zanim w ogóle zacznie się prawdziwy etap dopracowywania.
 
-W 2026 roku słowo *ręcznie* zaczyna znikać z mojego workflow.
+W 2026 roku słowo *ręcznie* zaczyna znikać z mojego sposobu pracy.
 
 ## AI zmieniło skalę tego, co wydaje się możliwe
 
@@ -52,11 +52,11 @@ To miało sens.
 
 GenerateBlocks jest lżejszy, natywny dla Gutenberga i strukturalnie czyściejszy niż ciężkie buildery wizualne. Korzysta z bardziej przewidywalnego systemu bloków, więc agentowi łatwiej jest go analizować i modyfikować bez walki z grubą warstwą własnej abstrakcji. Breakdance jest mocny, Greenshift też potrafi dużo, ale GenerateBlocks wydawał się najlepszym punktem startu, jeśli celem jest współpraca z agentem AI, a nie wyłącznie ręczne projektowanie wizualne.
 
-Znalazłem też na GitHubie skill skoncentrowany na GenerateBlocks, przygotowany specjalnie pod workflow z LLM: <a href="https://github.com/wpgaurav/generateblocks-skills" target="_blank" rel="noopener noreferrer">GenerateBlocks Skills</a>. Takie zasoby dodatkowo ułatwiają całość, bo pomagają modelowi pracować z wtyczką w bardziej ustrukturyzowany sposób zamiast zgadywać.
+Znalazłem też na GitHubie skill skoncentrowany na GenerateBlocks, przygotowany specjalnie do pracy z LLM: <a href="https://github.com/wpgaurav/generateblocks-skills" target="_blank" rel="noopener noreferrer">GenerateBlocks Skills</a>. Takie zasoby dodatkowo ułatwiają całość, bo pomagają modelowi pracować z wtyczką w bardziej ustrukturyzowany sposób zamiast zgadywać.
 
-## Mój nowy workflow
+## Mój nowy sposób pracy
 
-To workflow, którego zacząłem używać i nie sądzę, żebym szybko z niego zrezygnował:
+To sposób pracy, którego zacząłem używać i nie sądzę, żebym szybko z niego zrezygnował:
 
 - dostęp SSH do serwera, na którym stoi WordPress
 - WP-CLI dostępne na tym serwerze
@@ -69,7 +69,7 @@ W tym momencie jestem mniej “wykonawcą”, a bardziej orkiestratorem.
 
 ![Interfejs Codex wybierający stack WordPress i planujący przygotowanie projektu.](/images/blog/generate-press-codex-1.webp)
 
-To mnie najbardziej zaskoczyło. Mogę dziś zaplanować, przygotować szkielet i ustawić strukturę strony jednym promptem, zanim wejdę w szczegółową pracę nad designem.
+To mnie najbardziej zaskoczyło. Mogę dziś zaplanować, przygotować szkielet i ustawić strukturę strony jednym poleceniem, zanim wejdę w szczegółową pracę nad designem.
 
 ## Czy efekt jest idealny?
 
@@ -77,11 +77,22 @@ Nie. Nawet trochę.
 
 Przynajmniej jeszcze nie.
 
-Żeby wypuścić dopracowaną stronę, wciąż potrzebuję sporo iteracji z Codexem: dopracowanie drobnych detali układu, spacing, zmian w treści, hierarchii i zachowaniu komponentów. Część rzeczy nadal robię ręcznie, bo czasami szybciej jest przesunąć blok samemu niż perfekcyjnie opisać wizualny niuans.
+Żeby wypuścić dopracowaną stronę, wciąż potrzebuję sporo iteracji z Codexem: dopracowania drobnych detali układu, odstępów, zmian w treści, hierarchii i zachowaniu komponentów. Część rzeczy nadal robię ręcznie, bo czasami szybciej jest przesunąć blok samemu niż perfekcyjnie opisać wizualny niuans.
 
-![Efekt w edytorze WordPress po tym, jak Codex zbudował strukturę sekcji w GenerateBlocks.](/images/blog/generate-press-codex-2.webp)
+<figure class="my-8 rounded-lg border border-white/15 bg-white/5 p-4">
+  <img
+    class="block h-auto w-full rounded-md"
+    src="/images/blog/generate-press-codex-2.webp"
+    alt="Efekt w edytorze WordPress po tym, jak Codex zbudował strukturę sekcji w GenerateBlocks."
+    width="1600"
+    height="960"
+  />
+  <figcaption class="mt-3 text-sm uppercase tracking-wide text-white/70">
+    Sekcja wygenerowana przez AI w GenerateBlocks po kilku promptach, którą później lekko dopracowałem ręcznie.
+  </figcaption>
+</figure>
 
-To jednak nie odbiera wartości temu workflow. Oszczędza mi mnóstwo czasu.
+To jednak nie odbiera wartości temu podejściu. Oszczędza mi mnóstwo czasu.
 
 Mniej planowania od zera. Mniej powtarzalnego setupu. Mniej kopiuj-wklej. Mniej układania treści. Mniej nudnej pracy bazowej, która wcześniej zabierała godziny zanim zaczynała się ciekawa część.
 
