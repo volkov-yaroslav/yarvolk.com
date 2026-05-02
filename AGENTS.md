@@ -34,3 +34,4 @@ Lightweight rules for agents in this repository.
 
 - Add new project-specific rules here as needed.
 - Prefer shorter slugs for blog posts. The filename slug does not need to mirror the full title; use a concise version of the title instead.
+- Any blog post publication or post update must be reflected across all active languages (`en`, `ua`, and `pl`).
