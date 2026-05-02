@@ -1,0 +1,110 @@
+---
+draft: false
+title: "Jak vibe coding zmienił mój workflow WordPress"
+description: "Agenci AI i WP-CLI zmieniają to, jak planuję, scaffolduję i buduję strony WordPress, i nie sądzę, żebym chciał wracać do starego podejścia."
+image: /images/blog/generate-press-codex-2.webp
+date: "2026-05-02"
+category: "development"
+---
+
+Zwykle uczę się nowych rzeczy wtedy, gdy wymusza to prawdziwy projekt dla klienta.
+
+Śledzę narzędzia, trendy i workflow, ale większość odkryć staje się realna dopiero wtedy, gdy rozwiązuje konkretny problem przede mną. Dokładnie tak było i tym razem.
+
+Przez lata mój sprawdzony stack WordPress wyglądał mniej więcej tak: **Blocksy**, edytor blokowy oraz wtyczki typu **Greenshift**, kiedy potrzebowałem większej elastyczności w designie. Jeśli klient nie miał bardzo precyzyjnego kierunku wizualnego, często startowałem od gotowego szablonu i pracowałem na nim dalej: podmieniałem sekcje, dodawałem nowe, usuwałem zbędne i krok po kroku doprowadzałem stronę do efektu, którego chciałem pod względem wyglądu, struktury i funkcji.
+
+To działało. Wciąż działa.
+
+Ale to też zajmuje czas, a spora część tego czasu to ręczna konfiguracja, powtarzalne budowanie stron, układanie treści i scaffold projektu, zanim w ogóle zacznie się prawdziwy etap dopracowywania.
+
+W 2026 roku słowo *ręcznie* zaczyna znikać z mojego workflow.
+
+## AI zmieniło skalę tego, co wydaje się możliwe
+
+To nie jest pierwszy raz, kiedy używam AI w pracy z WordPressem. Wykorzystywałem ją już do planowania, pisania krótkich fragmentów kodu, generowania treści, a nawet tworzenia małych wtyczek lub logiki pomocniczej pod projekt.
+
+To, co zmieniło się ostatnio, to moment, w którym zrozumiałem, że agent AI taki jak **Codex** może wykonać znacznie więcej pracy autonomicznie, niż zakładałem.
+
+Nie tylko generowanie kodu. Nie tylko sugestie. Faktyczna praca przy projekcie.
+
+Przy odpowiednim dostępie agent może przygotować strukturę strony, tworzyć podstrony, zmieniać ustawienia, pracować z typami postów i ogarnąć zaskakująco dużą część setupu WordPress, zanim wejdę głęboko w etap wizualnego designu.
+
+Duża część tego jest możliwa dzięki **WP-CLI**.
+
+WordPress to CMS, ale ma też bardzo skryptowalną stronę. Dzięki WP-CLI możesz instalować i aktualizować wtyczki, importować treści, tworzyć użytkowników, robić search-replace w bazie, zarządzać multisite, konfigurować ustawienia i spinać to w skrypty, crony albo kroki wdrożeniowe. Sporo rzeczy, które kiedyś istniały wyłącznie w panelu, można dziś zautomatyzować z terminala.
+
+To zmienia cały rytm projektu.
+
+Zamiast wykonywać każdy krok ręcznie, mogę opisać, czego potrzebuje projekt, pozwolić agentowi przygotować strukturę i poświęcić więcej czasu na przegląd, prowadzenie i dopracowanie.
+
+## Wybór stacku, z którym Codexowi pracowało się najlepiej
+
+W momencie pisania tego tekstu miałem aktywne licencje na:
+
+- Blocksy Pro + helper plugin
+- Greenshift Pro
+- Breakdance Builder Pro
+- GeneratePress + GenerateBlocks Pro
+
+Zapytałem Codexa, który stack będzie dla niego najprostszy i najbardziej przewidywalny w pracy, i wybrał **GeneratePress + GenerateBlocks Pro**.
+
+To miało sens.
+
+GenerateBlocks jest lżejszy, natywny dla Gutenberga i strukturalnie czyściejszy niż ciężkie buildery wizualne. Korzysta z bardziej przewidywalnego systemu bloków, więc agentowi łatwiej jest go analizować i modyfikować bez walki z grubą warstwą własnej abstrakcji. Breakdance jest mocny, Greenshift też potrafi dużo, ale GenerateBlocks wydawał się najlepszym punktem startu, jeśli celem jest współpraca z agentem AI, a nie wyłącznie ręczne projektowanie wizualne.
+
+Znalazłem też na GitHubie skill skoncentrowany na GenerateBlocks, przygotowany specjalnie pod workflow z LLM: <a href="https://github.com/wpgaurav/generateblocks-skills" target="_blank" rel="noopener noreferrer">GenerateBlocks Skills</a>. Takie zasoby dodatkowo ułatwiają całość, bo pomagają modelowi pracować z wtyczką w bardziej ustrukturyzowany sposób zamiast zgadywać.
+
+## Mój nowy workflow
+
+To workflow, którego zacząłem używać i nie sądzę, żebym szybko z niego zrezygnował:
+
+- dostęp SSH do serwera, na którym stoi WordPress
+- WP-CLI dostępne na tym serwerze
+- stack bloków/builder, z którym agent potrafi pracować
+- agent AI typu Codex z dostępem do terminala
+
+Zbieram informacje o projekcie w jednym folderze: notatki biznesowe, pomysły na strukturę, kierunek copy i kilka referencji designu. Potem proszę Codexa, żeby pracował z tym materiałem i wdrożył rzeczy bezpośrednio w WordPressie.
+
+W tym momencie jestem mniej “wykonawcą”, a bardziej orkiestratorem.
+
+<figure class="my-8 rounded-lg border border-black/10 bg-black/5 p-4">
+  <img
+    class="block w-full h-auto rounded-md"
+    src="/images/blog/generate-press-codex.webp"
+    alt="Interfejs Codex wybierający stack WordPress i planujący przygotowanie projektu."
+    width="1600"
+    height="960"
+  />
+  <figcaption class="mt-3 text-sm uppercase tracking-wide text-black/55">
+    Codex wybiera kierunek GeneratePress i GenerateBlocks dla prawdziwego projektu WordPress.
+  </figcaption>
+</figure>
+
+To mnie najbardziej zaskoczyło. Mogę dziś zaplanować, przygotować szkielet i ustawić strukturę strony jednym promptem, zanim wejdę w szczegółową pracę nad designem.
+
+## Czy efekt jest idealny?
+
+Nie. Nawet trochę.
+
+Przynajmniej jeszcze nie.
+
+Żeby wypuścić dopracowaną stronę, wciąż potrzebuję sporo iteracji z Codexem: dopracowanie drobnych detali układu, spacing, zmian w treści, hierarchii i zachowaniu komponentów. Część rzeczy nadal robię ręcznie, bo czasami szybciej jest przesunąć blok samemu niż perfekcyjnie opisać wizualny niuans.
+
+To jednak nie odbiera wartości temu workflow. Oszczędza mi mnóstwo czasu.
+
+Mniej planowania od zera. Mniej powtarzalnego setupu. Mniej kopiuj-wklej. Mniej układania treści. Mniej nudnej pracy bazowej, która wcześniej zabierała godziny zanim zaczynała się ciekawa część.
+
+Dzisiaj moim głównym zadaniem jest dopilnować standardu, który wypracowałem przez lata, załatać luki i dopolerować design oraz UX, aż całość będzie wyglądała na skończoną.
+
+To zupełnie inna rola niż robienie wszystkiego ręcznie krok po kroku.
+
+## Dokąd to zmierza
+
+To wciąż wygląda jak wczesny etap, i właśnie dlatego jest to tak ciekawe.
+
+Nie sądzę, żeby WordPress gdziekolwiek znikał. Nadal ma mocną pozycję jako CMS, zwłaszcza w pracy z klientami. Ale uważam, że sposób budowania stron w WordPressie będzie się mocno zmieniał w ciągu kilku najbliższych lat.
+
+Dla mnie vibe coding nie polega na wciśnięciu jednego przycisku i udawaniu, że strona jest gotowa. Chodzi o to, żeby usuwać kolejne warstwy tarcia między intencją a wykonaniem.
+
+A kiedy poczujesz tę zmianę w prawdziwym projekcie, trudno ją zignorować.
+
