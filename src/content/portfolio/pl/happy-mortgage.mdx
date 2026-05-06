@@ -1,0 +1,68 @@
+---
+draft: false
+date: "2026-05-06"
+title: "Happy Mortgage"
+description: "Lekka strona WordPress dla firmy hipotecznej, zbudowana na GeneratePress/GenerateBlocks z własną wtyczką kalkulatora kredytu."
+image: /images/portfolio/happy-mortgage-1.webp
+category: "Website"
+
+projectInfo:
+  - title: "Klient"
+    data: "WebmastersDesktop"
+  - title: "Czas realizacji"
+    data: "1 tydzień"
+  - title: "Zakres prac"
+    data: |
+      - Rozwój WordPress
+      - GeneratePress + GenerateBlocks
+      - Własna wtyczka kalkulatora kredytu
+      - Konfiguracja formularza kontaktowego w SureForms
+      - On-page SEO + podstawowe integracje (Search Console, Analytics, SMTP)
+  - title: "Strona"
+    data: "https://myhappymtg.com/"
+---
+
+## Przegląd projektu
+
+Happy Mortgage to amerykańska firma hipoteczna, która pomaga klientom przejść przez typowe scenariusze: zakup nieruchomości, refinansowanie oraz ścieżki związane z poprawą historii kredytowej. Celem strony było połączenie czytelności i zaufania z typowo sprzedażową funkcją: szybkie wyjaśnienie oferty, odpowiedzi na najczęstsze pytania i jasne wskazanie kolejnego kroku.
+
+## Wyzwanie
+
+Strony hipoteczne potrafią być ciężkie i wolne, zwłaszcza gdy opierają się na rozbudowanych motywach i dużej liczbie wtyczek. Tutaj priorytet był odwrotny: możliwie minimalny i szybki build, ale z elementami, które faktycznie mają znaczenie dla biznesu:
+
+- czytelne strony usług i CTA
+- formularz kontaktowy, który sensownie kieruje zapytania
+- kalkulator kredytu wyglądający jak część strony
+- solidne podstawy on-page SEO
+
+## Rozwiązanie
+
+Zbudowałem stronę na **WordPressie** z użyciem **GeneratePress** i **GenerateBlocks**, co pozwoliło utrzymać frontend lekki i spójny bez klasycznego page buildera. Ten stack jest Gutenberg-native i przewidywalny, więc dobrze pasuje też do [workflow opartego o AI](/pl/blog/vibe-coding-wordpress).
+
+W tym projekcie **Codex** pomógł mi szybko przygotować strukturę podstron, iterować układy w GenerateBlocks i zbudować własną wtyczkę kalkulatora od zera. Ja prowadziłem kierunek wizualny, UX i to, jak całość ma działać jako narzędzie do generowania leadów.
+
+Do zbierania leadów wdrożyłem **SureForms** na stronie kontaktowej, wraz z wyborem typu zapytania, dzięki czemu użytkownik może określić temat kontaktu jeszcze przed wysłaniem formularza.
+
+![Strona kontaktu z opcjami zapytania i układem formularza.](/images/portfolio/happy-mortgage-2.webp)
+
+## Własny kalkulator kredytu
+
+Zamiast osadzać zewnętrzny widget, stworzyłem małą, własną **wtyczkę kalkulatora** przy wsparciu **Codexa** i dopasowałem ją stylistycznie do reszty strony, żeby działała jak naturalna część serwisu. Daje użytkownikom szybki sposób na oszacowanie miesięcznej raty i zobaczenie czytelnego podziału kosztów, co pomaga “kwalifikować” leady jeszcze przed etapem kontaktu.
+
+![Interfejs kalkulatora kredytu z podsumowaniem wyników.](/images/portfolio/happy-mortgage-3.webp)
+
+## SEO i integracje
+
+Do zarządzania metadanymi użyłem **The SEO Framework** i zadbałem o SEO już na etapie budowy stron: poprawna hierarchia nagłówków, sensowne alt tagi oraz meta title i meta description dla kluczowych podstron.
+
+Pod kątem indeksowania i podstawowego pomiaru podłączyłem **Google Search Console** oraz dodałem snippet **Google Analytics**. Skonfigurowałem też SMTP, żeby poprawić dostarczalność maili z formularzy.
+
+W efekcie panel WordPress pozostał czysty, a liczba wtyczek minimalna, co ułatwia utrzymanie strony.
+
+![Widok WordPress admin z listą zainstalowanych wtyczek.](/images/portfolio/happy-mortgage-4.webp)
+
+## Efekt
+
+Happy Mortgage otrzymał szybką i stabilną stronę, która jest skoncentrowana na pozyskiwaniu leadów bez poświęcania użyteczności. Stack jest minimalny, edycja treści prosta, a kalkulator działa jako realne narzędzie konwersji, a nie doczepiony widget.
+
+To był też projekt, w którym mój workflow [vibe coding](/pl/blog/vibe-coding-wordpress) w WordPressie stał się naprawdę powtarzalny, szczególnie przy połączeniu Codexa z lekką bazą GeneratePress/GenerateBlocks.
