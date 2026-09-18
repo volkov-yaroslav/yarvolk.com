@@ -88,6 +88,11 @@
       "name": "OS",
       "fullName": "OpenSea",
       "link": "https://opensea.io/yarvolk"
+    },
+    {
+      "name": "STRIPE",
+      "fullName": "Stripe",
+      "link": "https://profile.stripe.com/@yarvolk"
     }
   ]
 }
