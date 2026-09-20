@@ -1,15 +1,10 @@
 import '@styles/components/banner.css';
 
 import { markdownify } from "@utils/textConverter";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const Banner = ({ banner }) => {
   const { first_name, last_name, sliding_text, description, image } = banner;
-
-  const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   const textEl = useRef();
   useEffect(() => {
@@ -47,8 +42,9 @@ const Banner = ({ banner }) => {
                 />
               </div>
               <svg
-                className={`absolute bottom-[10px] right-[10px] transition duration-1000 delay-300 ${isLoading ? "scale-0 rotate-[360deg]" : "scale-100 rorate-0"}`}
-                data-aos="fade-in"
+                className="banner-portrait-star"
+                aria-hidden="true"
+                focusable="false"
                 width="51"
                 height="52"
                 viewBox="0 0 51 52"
@@ -82,9 +78,9 @@ const Banner = ({ banner }) => {
                   />
                 </div>
                 <svg
-                  className={`absolute bottom-[10px] right-[10px] transition duration-1000 delay-300 ${
-                    isLoading ? "scale-0 rotate-[360deg]" : "scale-100 rorate-0"
-                  }`}
+                  className="banner-portrait-star"
+                  aria-hidden="true"
+                  focusable="false"
                   width="51"
                   height="52"
                   viewBox="0 0 51 52"

@@ -22,6 +22,23 @@
   bottom: 0;
 }
 
+.banner-portrait-star {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  pointer-events: none;
+  animation: banner-star-reveal 1s ease 300ms backwards;
+}
+
+@keyframes banner-star-reveal {
+  from { transform: scale(0) rotate(360deg); }
+  to { transform: scale(1) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-portrait-star { animation: none; }
+}
+
 .banner::before {
   position: absolute;
   content: "";
