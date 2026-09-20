@@ -6,24 +6,47 @@ export default function PhotoGallery({ photos, locale = 'en' }) {
   const text = galleryText[locale];
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [zoomed, setZoomed] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const dialogRef = useRef(null);
-  const touchStart = useRef(null);
+  const swipeStart = useRef(null);
   const open = selectedIndex !== null;
   const selected = open ? photos[selectedIndex] : null;
 
   useEffect(() => {
     if (!open) return;
     const dialog = dialogRef.current;
-    const previousOverflow = document.body.style.overflow;
+    const root = document.documentElement;
+    const body = document.body;
+    const { scrollX, scrollY } = window;
+    const bodyWidth = body.getBoundingClientRect().width;
+    const changes = [
+      [root, { overflow: 'hidden', 'overscroll-behavior': 'none', 'scroll-behavior': 'auto' }],
+      [body, { position: 'fixed', top: `${-scrollY}px`, left: `${-scrollX}px`, width: `${bodyWidth}px`, overflow: 'hidden' }],
+    ];
+    const previousStyles = changes.map(([element, styles]) => [element,
+      Object.keys(styles).map(property => [property, element.style.getPropertyValue(property), element.style.getPropertyPriority(property)]),
+    ]);
+    // Fix the body as well as locking the root, including on mobile Safari.
+    changes.forEach(([element, styles]) => {
+      Object.entries(styles).forEach(([property, value]) => element.style.setProperty(property, value));
+    });
     dialog.showModal();
-    document.body.style.overflow = 'hidden';
     return () => {
       dialog.close();
-      document.body.style.overflow = previousOverflow;
+      previousStyles.forEach(([element, styles]) => {
+        styles.forEach(([property, value, priority]) => {
+          if (property !== 'scroll-behavior') element.style.setProperty(property, value, priority);
+        });
+      });
+      window.scrollTo(scrollX, scrollY);
+      const [, value, priority] = previousStyles[0][1].find(([property]) => property === 'scroll-behavior');
+      root.style.setProperty('scroll-behavior', value, priority);
     };
   }, [open]);
 
   const showPhoto = index => {
+    swipeStart.current = null;
+    setDragOffset(0);
     setZoomed(false);
     setSelectedIndex(index);
   };
@@ -31,6 +54,10 @@ export default function PhotoGallery({ photos, locale = 'en' }) {
   const openPhoto = (event, index) => {
     event.preventDefault();
     showPhoto(index);
+  };
+  const cancelSwipe = () => {
+    swipeStart.current = null;
+    setDragOffset(0);
   };
 
   return (
@@ -49,7 +76,7 @@ export default function PhotoGallery({ photos, locale = 'en' }) {
         className="photo-dialog"
         ref={dialogRef}
         aria-label={text.title}
-        onClose={() => { setSelectedIndex(null); setZoomed(false); }}
+        onClose={() => { cancelSwipe(); setSelectedIndex(null); setZoomed(false); }}
         onClick={event => { if (event.target === event.currentTarget) dialogRef.current.close(); }}
         onKeyDown={event => {
           if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
@@ -77,16 +104,33 @@ export default function PhotoGallery({ photos, locale = 'en' }) {
               </button>
               <div
                 className={`photo-dialog-image ${zoomed ? 'is-zoomed' : ''}`}
-                onTouchStart={event => { const touch = event.touches[0]; touchStart.current = { x: touch.clientX, y: touch.clientY }; }}
-                onTouchEnd={event => {
-                  if (!touchStart.current || zoomed) return;
-                  const deltaX = event.changedTouches[0].clientX - touchStart.current.x;
-                  const deltaY = event.changedTouches[0].clientY - touchStart.current.y;
-                  if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) move(deltaX < 0 ? 1 : -1);
-                  touchStart.current = null;
+                onPointerDown={event => {
+                  if (zoomed || !event.isPrimary || event.button !== 0) {
+                    cancelSwipe();
+                    return;
+                  }
+                  swipeStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+                  event.currentTarget.setPointerCapture(event.pointerId);
                 }}
+                onPointerMove={event => {
+                  const start = swipeStart.current;
+                  if (!start || start.id !== event.pointerId) return;
+                  const deltaX = event.clientX - start.x;
+                  const deltaY = event.clientY - start.y;
+                  setDragOffset(Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : 0);
+                }}
+                onPointerUp={event => {
+                  const start = swipeStart.current;
+                  cancelSwipe();
+                  if (!start || start.id !== event.pointerId || zoomed) return;
+                  const deltaX = event.clientX - start.x;
+                  const deltaY = event.clientY - start.y;
+                  if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) move(deltaX < 0 ? 1 : -1);
+                }}
+                onPointerCancel={cancelSwipe}
+                onLostPointerCapture={cancelSwipe}
               >
-                <img key={selected.id} src={selected.large} alt={selected.alt} width={selected.width} height={selected.height} />
+                <img key={selected.id} src={selected.large} alt={selected.alt} width={selected.width} height={selected.height} draggable={false} style={{ transform: dragOffset ? `translateX(${dragOffset}px)` : undefined }} />
               </div>
               <button type="button" className="photo-dialog-icon photo-dialog-arrow photo-dialog-next" aria-label={text.next} onClick={() => move(1)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m10 6 6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
