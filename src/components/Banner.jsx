@@ -34,9 +34,9 @@ const Banner = ({ banner }) => {
         <div className="row h-full items-center">
           <div className={`col-12 text-center`}>
             <div className="relative mb-6 mx-auto inline-block md:hidden">
-              <div className="bg-[#E3DFDC] mx-5 rounded-full overflow-hidden">
+              <div className="banner-portrait mx-5">
                 <img
-                  className="mx-auto"
+                  className="banner-portrait-image"
                   src={image}
                   alt={first_name + last_name}
                   height={150}
@@ -47,7 +47,7 @@ const Banner = ({ banner }) => {
                 />
               </div>
               <svg
-                className={`absolute top-[-0px] right-[10px] transition duration-1000 delay-300 ${isLoading ? "scale-0 rotate-[360deg]" : "scale-100 rorate-0"}`}
+                className={`absolute bottom-[10px] right-[10px] transition duration-1000 delay-300 ${isLoading ? "scale-0 rotate-[360deg]" : "scale-100 rorate-0"}`}
                 data-aos="fade-in"
                 width="51"
                 height="52"
@@ -69,9 +69,9 @@ const Banner = ({ banner }) => {
                 {first_name}
               </span>
               <div className="relative my-4 md:my-0 hidden md:block md:flex-none md:shrink-0">
-                <div className="bg-[#E3DFDC] mx-5 rounded-full overflow-hidden">
+                <div className="banner-portrait mx-5">
                   <img
-                    className="mx-auto"
+                    className="banner-portrait-image"
                     src={image}
                     alt={first_name + last_name}
                     height={150}
@@ -82,7 +82,7 @@ const Banner = ({ banner }) => {
                   />
                 </div>
                 <svg
-                  className={`absolute top-[-0px] right-[10px] transition duration-1000 delay-300 ${
+                  className={`absolute bottom-[10px] right-[10px] transition duration-1000 delay-300 ${
                     isLoading ? "scale-0 rotate-[360deg]" : "scale-100 rorate-0"
                   }`}
                   width="51"

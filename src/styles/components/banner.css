@@ -1,3 +1,27 @@
+.banner-portrait {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  clip-path: path("M 0 -35 H 150 V 75 A 75 75 0 0 1 0 75 Z");
+}
+
+.banner-portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #e3dfdc;
+}
+
+.banner-portrait .banner-portrait-image {
+  position: absolute;
+  width: 185px;
+  height: 185px;
+  max-width: none;
+  left: -17.5px;
+  bottom: 0;
+}
+
 .banner::before {
   position: absolute;
   content: "";
