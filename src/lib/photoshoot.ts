@@ -12,6 +12,7 @@ export const galleryText = {
     zoomOut: 'Fit to screen',
     of: 'of',
     hint: 'Select a photo to view it larger.',
+    error: 'This photo could not be loaded. Please close the gallery and try again.',
   },
   pl: {
     title: 'Zdjęcia z mojej pierwszej sesji',
@@ -23,6 +24,7 @@ export const galleryText = {
     zoomOut: 'Dopasuj do ekranu',
     of: 'z',
     hint: 'Wybierz zdjęcie, aby zobaczyć je w powiększeniu.',
+    error: 'Nie udało się wczytać zdjęcia. Zamknij galerię i spróbuj ponownie.',
   },
   ua: {
     title: 'Фото з моєї першої фотосесії',
@@ -34,6 +36,7 @@ export const galleryText = {
     zoomOut: 'Умістити на екрані',
     of: 'з',
     hint: 'Виберіть фото, щоб переглянути його у більшому розмірі.',
+    error: 'Не вдалося завантажити фото. Закрийте галерею та спробуйте ще раз.',
   },
 };
 

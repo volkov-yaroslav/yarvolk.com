@@ -1,0 +1,118 @@
+---
+import { galleryText, type getPhotoshootImages } from '@lib/photoshoot';
+import type { SiteLocale } from '@lib/i18n';
+import 'photoswipe/style.css';
+import 'photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css';
+import '@styles/components/photo-gallery.css';
+
+interface Props {
+  photos: ReturnType<typeof getPhotoshootImages>;
+  locale?: SiteLocale;
+}
+
+const { photos, locale = 'en' } = Astro.props;
+const text = galleryText[locale];
+---
+
+<photo-gallery class="photo-gallery not-prose" data-labels={JSON.stringify(text)}>
+  <p class="photo-gallery-hint">{text.hint}</p>
+  <div class="photo-gallery-grid">
+    {photos.map((photo, index) => (
+      <a
+        href={photo.large}
+        data-pswp-width={photo.width}
+        data-pswp-height={photo.height}
+        data-pswp-srcset={`${photo.srcSet}, ${photo.large} ${photo.width}w`}
+        data-cropped="true"
+        aria-label={`${text.open}: ${photo.alt}`}
+      >
+        <img
+          src={photo.src}
+          srcset={photo.srcSet}
+          sizes="(min-width: 1024px) 260px, (min-width: 640px) 30vw, 46vw"
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="photo-gallery-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <span class="pswp-caption-content" hidden>{photo.alt}</span>
+      </a>
+    ))}
+  </div>
+</photo-gallery>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import PhotoSwipeDynamicCaption from 'photoswipe-dynamic-caption-plugin';
+  import type { galleryText } from '@lib/photoshoot';
+
+  class PhotoGallery extends HTMLElement {
+    private lightbox?: PhotoSwipeLightbox;
+
+    connectedCallback() {
+      if (this.lightbox) return;
+      const text = JSON.parse(this.dataset.labels!) as (typeof galleryText)['en'];
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: this,
+        children: '.photo-gallery-grid > a',
+        pswpModule: () => import('photoswipe'),
+        mainClass: 'site-lightbox',
+        bgOpacity: 1,
+        // Keep the exit controls visible, including after a tap or pinch zoom.
+        tapAction: false,
+        imageClickAction: 'zoom',
+        allowPanToNext: false,
+        closeTitle: text.close,
+        zoomTitle: text.zoom,
+        arrowPrevTitle: text.previous,
+        arrowNextTitle: text.next,
+        indexIndicatorSep: ` ${text.of} `,
+        errorMsg: text.error,
+        padding: { top: 72, bottom: 24, left: 16, right: 16 },
+      });
+
+      new PhotoSwipeDynamicCaption(lightbox, {
+        type: 'below',
+        mobileLayoutBreakpoint: 0,
+        verticallyCenterImage: true,
+      });
+
+      lightbox.on('beforeOpen', () => {
+        document.documentElement.classList.add('photo-gallery-open');
+      });
+      lightbox.on('afterInit', () => {
+        const element = lightbox.pswp?.element;
+        element?.setAttribute('aria-label', text.title);
+        // Center the native artwork, not just its differently padded SVG boxes.
+        element?.querySelectorAll('.pswp__button--arrow .pswp__icn').forEach(icon => {
+          icon.setAttribute('viewBox', '-10.5 0 60 60');
+        });
+        element?.querySelector('.pswp__button--zoom .pswp__icn')?.setAttribute('viewBox', '-0.5 0.5 32 32');
+      });
+      lightbox.on('zoomPanUpdate', ({ slide }) => {
+        if (!slide.isActive) return;
+        const button = lightbox.pswp?.element?.querySelector('.pswp__button--zoom');
+        const zoomed = slide.currZoomLevel > slide.zoomLevels.initial;
+        button?.setAttribute('title', zoomed ? text.zoomOut : text.zoom);
+        button?.setAttribute('aria-label', zoomed ? text.zoomOut : text.zoom);
+        button?.setAttribute('aria-pressed', String(zoomed));
+      });
+      lightbox.on('destroy', () => {
+        document.documentElement.classList.remove('photo-gallery-open');
+      });
+      lightbox.init();
+      this.lightbox = lightbox;
+    }
+
+    disconnectedCallback() {
+      this.lightbox?.destroy();
+      this.lightbox = undefined;
+    }
+  }
+
+  if (!customElements.get('photo-gallery')) {
+    customElements.define('photo-gallery', PhotoGallery);
+  }
+</script>
