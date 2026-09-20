@@ -1,47 +1,109 @@
 ---
 import { markdownify } from '@utils/textConverter';
 import { localeText, localizePagePath, type SiteLocale } from '@lib/i18n';
-import PhotoGallery from '@components/PhotoGallery';
-import { getPhotoshootImages } from '@lib/photoshoot';
+import { galleryText, getAboutImages } from '@lib/photoshoot';
+import AboutNextPhotoButton from '@components/AboutNextPhotoButton.astro';
 
 const { about, locale = 'en' } = Astro.props as { about: any; locale?: SiteLocale };
-const image = about.images?.[0] || '/images/about/yarvolk_about.webp';
-const photos = about.photoIds ? getPhotoshootImages(locale, about.photoIds) : [];
+const image = about.images?.[0] || '/images/about/yarvolk-coding-at-desk.webp';
+const photos = about.photoIds ? getAboutImages(locale, about.photoIds) : [];
 const text = localeText[locale];
-const whatsappLink = `https://wa.me/380932404066?text=${encodeURIComponent(text.contact.whatsappIntro)}`;
+const nextLabel = galleryText[locale].next;
 ---
 
-<div class="container">
+<about-photo-switcher class="container block">
   <div class="row justify-center items-center">
     <div class="lg:col-4 md:col-6 col-10 mb-8 md:mb-10 lg:mb-0" data-aos="fade-up-sm">
       <div class="relative mx-8 z-10">
         {photos.length ? (
-          <PhotoGallery photos={photos} locale={locale} variant="stack" client:load />
+          <button type="button" class="about-photo-stack" data-photo-next aria-label={nextLabel}>
+            {photos.map((photo, index) => (
+              <img
+                data-stack-photo
+                src={photo.src}
+                srcset={photo.srcSet}
+                sizes="(min-width: 1024px) 320px, (min-width: 768px) 300px, 75vw"
+                alt={photo.alt}
+                aria-hidden={index !== 0 ? 'true' : undefined}
+                width={photo.width}
+                height={photo.height}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                style={{ zIndex: photos.length - index, transform: `rotate(${[0, -5, 5, -3, 3, -1][index % 6]}deg)` }}
+              />
+            ))}
+          </button>
         ) : (
           <img src={image} alt={about.title} width={500} height={607} class="rounded-lg bg-light/10 w-full h-auto" />
         )}
       </div>
+      {photos.length > 1 && (
+        <div class="mt-8 text-center lg:hidden">
+          <AboutNextPhotoButton label={nextLabel} />
+        </div>
+      )}
     </div>
 
     <div class="lg:col-5 md:col-10 text-center lg:text-left">
       <div class="pl-0 lg:pl-8">
         <div class="mb-10 mt-2 md:mt-4 lg:mt-0">
-          <h2 class="text-2xl leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</h2>
+          <h2 class="text-3xl font-secondary font-medium leading-snug mb-4 text-balance" data-aos="fade-up-sm" data-aos-delay="50">{about.title}</h2>
           <div class="text-black/75 text-balance" data-aos="fade-up-sm" data-aos-delay="100" set:html={markdownify(about.description)} />
         </div>
 
         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3" data-aos="fade-up-sm" data-aos-delay="150">
+          {photos.length > 1 && (
+            <div class="hidden lg:block">
+              <AboutNextPhotoButton label={nextLabel} />
+            </div>
+          )}
           <a class="button button-dark h-[47px]" href={localizePagePath(locale, 'contact')}>
             <span class="inline-flex items-center h-full leading-none">{text.common.contact}</span>
-          </a>
-          <a class="button button-whatsapp h-[47px]" href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Whatsapp">
-            <span class="inline-flex items-center h-full gap-2 leading-none">
-              <img src="/images/whatsapp.svg" alt="" width="18" height="18" class="block" aria-hidden="true" />
-              {text.common.whatsapp}
-            </span>
           </a>
         </div>
       </div>
     </div>
   </div>
-</div>
+</about-photo-switcher>
+
+<style>
+  .about-photo-stack { display: block; position: relative; width: 100%; aspect-ratio: 3 / 4; padding: 0; border: 0; background: none; cursor: pointer; transition: transform 300ms ease-out; }
+  .about-photo-stack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 8px 30px #0002; background: #e3dfdc; }
+  .about-photo-stack:focus-visible, [data-photo-next]:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+  @media (hover: hover) { .about-photo-stack:hover { transform: scale(1.05); } }
+  @media (prefers-reduced-motion: reduce) { .about-photo-stack { transition: none; } }
+</style>
+
+<script>
+  class AboutPhotoSwitcher extends HTMLElement {
+    private controller?: AbortController;
+
+    connectedCallback() {
+      this.controller?.abort();
+      this.controller = new AbortController();
+      const photos = Array.from(this.querySelectorAll<HTMLImageElement>('[data-stack-photo]'));
+      const icons = this.querySelectorAll<SVGElement>('[data-photo-icon]');
+      let current = Math.max(0, photos.findIndex(photo => photo.getAttribute('aria-hidden') !== 'true'));
+      let rotation = 0;
+
+      this.querySelectorAll<HTMLButtonElement>('[data-photo-next]').forEach(button => {
+        button.addEventListener('click', () => {
+          if (photos.length < 2) return;
+          current = (current + 1) % photos.length;
+          photos.forEach((photo, index) => {
+            photo.style.zIndex = String(photos.length - (index - current + photos.length) % photos.length);
+            photo.setAttribute('aria-hidden', String(index !== current));
+          });
+          rotation += 360;
+          icons.forEach(icon => { icon.style.transform = `rotate(${rotation}deg)`; });
+        }, { signal: this.controller!.signal });
+      });
+    }
+
+    disconnectedCallback() { this.controller?.abort(); }
+  }
+
+  if (!customElements.get('about-photo-switcher')) {
+    customElements.define('about-photo-switcher', AboutPhotoSwitcher);
+  }
+</script>

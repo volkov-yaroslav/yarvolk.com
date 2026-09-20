@@ -5,7 +5,6 @@ export const galleryText = {
   en: {
     title: 'Photos from my first photoshoot',
     open: 'View photo',
-    viewAll: 'View gallery',
     next: 'Next photo',
     previous: 'Previous photo',
     close: 'Close gallery',
@@ -17,7 +16,6 @@ export const galleryText = {
   pl: {
     title: 'Zdjęcia z mojej pierwszej sesji',
     open: 'Otwórz zdjęcie',
-    viewAll: 'Zobacz galerię',
     next: 'Następne zdjęcie',
     previous: 'Poprzednie zdjęcie',
     close: 'Zamknij galerię',
@@ -29,7 +27,6 @@ export const galleryText = {
   ua: {
     title: 'Фото з моєї першої фотосесії',
     open: 'Відкрити фото',
-    viewAll: 'Переглянути галерею',
     next: 'Наступне фото',
     previous: 'Попереднє фото',
     close: 'Закрити галерею',
@@ -76,25 +73,47 @@ const descriptions: Record<SiteLocale, string[]> = {
     'Yaroslav Volkov w okularach przeciwsłonecznych stoi przy kamiennej balustradzie.',
   ],
   ua: [
-    'Yaroslav Volkov розмовляє телефоном, стоячи біля столу в студії.',
-    'Yaroslav Volkov у білій футболці сидить за столом, склавши долоні.',
-    'Yaroslav Volkov працює на MacBook за столом на світлому студійному тлі.',
-    'Yaroslav Volkov у кепці друкує на MacBook за столом.',
-    'Yaroslav Volkov сидить поруч із візерунком світла від вікна на стіні студії.',
-    'Yaroslav Volkov сидить на дерев’яному стільці в білій футболці та сірих штанах.',
-    'Yaroslav Volkov у зеленій сорочці сидить на тлі з блакитним підсвічуванням.',
-    'Портрет Yaroslav Volkov у зеленій сорочці поверх чорної футболки.',
-    'Yaroslav Volkov сидить на кремовому дивані поруч із круглим світильником і шторами.',
-    'Крупний план рук Yaroslav Volkov під час роботи на MacBook на колінах.',
-    'Yaroslav Volkov розмовляє телефоном, сидячи біля вікна в студії.',
-    'Yaroslav Volkov у сонцезахисних окулярах сидить на кам’яній балюстраді у Вроцлаві.',
-    'Yaroslav Volkov сидить на кам’яних сходах перед дерев’яними дверима.',
-    'Yaroslav Volkov спирається на різьблену кам’яну колону надворі.',
-    'Yaroslav Volkov у сонцезахисних окулярах стоїть біля кам’яної балюстради.',
+    'Ярослав Волков розмовляє телефоном, стоячи біля столу в студії.',
+    'Ярослав Волков у білій футболці сидить за столом, склавши долоні.',
+    'Ярослав Волков працює на MacBook за столом на світлому студійному тлі.',
+    'Ярослав Волков у кепці друкує на MacBook за столом.',
+    'Ярослав Волков сидить поруч із візерунком світла від вікна на стіні студії.',
+    'Ярослав Волков сидить на дерев’яному стільці в білій футболці та сірих штанах.',
+    'Ярослав Волков у зеленій сорочці сидить на тлі з блакитним підсвічуванням.',
+    'Портрет Ярослава Волкова у зеленій сорочці поверх чорної футболки.',
+    'Ярослав Волков сидить на кремовому дивані поруч із круглим світильником і шторами.',
+    'Крупний план рук Ярослава Волкова під час роботи на MacBook на колінах.',
+    'Ярослав Волков розмовляє телефоном, сидячи біля вікна в студії.',
+    'Ярослав Волков у сонцезахисних окулярах сидить на кам’яній балюстраді у Вроцлаві.',
+    'Ярослав Волков сидить на кам’яних сходах перед дерев’яними дверима.',
+    'Ярослав Волков спирається на різьблену кам’яну колону надворі.',
+    'Ярослав Волков у сонцезахисних окулярах стоїть біля кам’яної балюстради.',
   ],
 };
 
-export const getPhotoshootImages = (locale: SiteLocale, ids?: string[]) => {
-  const localized = images.map((image, index) => ({ ...image, alt: descriptions[locale][index] }));
-  return ids ? ids.map(id => localized.find(image => image.id === id)!).filter(Boolean) : localized;
-};
+const blogImageDirectory = '/images/blog/my-first-professional-photoshoot';
+
+export const getPhotoshootImages = (locale: SiteLocale) => images.map((image, index) => ({
+  id: image.id,
+  width: image.width,
+  height: image.height,
+  alt: descriptions[locale][index],
+  src: `${blogImageDirectory}/${image.filename}-900w.webp`,
+  srcSet: `${blogImageDirectory}/${image.filename}-480w.webp 480w, ${blogImageDirectory}/${image.filename}-900w.webp 900w`,
+  large: `${blogImageDirectory}/${image.filename}.webp`,
+}));
+
+export const getAboutImages = (locale: SiteLocale, ids: string[]) => ids.map(id => {
+  const index = images.findIndex(image => image.id === id);
+  const image = images[index];
+  if (!image?.aboutFilename) throw new Error(`Missing About photo: ${id}`);
+  const source = `/images/about/${image.aboutFilename}`;
+  return {
+    id: image.id,
+    width: image.width,
+    height: image.height,
+    alt: descriptions[locale][index],
+    src: `${source}.webp`,
+    srcSet: `${source}-480w.webp 480w, ${source}.webp 900w`,
+  };
+});

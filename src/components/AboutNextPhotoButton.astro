@@ -1,0 +1,16 @@
+---
+const { label } = Astro.props as { label: string };
+---
+
+<button type="button" class="button button-dark h-[47px] cursor-pointer" data-photo-next>
+  <span>
+    <svg data-photo-icon class="inline align-bottom mr-2 transition-transform ease-out duration-1000 motion-reduce:transition-none" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M18.3332 10.0003C18.3332 14.6027 14.6022 18.3337 9.99984 18.3337C5.39746 18.3337 2.49984 13.7503 2.49984 13.7503M1.6665 10.0003C1.6665 5.39795 5.37021 1.66699 9.99984 1.66699C15.5554 1.66699 18.3332 6.25033 18.3332 6.25033M18.3332 6.25033V3.33366M18.3332 6.25033H15.4165M2.49984 13.7503H5.4165M2.49984 13.7503V16.667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    {label}
+  </span>
+</button>
+
+<style>
+  button:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+</style>
