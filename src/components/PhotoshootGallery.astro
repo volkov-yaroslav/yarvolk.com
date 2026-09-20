@@ -1,0 +1,9 @@
+---
+import PhotoGallery from '@components/PhotoGallery';
+import { getPhotoshootImages } from '@lib/photoshoot';
+import type { SiteLocale } from '@lib/i18n';
+
+const { locale = 'en' } = Astro.props as { locale?: SiteLocale };
+---
+
+<PhotoGallery photos={getPhotoshootImages(locale)} locale={locale} client:load />

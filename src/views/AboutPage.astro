@@ -6,7 +6,7 @@ import { markdownify } from "@utils/textConverter";
 import PageHeader from "@components/PageHeader.astro";
 import Layout from "@layouts/Layout.astro";
 
-import AboutIntro from "@components/AboutIntro";
+import AboutIntro from "@components/AboutIntro.astro";
 import ReviewSlider from "@components/ReviewSlider";
 
 const { locale = "en" } = Astro.props as { locale?: SiteLocale };
@@ -27,7 +27,7 @@ const featuredBrandLinks = [
 <Layout locale={locale} title={title} description={about.title}>
   <PageHeader title={title} subtitle={subtitle} locale={locale} />
   <section class="py-28 bg-white text-dark">
-    <AboutIntro about={about} locale={locale} client:only="react" />
+    <AboutIntro about={about} locale={locale} />
   </section>
 
   {featuredBy.enable && (

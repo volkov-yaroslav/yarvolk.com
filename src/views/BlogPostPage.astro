@@ -17,7 +17,7 @@ if (!post) {
 const posts = await getLocalizedCollection("blog", locale);
 const { previous, next } = getAdjacentEntries(posts, slug);
 
-const { title, description, category, image, date, keywords } = post.data as any;
+const { title, description, category, image, imageWidth = 1020, imageHeight = 460, date, keywords } = post.data as any;
 const coverImage = image || "/images/placeholder.webp";
 const formattedDate = formatDate(date, "short", text.meta.intlLocale);
 const postUrl = Astro.url.href;
@@ -44,7 +44,7 @@ const { Content } = await post.render();
 
         <div class="lg:col-10 mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
           <div>
-            <img class="block w-full h-auto rounded-lg" src={coverImage} alt={title} width="1020" height="460" />
+            <img class="block w-full h-auto rounded-lg" src={coverImage} alt={title} width={imageWidth} height={imageHeight} />
           </div>
         </div>
 

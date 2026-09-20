@@ -1,0 +1,30 @@
+---
+import type { SiteLocale } from '@lib/i18n';
+
+const { locale = 'en' } = Astro.props as { locale?: SiteLocale };
+const labels = {
+  en: { title: 'Behind the scenes of my first photoshoot', link: 'Watch the backstage video on TikTok' },
+  pl: { title: 'Kulisy mojej pierwszej sesji zdjęciowej', link: 'Obejrzyj film z kulis na TikTok' },
+  ua: { title: 'За лаштунками моєї першої фотосесії', link: 'Переглянути відео зі зйомки в TikTok' },
+}[locale];
+---
+
+<div class="backstage not-prose">
+  <iframe
+    src="https://www.tiktok.com/player/v1/7679153951538728225?autoplay=0&rel=0"
+    title={labels.title}
+    width="360"
+    height="640"
+    loading="lazy"
+    allow="fullscreen"
+    allowfullscreen
+  ></iframe>
+  <p><a href="https://www.tiktok.com/@volkovyaroslav/video/7679153951538728225" target="_blank" rel="noopener noreferrer">{labels.link}</a></p>
+</div>
+
+<style>
+  .backstage { margin-block: 1.5rem; }
+  .backstage iframe { display: block; width: min(100%, 360px); height: auto; aspect-ratio: 9 / 16; border: 0; border-radius: 0.75rem; margin-inline: auto; background: #171717; }
+  .backstage p { text-align: center; margin-top: 1rem; font-size: 0.875rem; }
+  .backstage a { text-decoration: underline; text-underline-offset: 4px; }
+</style>

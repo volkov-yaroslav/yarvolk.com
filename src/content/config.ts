@@ -19,6 +19,8 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     image: z.string().optional(),
+    imageWidth: z.number().optional(),
+    imageHeight: z.number().optional(),
     date: z.string(),
     category: z.string(),
     pinned: pinnedField,
