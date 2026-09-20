@@ -4,6 +4,7 @@ import "@styles/styles.css";
 import siteConfig from "@config/site.config.json";
 import Footer from "@layouts/Footer.astro";
 import Header from "@layouts/Header";
+import { getFaviconSet } from "@lib/favicons.mjs";
 import {
   defaultLocale,
   getAlternatePaths,
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const currentLocale = Astro.props.locale ?? getLocaleFromPathname(Astro.url.pathname);
+const favicons = await getFaviconSet();
 const text = localeText[currentLocale];
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const strippedPath = stripLocaleFromPathname(Astro.url.pathname);
@@ -45,7 +47,9 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/png" href={siteConfig.favicon} />
+    {favicons.map(({ rel, type, sizes, filename }) => (
+      <link rel={rel} type={type} sizes={sizes} href={`/icons/${filename}`} />
+    ))}
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="keywords" content={keywords} />
     <link rel="alternate" type="application/rss+xml" title={title} href={new URL("rss.xml", Astro.site)} />

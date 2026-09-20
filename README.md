@@ -31,6 +31,18 @@ Key paths on the server:
 - Runner: `/home/yarvolk-com/actions-runner`
 - Source mirror: `/home/yarvolk-com/site-src`
 
+## Favicons
+Replace `public/images/favicon.png` with a square PNG of at least 180x180 pixels
+(512x512 recommended). This remains the single source for all icons.
+Astro generates 16, 32, and 48 pixel tab icons, a multi-size ICO, and a 180 pixel
+Apple touch icon during each build. Every page and language uses the same set.
+The linked filenames include a source-image hash so replacing the PNG changes
+the URLs rather than depending on browser or CDN cache clearing. Root-level
+`/favicon.ico` and `/apple-touch-icon.png` are also generated as discovery fallbacks.
+No runtime image processing or separate generated files need to be maintained.
+
+Run `npm run test:favicons` for icon generation and cache-versioning checks.
+
 ## Editing content
 Edit source files (not the HTML in `htdocs`):
 - Home: `src/content/pages/-index.mdx`

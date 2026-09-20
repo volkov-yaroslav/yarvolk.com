@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "check:i18n": "node scripts/check-i18n-sync.mjs",
+    "test:favicons": "node --test tests/favicons.test.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -24,6 +25,7 @@
     "marked": "^16.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "sharp": "0.33.5",
     "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"

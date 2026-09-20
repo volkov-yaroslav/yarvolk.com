@@ -28,6 +28,9 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Check favicon generation
+        run: npm run test:favicons
+
       - name: Build
         run: npm run build
 
